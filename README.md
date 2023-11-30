@@ -1,4 +1,4 @@
-# Implementations of Yoav's thesis
+# Drafts of code implementations for Yoav's thesis
 
 ## A Note on Douglas-Rachford, Gradients, and Phase Retrieval
 
