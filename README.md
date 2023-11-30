@@ -1,8 +1,6 @@
-# Project Title
+# Implementations of Yoav's thesis
 
 ## A Note on Douglas-Rachford, Gradients, and Phase Retrieval
-
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ---
 
