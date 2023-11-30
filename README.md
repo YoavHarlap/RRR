@@ -56,6 +56,7 @@ from your_module import your_function
 result = your_function(parameters)
 print(result)
 ---
+
 ## Contact
 For any inquiries or collaboration opportunities, feel free to reach out to:
 
