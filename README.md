@@ -1,4 +1,4 @@
-# Implementations of Yoav's thesis
+# Drafts of code implementations for Yoav's thesis
 
 ## A Note on Douglas-Rachford, Gradients, and Phase Retrieval
 
@@ -9,8 +9,6 @@
 - [Overview](#overview)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ---
@@ -55,3 +53,16 @@ from your_module import your_function
 
 result = your_function(parameters)
 print(result)
+```
+---
+
+## Contact 
+For any further inquiries or collaboration opportunities, please reach out to:
+
+Yoav Harlap
+- Email: yoavharlap@mail.tau.ac.il
+- LinkedIn: Yoav Harlap (https://www.linkedin.com/in/yoavharlap/)
+- GitHub: YoavHarlap (https://github.com/YoavHarlap)
+
+
+Thank you for your interest in our project! 🚀
