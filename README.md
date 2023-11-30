@@ -55,3 +55,13 @@ from your_module import your_function
 
 result = your_function(parameters)
 print(result)
+
+## Contact
+
+"""
+For any inquiries or collaboration opportunities, feel free to reach out to:
+
+Yoav Harlap
+- Email: yoavharlap@mail.tau.ac.il
+- LinkedIn: Yoav Harlap (https://www.linkedin.com/in/yoavharlap/)
+"""
