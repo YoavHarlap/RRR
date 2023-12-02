@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+from IPython.display import display, clear_output
 
 
 def create_sensing_matrix(m, n):
@@ -23,13 +25,13 @@ def proj_A(A, y):
 
 
 def proj_B(b, y):
-    # Calculate the point-wise product b * phase(y)
+    # Calculate the point-wise product b * phase(y), where phase(y)[i] := y[i]/|y[i]|
     b_phase_y = b * np.divide(y, np.abs(y), where=(y != 0))
 
     return b_phase_y
 
 
-def Projections_iteratively(A, x, b, max_iter=10000, tolerance=1e-6):
+def Projections_iteratively(A, x, b, max_iter=100000, tolerance=1e-6):
     m, n = A.shape
 
     # Generate an initial random complex vector y
@@ -37,28 +39,41 @@ def Projections_iteratively(A, x, b, max_iter=10000, tolerance=1e-6):
     y_imag = np.random.normal(loc=0, scale=1, size=m)
     y = y_real + 1j * y_imag
 
+    residuals = []
+
     # Iterative projections
     for iteration in range(max_iter):
+        # Print iteration progress
+        print(f"\nIteration {iteration + 1}/{max_iter}")
+
         # Project y onto the set defined by proj_B
         y = proj_B(b, y)
 
-        # Print the result of the projection
-        print("\nProjection P_B(y):")
-        print(y)
+        # # Print the result of the projection
+        # print("\nProjection P_B(y):")
+        # print(y)
 
         # Project y onto the set defined by proj_A
         y = proj_A(A, y)
-        # Print the result of the projection
-        print("\nProjection P_A(y):")
-        print(y)
+        # # Print the result of the projection
+        # print("\nProjection P_A(y):")
+        # print(y)
 
         # Calculate the residual (change in y)
         residual = np.linalg.norm(y - proj_B(b, y))
-
+        # print(f"residual: {residual}")
+        residuals.append(residual)
         # Check convergence
         if residual < tolerance:
             print(f"Converged after {iteration + 1} iterations.")
             break
+
+    # Plot residuals after the iterations
+    plt.plot(residuals, label='Residual')
+    plt.xlabel('Iteration')
+    plt.ylabel('Residual')
+    plt.legend()
+    plt.show()
 
     # Print the final result
     print("\nFinal Resulting Vector |y|:")
