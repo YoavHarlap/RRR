@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import numpy as np
 
 def create_sensing_matrix(m, n):
@@ -55,7 +56,7 @@ def Alternative_Projections(y,A, b, max_iter=100000, tolerance=1e-9):
     return iteration + 1,y
 
 
-def RRR(y,A, b, max_iter=100000, tolerance=1e-9):
+def RRR(y,A, b,beta = 1, max_iter=100000, tolerance=1e-9):
     # Iterative projections
     for iteration in range(max_iter):
         # Print iteration progress
@@ -101,14 +102,13 @@ m, n = A.shape
 y_real = np.random.normal(loc=0, scale=1, size=m)
 y_imag = np.random.normal(loc=0, scale=1, size=m)
 y = y_real + 1j * y_imag
-beta = 1
 
 
 # Perform iterative projections
-max_iter = 100000
+max_iter = 1000
 tolerance = 1e-4
 Algo_1_iteration,Algo_1_resulting_vector = Alternative_Projections(y,A, b,max_iter=max_iter,tolerance=tolerance)
-Algo_2_iteration,Algo_2_resulting_vector = RRR(y,A, b,max_iter=max_iter,tolerance=tolerance)
+Algo_2_iteration,Algo_2_resulting_vector = RRR(y,A, b,beta = 1,max_iter=max_iter,tolerance=tolerance)
 print("\nAlgo_1_resulting_vector |y|:")
 print(abs(Algo_1_resulting_vector))
 print("\nVector b:")
@@ -121,3 +121,11 @@ print(b)
 
 print(f"Algorithm 1(Alternative_Projections) Converged after {Algo_1_iteration} iterations.")
 print(f"Algorithm 2(RRR) Converged after {Algo_2_iteration} iterations.")
+betas = np.linspace(0, 2, num=11)
+Algo_2_iteration_mumbers_array = []
+for beta in betas:
+    Algo_2_iteration, Algo_2_resulting_vector = RRR(y, A, b, beta=beta, max_iter=max_iter, tolerance=tolerance)
+    Algo_2_iteration_mumbers_array.append(Algo_2_iteration)
+
+plt.plot(betas,Algo_2_iteration_mumbers_array)
+plt.show()
