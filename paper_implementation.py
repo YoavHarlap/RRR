@@ -30,7 +30,7 @@ def proj_B(b, y):
     return b_phase_y
 
 
-def Projections_iteratively(A, x, b, max_iter=100000, tolerance=1e-6):
+def Projections_iteratively(A, x, b, max_iter=10000, tolerance=1e-6):
     m, n = A.shape
 
     # Generate an initial random complex vector y
