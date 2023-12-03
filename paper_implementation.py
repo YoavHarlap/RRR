@@ -36,8 +36,6 @@ def Projections_iteratively(A, b, max_iter=10000, tolerance=1e-6):
     y_imag = np.random.normal(loc=0, scale=1, size=m)
     y = y_real + 1j * y_imag
 
-    residuals = []
-
     # Iterative projections
     for iteration in range(max_iter):
         # Print iteration progress
