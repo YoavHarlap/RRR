@@ -1,6 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
-
 
 def create_sensing_matrix(m, n):
     # Generate a complex normal distribution with mean 0 and standard deviation 1
@@ -30,7 +28,7 @@ def proj_B(b, y):
     return b_phase_y
 
 
-def Projections_iteratively(A, x, b, max_iter=10000, tolerance=1e-6):
+def Projections_iteratively(A, b, max_iter=10000, tolerance=1e-6):
     m, n = A.shape
 
     # Generate an initial random complex vector y
@@ -43,40 +41,22 @@ def Projections_iteratively(A, x, b, max_iter=10000, tolerance=1e-6):
     # Iterative projections
     for iteration in range(max_iter):
         # Print iteration progress
-        print(f"\nIteration {iteration + 1}/{max_iter}")
+        print(f"Iteration {iteration + 1}/{max_iter}")
 
         # Project y onto the set defined by proj_B
         y = proj_B(b, y)
 
-        # # Print the result of the projection
-        # print("\nProjection P_B(y):")
-        # print(y)
-
         # Project y onto the set defined by proj_A
         y = proj_A(A, y)
-        # # Print the result of the projection
-        # print("\nProjection P_A(y):")
-        # print(y)
 
         # Calculate the residual (change in y)
+        # if proj_A~proj_B stop
         residual = np.linalg.norm(y - proj_B(b, y))
-        # print(f"residual: {residual}")
-        residuals.append(residual)
         # Check convergence
         if residual < tolerance:
             print(f"Converged after {iteration + 1} iterations.")
             break
 
-    # Plot residuals after the iterations
-    plt.plot(residuals, label='Residual')
-    plt.xlabel('Iteration')
-    plt.ylabel('Residual')
-    plt.legend()
-    plt.show()
-
-    # Print the final result
-    print("\nFinal Resulting Vector |y|:")
-    print(abs(y))
     return y
 
 
@@ -87,34 +67,20 @@ n = 3  # Number of columns
 # Create the sensing matrix
 A = create_sensing_matrix(m, n)
 
-# Print the resulting sensing matrix
-print("Sensing Matrix A:")
-print(A)
-
 # Generate a random complex vector x
 x_real = np.random.normal(loc=0, scale=1, size=n)
 x_imag = np.random.normal(loc=0, scale=1, size=n)
 x = x_real + 1j * x_imag
 
-# Print the random complex vector x
-print("\nRandom Vector x:")
-print(x)
-
 # Perform matrix multiplication A * x
 result = np.dot(A, x)
 
-# Print the result of the matrix multiplication
-print("\nResult of A * x:")
-print(result)
-
-# Take the absolute value to obtain a real non-negative vector
+# Take the absolute value to obtain a real non-negative vector,  |Ax| = b
 b = np.abs(result)
 
-# Print the resulting vector b
-print("\nResulting Vector |Ax| = b:")
-print(b)
-
 # Perform iterative projections
-resulting_vector = Projections_iteratively(A, x, b)
+resulting_vector = Projections_iteratively(A, b)
+print("\nresulting_vector |y|:")
+print(abs(resulting_vector))
 print("\nVector b:")
 print(b)
