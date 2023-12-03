@@ -11,12 +11,16 @@ def create_sensing_matrix(m, n):
     return sensing_matrix
 
 
-def proj_A(A, y):
-    # Calculate the conjugate transpose (Hermitian transpose) of A
-    A_dagger = np.conjugate(A.T)
+def pseudoinverse(A):
+    # Calculate the pseudoinverse of A
+    A_pseudoinv = np.linalg.pinv(A)
 
+    return A_pseudoinv
+
+def proj_A(A, y):
+    A_pseudoinv = pseudoinverse(A)
     # Calculate the projection PA(y) = AA†y
-    projection = np.dot(A, np.dot(A_dagger, y))
+    projection = np.dot(A, np.dot(A_pseudoinv, y))
 
     return projection
 
@@ -28,7 +32,7 @@ def proj_B(b, y):
     return b_phase_y
 
 
-def Projections_iteratively(A, b, max_iter=10000, tolerance=1e-6):
+def Projections_iteratively(A, b, max_iter=100000, tolerance=1e-9):
     m, n = A.shape
 
     # Generate an initial random complex vector y
@@ -59,8 +63,8 @@ def Projections_iteratively(A, b, max_iter=10000, tolerance=1e-6):
 
 
 # Define the dimensions of the sensing matrix
-m = 5  # Number of rows
-n = 3  # Number of columns
+m = 50  # Number of rows
+n = 30  # Number of columns
 
 # Create the sensing matrix
 A = create_sensing_matrix(m, n)
