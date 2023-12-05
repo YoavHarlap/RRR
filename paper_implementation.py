@@ -69,7 +69,7 @@ def RRR(y,A, b,beta = 1, max_iter=100000, tolerance=1e-9):
 
         # Calculate the residual (change in y)
         # if proj_A~proj_B stop
-        residual = np.linalg.norm(y - proj_B(b, y))
+        residual = np.linalg.norm(proj_A(A, y) - proj_B(b, y))
         # Check convergence
         if residual < tolerance:
             print(f"Algorithm 2 Converged after {iteration + 1} iterations.")
@@ -105,8 +105,8 @@ y = y_real + 1j * y_imag
 
 
 # Perform iterative projections
-max_iter = 1000
-tolerance = 1e-4
+max_iter = 10000
+tolerance = 1e-6
 Algo_1_iteration,Algo_1_resulting_vector = Alternative_Projections(y,A, b,max_iter=max_iter,tolerance=tolerance)
 Algo_2_iteration,Algo_2_resulting_vector = RRR(y,A, b,beta = 1,max_iter=max_iter,tolerance=tolerance)
 print("\nAlgo_1_resulting_vector |y|:")
@@ -124,8 +124,13 @@ print(f"Algorithm 2(RRR) Converged after {Algo_2_iteration} iterations.")
 betas = np.linspace(0, 2, num=11)
 Algo_2_iteration_mumbers_array = []
 for beta in betas:
-    Algo_2_iteration, Algo_2_resulting_vector = RRR(y, A, b, beta=beta, max_iter=max_iter, tolerance=tolerance)
-    Algo_2_iteration_mumbers_array.append(Algo_2_iteration)
+    Algo_2_iteration_loop, Algo_2_resulting_vector_loop = RRR(y, A, b, beta=beta, max_iter=max_iter, tolerance=tolerance)
+    Algo_2_iteration_mumbers_array.append(Algo_2_iteration_loop)
 
 plt.plot(betas,Algo_2_iteration_mumbers_array)
+plt.ylabel("Converged iterations number")
+plt.xlabel("beta")
+
+print(f"Algorithm 1(Alternative_Projections) Converged after {Algo_1_iteration} iterations.")
+print(f"Algorithm 2(RRR) Converged after {Algo_2_iteration} iterations. with beta = 1")
 plt.show()
