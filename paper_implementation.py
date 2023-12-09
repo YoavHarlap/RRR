@@ -87,7 +87,7 @@ def RRR(y,A, b,beta = 1, max_iter=100000, tolerance=1e-9):
 
 # Define the dimensions of the sensing matrix
 m = 200  # Number of rows
-n = 20 # Number of columns
+n = 199# Number of columns
 
 # Create the sensing matrix
 A = create_sensing_matrix(m, n)

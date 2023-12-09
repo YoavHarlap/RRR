@@ -1,120 +1,74 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
 
+def initialize_matrix(n, r, q):
+    # Initialize a random matrix of rank r
+    init_matrix = np.random.rand(n, r) @ np.random.rand(r, n)
+    matrix = np.copy(init_matrix)
+    print("Original matrix rank:", np.linalg.matrix_rank(matrix))
 
-def create_sensing_matrix(m, n):
-    # Generate a complex normal distribution with mean 0 and standard deviation 1
-    real_part = np.random.normal(loc=0, scale=1, size=(m, n))
-    imag_part = np.random.normal(loc=0, scale=1, size=(m, n))
+    # Set q random entries to NaN (missing entries)
+    missing_entries = np.random.choice(n * n, q, replace=False)
+    row_indices, col_indices = np.unravel_index(missing_entries, (n, n))
+    matrix[row_indices, col_indices] = 0
+    print("Matrix rank after setting entries to zero:", np.linalg.matrix_rank(matrix))
 
-    # Combine real and imaginary parts to create a complex matrix
-    sensing_matrix = real_part + 1j * imag_part
+    # Ensure the rank is still r
+    U, Sigma, Vt = np.linalg.svd(matrix)
+    Sigma[r:] = 0  # Zero out singular values beyond rank r
+    new_matrix = U @ np.diag(Sigma) @ Vt
+    print("Matrix rank after preserving rank:", np.linalg.matrix_rank(new_matrix))
 
-    return sensing_matrix
+    return init_matrix, new_matrix
 
+def plot_sudoku(matrix, ax, title):
+    n = matrix.shape[0]
 
-def proj_A(A, y):
-    # Calculate the conjugate transpose (Hermitian transpose) of A
-    A_dagger = np.conjugate(A.T)
+    # Hide the axes
+    ax.set_xticks([])
+    ax.set_yticks([])
 
-    # Calculate the projection PA(y) = AA†y
-    projection = np.dot(A, np.dot(A_dagger, y))
+    # Add a grid
+    for i in range(n + 1):
+        lw = 2 if i % 3 == 0 else 0.5
+        ax.axhline(i, color='black', lw=lw)
+        ax.axvline(i, color='black', lw=lw)
 
-    return projection
+    # Calculate differences between matrix1 and matrix2
+    diff_matrix = matrix2 - matrix1
 
+    # Create a colormap with red for negative differences and green for positive differences
+    cmap = ListedColormap(['red', 'green'])
+    norm = plt.Normalize(np.min(diff_matrix), np.max(diff_matrix))
 
-def proj_B(b, y):
-    # Calculate the point-wise product b * phase(y), where phase(y)[i] := y[i]/|y[i]|
-    b_phase_y = b * np.divide(y, np.abs(y), where=(y != 0))
+    # Calculate text size based on n
+    text_size = -5/11*n +155/11
+    print(text_size)
 
-    return b_phase_y
+    # Fill the cells with the matrix values and color based on differences
+    for i in range(n):
+        for j in range(n):
+            value = matrix[i, j]
+            color = cmap(norm(diff_matrix[i, j]))
+            if value != 0:
+                ax.text(j + 0.5, n - i - 0.5, f'{value:.2f}', ha='center', va='center', color=color, fontsize=text_size)
 
+    ax.set_title(title)
 
-def Projections_iteratively(A, x, b, max_iter=10000, tolerance=1e-6):
-    m, n = A.shape
+# Example usage
+n = 9
+r = 5
+q = 20
+matrix1, matrix2 = initialize_matrix(n, r, q)
 
-    # Generate an initial random complex vector y
-    y_real = np.random.normal(loc=0, scale=1, size=m)
-    y_imag = np.random.normal(loc=0, scale=1, size=m)
-    y = y_real + 1j * y_imag
+# Create subplots
+fig, axs = plt.subplots(1, 2, figsize=(10, 5))
 
-    residuals = []
+# Plot the initial matrix
+plot_sudoku(matrix1, axs[0], "Matrix 1")
 
-    # Iterative projections
-    for iteration in range(max_iter):
-        # Print iteration progress
-        print(f"\nIteration {iteration + 1}/{max_iter}")
-
-        # Project y onto the set defined by proj_B
-        y = proj_B(b, y)
-
-        # # Print the result of the projection
-        # print("\nProjection P_B(y):")
-        # print(y)
-
-        # Project y onto the set defined by proj_A
-        y = proj_A(A, y)
-        # # Print the result of the projection
-        # print("\nProjection P_A(y):")
-        # print(y)
-
-        # Calculate the residual (change in y)
-        residual = np.linalg.norm(y - proj_B(b, y))
-        # print(f"residual: {residual}")
-        residuals.append(residual)
-        # Check convergence
-        if residual < tolerance:
-            print(f"Converged after {iteration + 1} iterations.")
-            break
-
-    # Plot residuals after the iterations
-    plt.plot(residuals, label='Residual')
-    plt.xlabel('Iteration')
-    plt.ylabel('Residual')
-    plt.legend()
-    plt.show()
-
-    # Print the final result
-    print("\nFinal Resulting Vector |y|:")
-    print(abs(y))
-    return y
-
-
-# Define the dimensions of the sensing matrix
-m = 5  # Number of rows
-n = 3  # Number of columns
-
-# Create the sensing matrix
-A = create_sensing_matrix(m, n)
-
-# Print the resulting sensing matrix
-print("Sensing Matrix A:")
-print(A)
-
-# Generate a random complex vector x
-x_real = np.random.normal(loc=0, scale=1, size=n)
-x_imag = np.random.normal(loc=0, scale=1, size=n)
-x = x_real + 1j * x_imag
-
-# Print the random complex vector x
-print("\nRandom Vector x:")
-print(x)
-
-# Perform matrix multiplication A * x
-result = np.dot(A, x)
-
-# Print the result of the matrix multiplication
-print("\nResult of A * x:")
-print(result)
-
-# Take the absolute value to obtain a real non-negative vector
-b = np.abs(result)
-
-# Print the resulting vector b
-print("\nResulting Vector |Ax| = b:")
-print(b)
-
-# Perform iterative projections
-resulting_vector = Projections_iteratively(A, x, b)
-print("\nVector b:")
-print(b)
+# Plot the matrix after setting entries to zero
+plot_sudoku(matrix2, axs[1], "Matrix 2")
+print(matrix2)
+plt.show()
