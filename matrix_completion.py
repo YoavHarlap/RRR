@@ -5,7 +5,8 @@ from numpy.linalg import matrix_rank,svd
 
 def initialize_matrix(n, r, q):
     # Initialize a random matrix of rank r
-    matrix = np.random.rand(n, r) @ np.random.rand(r, n)
+    init_matrix = np.random.rand(n, r) @ np.random.rand(r, n)
+    matrix = np.copy(init_matrix)
     print("Original matrix rank:", matrix_rank(matrix))
 
     # Set q random entries to NaN (missing entries)
@@ -20,7 +21,7 @@ def initialize_matrix(n, r, q):
     new_matrix = U @ np.diag(Sigma) @ Vt
     print("Matrix rank after preserving rank:", matrix_rank(new_matrix))
 
-    return new_matrix
+    return init_matrix, new_matrix
 
 def proj_1(matrix, r):
     # Perform SVD and truncate to rank r

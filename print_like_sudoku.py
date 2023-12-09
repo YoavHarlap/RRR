@@ -22,7 +22,7 @@ def initialize_matrix(n, r, q):
 
     return init_matrix, new_matrix
 
-def plot_sudoku(matrix, ax, title):
+def plot_sudoku(matrix, ax, title, threshold):
     n = matrix.shape[0]
 
     # Hide the axes
@@ -35,22 +35,18 @@ def plot_sudoku(matrix, ax, title):
         ax.axhline(i, color='black', lw=lw)
         ax.axvline(i, color='black', lw=lw)
 
-    # Calculate differences between matrix1 and matrix2
-    diff_matrix = matrix2 - matrix1
-
-    # Create a colormap with red for negative differences and green for positive differences
-    cmap = ListedColormap(['red', 'green'])
-    norm = plt.Normalize(np.min(diff_matrix), np.max(diff_matrix))
+    # Calculate absolute differences between matrix1 and matrix2
+    diff_matrix = np.abs(matrix2 - matrix1)
+    colors = np.where(diff_matrix > threshold, 'red', 'green')
 
     # Calculate text size based on n
-    text_size = -5/11*n +155/11
-    print(text_size)
+    text_size = -5/11 * n + 155/11
 
     # Fill the cells with the matrix values and color based on differences
     for i in range(n):
         for j in range(n):
             value = matrix[i, j]
-            color = cmap(norm(diff_matrix[i, j]))
+            color = colors[i, j]
             if value != 0:
                 ax.text(j + 0.5, n - i - 0.5, f'{value:.2f}', ha='center', va='center', color=color, fontsize=text_size)
 
@@ -62,13 +58,16 @@ r = 5
 q = 20
 matrix1, matrix2 = initialize_matrix(n, r, q)
 
+# Set a threshold for coloring based on absolute differences
+threshold = 0.2
+
 # Create subplots
 fig, axs = plt.subplots(1, 2, figsize=(10, 5))
 
-# Plot the initial matrix
-plot_sudoku(matrix1, axs[0], "Matrix 1")
+# Plot the initial matrix with the specified threshold
+plot_sudoku(matrix1, axs[0], "Matrix 1", threshold)
 
-# Plot the matrix after setting entries to zero
-plot_sudoku(matrix2, axs[1], "Matrix 2")
-print(matrix2)
+# Plot the matrix after setting entries to zero with the specified threshold
+plot_sudoku(matrix2, axs[1], "Matrix 2", threshold)
+
 plt.show()
