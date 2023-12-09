@@ -1,56 +1,113 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from numpy.linalg import matrix_rank,svd
+from numpy.linalg import matrix_rank, svd
 
 
 def initialize_matrix(n, r, q):
     # Initialize a random matrix of rank r
     init_matrix = np.random.rand(n, r) @ np.random.rand(r, n)
-    matrix = np.copy(init_matrix)
-    print("Original matrix rank:", matrix_rank(matrix))
+    hints_matrix = init_matrix.copy()
+    print("Original matrix rank:", matrix_rank(hints_matrix))
 
     # Set q random entries to NaN (missing entries)
     missing_entries = np.random.choice(n * n, q, replace=False)
     row_indices, col_indices = np.unravel_index(missing_entries, (n, n))
-    matrix[row_indices, col_indices] = 0
-    print("Matrix rank after setting entries to zero:", matrix_rank(matrix))
+    hints_matrix[row_indices, col_indices] = 0
+    print("Matrix rank after setting entries to zero:", matrix_rank(hints_matrix))
 
-    # Ensure the rank is still r
-    U, Sigma, Vt = svd(matrix)
-    Sigma[r:] = 0  # Zero out singular values beyond rank r
-    new_matrix = U @ np.diag(Sigma) @ Vt
-    print("Matrix rank after preserving rank:", matrix_rank(new_matrix))
+    hints_indices = np.ones_like(init_matrix, dtype=bool)
+    hints_indices[row_indices, col_indices] = False
 
-    return init_matrix, new_matrix
+    # # Ensure the rank is still r
+    # U, Sigma, Vt = svd(matrix)
+    # Sigma[r:] = 0  # Zero out singular values beyond rank r
+    # new_matrix = U @ np.diag(Sigma) @ Vt
+    # print("Matrix rank after preserving rank:", matrix_rank(new_matrix))
+
+    return [init_matrix, hints_matrix, hints_indices]
+
 
 def proj_1(matrix, r):
     # Perform SVD and truncate to rank r
     u, s, v = np.linalg.svd(matrix, full_matrices=False)
     matrix_proj_1 = u[:, :r] @ np.diag(s[:r]) @ v[:r, :]
+
+    # # Ensure the rank is still r
+    # U, Sigma, Vt = svd(matrix)
+    # Sigma[r:] = 0  # Zero out singular values beyond rank r
+    # new_matrix = U @ np.diag(Sigma) @ Vt
+
     return matrix_proj_1
 
 
-def proj_2(matrix, init_matrix):
+def proj_2(matrix, hints_matrix, hints_indices):
     # Set non-missing entries to the corresponding values in the initialization matrix
-    matrix_proj_2 = np.where(~np.isnan(init_matrix), init_matrix, matrix)
-    return matrix_proj_2
+    matrix[hints_indices] = hints_matrix[hints_indices]
+    return matrix
 
+def plot_sudoku(matrix,colors ,ax, title, missing_elements_indices):
+    n = matrix.shape[0]
+
+    # Hide the axes
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+    # Add a grid
+    for i in range(n + 1):
+        lw = 2 if i % 3 == 0 else 0.5
+        ax.axhline(i, color='black', lw=lw)
+        ax.axvline(i, color='black', lw=lw)
+
+    # Calculate text size based on n
+    text_size = -5/11 * n + 155/11
+
+    # Fill the cells with the matrix values and color based on differences
+    for i in range(n):
+        for j in range(n):
+            value = matrix[i, j]
+            color = colors[i, j]
+            if missing_elements_indices[i,j]:
+                # Highlight specific cells with blue background
+                ax.add_patch(plt.Rectangle((j, n - i - 1), 1, 1, fill=True, color='blue', alpha=0.3))
+            if value != 0:
+                ax.text(j + 0.5, n - i - 0.5, f'{value:.2f}', ha='center', va='center', color=color, fontsize=text_size)
+
+    ax.set_title(title)
+def plot_2_metrix(matrix1, matrix2,missing_elements_indices,iteration_number):
+    # Set a threshold for coloring based on absolute differences
+    threshold = 0.2
+    # Calculate absolute differences between matrix1 and matrix2
+    diff_matrix = np.abs(matrix2 - matrix1)
+    colors = np.where(diff_matrix > threshold, 'red', 'green')
+    # Create subplots
+    fig, axs = plt.subplots(1, 2, figsize=(10, 5))
+
+    # Plot the initial matrix with the specified threshold
+    plot_sudoku(matrix1, colors, axs[0], "Init_matrix",missing_elements_indices)
+
+    # Plot the matrix after setting entries to zero with the specified threshold
+    plot_sudoku(matrix2, colors, axs[1], "iteration_number: "+ str(iteration_number),missing_elements_indices)
+
+    plt.show()
 
 def matrix_completion(n, r, q, max_iterations=1000, tolerance=1e-6):
     # Initialize the matrix with rank r and missing entries
-    matrix = initialize_matrix(n, r, q)
+    init_matrix, hints_matrix, hints_indices = initialize_matrix(n, r, q)
+    missing_elements_indices = ~hints_indices
 
-    # Save the initial matrix for proj_2
-    init_matrix = matrix.copy()
+    matrix = hints_matrix.copy()
 
     # Lists to store the objective function value and iteration number for plotting
     obj_values = []
     iterations = []
 
     for i in range(max_iterations):
+        plot_2_metrix(init_matrix, matrix, missing_elements_indices,i)
+
         # Alternate between proj_1 and proj_2
         matrix = proj_1(matrix, r)
-        matrix = proj_2(matrix, init_matrix)
+
+        matrix = proj_2(matrix, hints_matrix, hints_indices)
 
         # Calculate the Frobenius norm of the difference between consecutive iterations
         obj_value = np.linalg.norm(matrix - init_matrix, 'fro')
@@ -58,8 +115,10 @@ def matrix_completion(n, r, q, max_iterations=1000, tolerance=1e-6):
         obj_values.append(obj_value)
         iterations.append(i + 1)
 
-        # Check for convergence
-        if i > 0 and abs(obj_values[i] - obj_values[i - 1]) < tolerance:
+        residual = np.linalg.norm(matrix - proj_1(matrix, r))
+        # Check convergence
+        if residual < tolerance:
+            print(f"Algorithm Converged after {i + 1} iterations.")
             break
 
     # Plot the convergence curve
@@ -73,9 +132,9 @@ def matrix_completion(n, r, q, max_iterations=1000, tolerance=1e-6):
 
 
 # Example usage
-n = 200  # Size of the matrix (nxn)
-r = 10  # Rank constraint
-q = 50  # Number of missing entries to complete
+n = 9  # Size of the matrix (nxn)
+r = 4  # Rank constraint
+q = 5  # Number of missing entries to complete
 
 completed_matrix = matrix_completion(n, r, q)
 print("Completed Matrix:")
