@@ -1,6 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
+def init_random_complex_vector(size):
+    # Generate an initial random complex vector y
+    y_real = np.random.normal(loc=0, scale=1, size=size)
+    y_imag = np.random.normal(loc=0, scale=1, size=size)
+    y = y_real + 1j * y_imag
+
+    return y
 def create_sensing_matrix(m, n):
     # Generate a complex normal distribution with mean 0 and standard deviation 1
     real_part = np.random.normal(loc=0, scale=1, size=(m, n))
@@ -8,7 +16,6 @@ def create_sensing_matrix(m, n):
 
     # Combine real and imaginary parts to create a complex matrix
     sensing_matrix = real_part + 1j * imag_part
-
     return sensing_matrix
 
 
@@ -79,16 +86,14 @@ def RRR(y,A, b,beta = 1, max_iter=100000, tolerance=1e-9):
 
 
 # Define the dimensions of the sensing matrix
-m = 5  # Number of rows
-n = 3  # Number of columns
+m = 200  # Number of rows
+n = 20 # Number of columns
 
 # Create the sensing matrix
 A = create_sensing_matrix(m, n)
 
 # Generate a random complex vector x
-x_real = np.random.normal(loc=0, scale=1, size=n)
-x_imag = np.random.normal(loc=0, scale=1, size=n)
-x = x_real + 1j * x_imag
+x = init_random_complex_vector(n)
 
 # Perform matrix multiplication A * x
 result = np.dot(A, x)
@@ -98,25 +103,21 @@ b = np.abs(result)
 
 m, n = A.shape
 
-# Generate an initial random complex vector y
-y_real = np.random.normal(loc=0, scale=1, size=m)
-y_imag = np.random.normal(loc=0, scale=1, size=m)
-y = y_real + 1j * y_imag
-
+y = init_random_complex_vector(m)
 
 # Perform iterative projections
 max_iter = 10000
 tolerance = 1e-6
 Algo_1_iteration,Algo_1_resulting_vector = Alternative_Projections(y,A, b,max_iter=max_iter,tolerance=tolerance)
 Algo_2_iteration,Algo_2_resulting_vector = RRR(y,A, b,beta = 1,max_iter=max_iter,tolerance=tolerance)
-print("\nAlgo_1_resulting_vector |y|:")
-print(abs(Algo_1_resulting_vector))
-print("\nVector b:")
-print(b)
+print("\nAlgo_1_resulting_vector |y|:\n",abs(Algo_1_resulting_vector))
+print("\nVector b:\n",b)
 
-print("\nAlgo_2_resulting_vector |y|:")
-print(abs(Algo_2_resulting_vector))
-print("\nVector b:")
-print(b)
+
+print("\nAlgo_2_resulting_vector |y|:\n",abs(Algo_2_resulting_vector))
+print("\nVector b:\n",b)
+
+print(f"Algorithm 1(Alternative_Projections) Converged after {Algo_1_iteration} iterations.")
+print(f"Algorithm 2(RRR) Converged after {Algo_2_iteration} iterations. with beta = 1")
 
 

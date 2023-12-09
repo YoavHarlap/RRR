@@ -12,3 +12,4 @@ plt.xlabel("beta")
 print(f"Algorithm 1(Alternative_Projections) Converged after {Algo_1_iteration} iterations.")
 print(f"Algorithm 2(RRR) Converged after {Algo_2_iteration} iterations. with beta = 1")
 plt.show()
+
