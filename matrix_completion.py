@@ -75,7 +75,7 @@ def plot_sudoku(matrix,colors ,ax, title, missing_elements_indices):
     ax.set_title(title)
 def plot_2_metrix(matrix1, matrix2,missing_elements_indices,iteration_number):
     # Set a threshold for coloring based on absolute differences
-    threshold = 0.2
+    threshold = 0.004
     # Calculate absolute differences between matrix1 and matrix2
     diff_matrix = np.abs(matrix2 - matrix1)
     colors = np.where(diff_matrix > threshold, 'red', 'green')
@@ -91,6 +91,7 @@ def plot_2_metrix(matrix1, matrix2,missing_elements_indices,iteration_number):
     plt.show()
 
 def matrix_completion(n, r, q, max_iterations=1000, tolerance=1e-6):
+    tolerance = 0.004
     # Initialize the matrix with rank r and missing entries
     init_matrix, hints_matrix, hints_indices = initialize_matrix(n, r, q)
     missing_elements_indices = ~hints_indices
@@ -102,8 +103,8 @@ def matrix_completion(n, r, q, max_iterations=1000, tolerance=1e-6):
     iterations = []
 
     for i in range(max_iterations):
-        plot_2_metrix(init_matrix, matrix, missing_elements_indices,i)
-
+        #plot_2_metrix(init_matrix, matrix, missing_elements_indices,i)
+        print(i)
         # Alternate between proj_1 and proj_2
         matrix = proj_1(matrix, r)
 
@@ -120,22 +121,24 @@ def matrix_completion(n, r, q, max_iterations=1000, tolerance=1e-6):
         if residual < tolerance:
             print(f"Algorithm Converged after {i + 1} iterations.")
             break
+    plot_2_metrix(init_matrix, matrix, missing_elements_indices,"END")
 
     # Plot the convergence curve
     plt.plot(iterations, obj_values, marker='o')
     plt.xlabel('Iteration')
     plt.ylabel('Objective Function Value')
-    plt.title('Convergence of Matrix Completion')
+    plt.title('Convergence of Matrix Completion(relative to the correct matrix)')
     plt.show()
 
     return matrix
 
 
 # Example usage
-n = 9  # Size of the matrix (nxn)
-r = 4  # Rank constraint
-q = 5  # Number of missing entries to complete
+n = 200  # Size of the matrix (nxn)
+r = 20  # Rank constraint
+q = 15  # Number of missing entries to complete
 
 completed_matrix = matrix_completion(n, r, q)
+
 print("Completed Matrix:")
 print(completed_matrix)
