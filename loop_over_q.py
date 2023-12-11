@@ -3,17 +3,21 @@ import matplotlib.pyplot as plt
 from numpy.linalg import matrix_rank, svd
 
 
-def initialize_matrix(n, r, q):
+def initialize_matrix(n, r, q,seed = None):
+    if seed is not None:
+        np.random.seed(seed)  # Set seed for reproducibility
+
     # Initialize a random matrix of rank r
     init_matrix = np.random.rand(n, r) @ np.random.rand(r, n)
     hints_matrix = init_matrix.copy()
-    print("Original matrix rank:", matrix_rank(hints_matrix))
+    # print("Original matrix rank:", matrix_rank(hints_matrix))
 
     # Set q random entries to NaN (missing entries)
     missing_entries = np.random.choice(n * n, q, replace=False)
     row_indices, col_indices = np.unravel_index(missing_entries, (n, n))
+    # print(row_indices,col_indices)
     hints_matrix[row_indices, col_indices] = 0
-    print("Matrix rank after setting entries to zero:", matrix_rank(hints_matrix))
+    # print("Matrix rank after setting entries to zero:", matrix_rank(hints_matrix))
 
     hints_indices = np.ones_like(init_matrix, dtype=bool)
     hints_indices[row_indices, col_indices] = False
@@ -90,10 +94,10 @@ def plot_2_metrix(matrix1, matrix2,missing_elements_indices,iteration_number):
 
     plt.show()
 
-def matrix_completion(n, r, q, max_iterations=1000, tolerance=1e-6):
-    tolerance = 0.004
+def matrix_completion(n, r, q, max_iterations=1000, tolerance=1e-6,seed = None):
     # Initialize the matrix with rank r and missing entries
-    init_matrix, hints_matrix, hints_indices = initialize_matrix(n, r, q)
+    init_matrix, hints_matrix, hints_indices = initialize_matrix(n, r, q,seed)
+    # print(hints_indices)
     missing_elements_indices = ~hints_indices
 
     matrix = hints_matrix.copy()
@@ -104,7 +108,7 @@ def matrix_completion(n, r, q, max_iterations=1000, tolerance=1e-6):
 
     for i in range(max_iterations):
         #plot_2_metrix(init_matrix, matrix, missing_elements_indices,i)
-        print(i)
+        # print(i)
         # Alternate between proj_1 and proj_2
         matrix = proj_1(matrix, r)
 
@@ -136,18 +140,28 @@ def matrix_completion(n, r, q, max_iterations=1000, tolerance=1e-6):
 
 def plot_convergence_over_q(n, r, max_iterations=1000, tolerance=1e-6):
     q_values = range(15, 2*n-1, 30)
-    q_values = [15,20]
+    a=15
+    b=n*5
+    q_values = np.arange(a, b, (b-a)//9)
+    print("q_values:",q_values)
+    # q_values = [15,20]
     convergence_data = []
+    # seed = 42
+    seed = np.random.randint(1, 1000)
+    # Create a colormap based on the number of different q values
+    cmap = plt.get_cmap('viridis', len(q_values))
+    cmap = plt.get_cmap('tab10')
 
-    for q in q_values:
+
+    for i, q in enumerate(q_values):
         print(f"Processing for q = {q}")
-        iteration_number,obj_values,completed_matrix = matrix_completion(n, r, q, max_iterations, tolerance)
-        convergence_data.append((q, iteration_number,obj_values))
+        iteration_number, obj_values, completed_matrix = matrix_completion(n, r, q, max_iterations, tolerance, seed)
+        convergence_data.append((q, iteration_number, obj_values, cmap(i)))
 
     # Plot convergence over q
-    for q, iteration_number,obj_values in convergence_data:
-        plt.plot(obj_values, label=f'q = {q}, after {iteration_number} iter')
-        print(obj_values)
+    for q, iteration_number, obj_values, color in convergence_data:
+        plt.plot(obj_values, label=f'q = {q}, after {iteration_number} iter', color=color)
+
 
     plt.xlabel('Iteration')
     plt.ylabel('Objective Function Value')
@@ -158,5 +172,6 @@ def plot_convergence_over_q(n, r, max_iterations=1000, tolerance=1e-6):
 # Example usage
 n = 200  # Size of the matrix (nxn)
 r = 40  # Rank constraint
-plot_convergence_over_q(n, r)
+plot_convergence_over_q(n, r,max_iterations=10000)
+
 

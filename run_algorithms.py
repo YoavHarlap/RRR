@@ -43,7 +43,7 @@ def proj_B(b, y):
     return b_phase_y
 
 
-def Alternative_Projections(y, A, b, max_iter=100000, tolerance=1e-9):
+def Alternative_Projections(y, A, b, max_iter=1000, tolerance=1e-9):
     # Calculate the Frobenius norm of the difference between consecutive iterations
     obj_values = []
     # Iterative projections
@@ -68,6 +68,7 @@ def Alternative_Projections(y, A, b, max_iter=100000, tolerance=1e-9):
         # Check convergence
         if residual < tolerance:
             print(f"Algorithm 1 Converged after {iteration + 1} iterations.")
+            print("obj_values:",obj_values[-5:])
             break
 
     return [iteration + 1, y, obj_values]
@@ -93,16 +94,19 @@ def RRR(y, A, b, beta=1, max_iter=100000, tolerance=1e-9):
         # Check convergence
         if residual < tolerance:
             print(f"Algorithm 2 Converged after {iteration + 1} iterations.")
+            print("obj_values:",obj_values[-5:])
+            print(b[:5] , np.abs(y)[:5])
+
             break
 
     return [iteration + 1, y, obj_values]
 
 
 # Function to run both algorithms for a given m/n ratio
-def run_algorithms_for_n(m, n, beta=1, max_iter=1000, tolerance=1e-6):
+def run_algorithms_for_n(m, n, beta=1, max_iter=10000, tolerance=1e-6):
     # Create the sensing matrix
     A = create_sensing_matrix(m, n)
-
+    # print("A:", A)
     # Generate a random complex vector x
     x = init_random_complex_vector(n)
 
@@ -126,8 +130,8 @@ def run_algorithms_for_n(m, n, beta=1, max_iter=1000, tolerance=1e-6):
 # Fix m at 200 and vary n from 20 to 400
 m_fixed = 200
 # n_values = np.arange(20, 199, 60)
-n_values = np.arange(20, 199, 50)
-# n_values = [20]
+n_values = np.arange(20, 199, 30)
+# n_values = [20,20,20]
 
 algo_1_iterations = []
 algo_2_iterations = []
@@ -144,14 +148,14 @@ for n_value in n_values:
     obj_values_2_array.append(obj_values_2)
 
 
-# # Plot the convergence behavior
-# plt.plot(n_values, algo_1_iterations, label='Alternative_Projections')
-# plt.plot(n_values, algo_2_iterations, label='RRR (beta =1)')
-# plt.xlabel('n (Number of Columns)')
-# plt.ylabel('Iterations to Converge')
-# plt.title(f'Convergence Behavior for m={m_fixed} and Varying n')
-# plt.legend()
-# plt.show()
+# Plot the convergence behavior
+plt.plot(n_values, algo_1_iterations, label='Alternative_Projections')
+plt.plot(n_values, algo_2_iterations, label='RRR (beta =1)')
+plt.xlabel('n (Number of Columns)')
+plt.ylabel('Iterations to Converge')
+plt.title(f'Convergence Behavior for m={m_fixed} and Varying n')
+plt.legend()
+plt.show()
 
 #------------------------------------
 # # Plot convergence over n_values
