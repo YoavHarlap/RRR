@@ -174,6 +174,6 @@ def plot_convergence_over_q(n, r, max_iterations=1000, tolerance=1e-6):
 n = 200  # Size of the matrix (nxn)
 r = 20  # Rank constraint
 plot_convergence_over_q(n, r,max_iterations=10000)
-print("yoav")
+print("yoav2")
 
 
