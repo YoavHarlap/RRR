@@ -103,7 +103,7 @@ def RRR(y, A, b, beta=1, max_iter=100000, tolerance=1e-9):
 
 
 # Function to run both algorithms for a given m/n ratio
-def run_algorithms_for_n(m, n, beta=1, max_iter=10000, tolerance=1e-6):
+def run_algorithms_for_n(m, n, beta=1, max_iter=1000, tolerance=1e-6):
     # Create the sensing matrix
     A = create_sensing_matrix(m, n)
     # print("A:", A)

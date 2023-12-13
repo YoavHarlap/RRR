@@ -139,15 +139,16 @@ def matrix_completion(n, r, q, max_iterations=1000, tolerance=1e-6,seed = None):
 
 
 def plot_convergence_over_q(n, r, max_iterations=1000, tolerance=1e-6):
-    q_values = range(15, 2*n-1, 30)
+    #q_values = range(15, 2*n-1, 30)
     a=15
-    b=n*5
+    b=n*n-1
     q_values = np.arange(a, b, (b-a)//9)
     print("q_values:",q_values)
     # q_values = [15,20]
     convergence_data = []
     # seed = 42
     seed = np.random.randint(1, 1000)
+    seed = 42
     # Create a colormap based on the number of different q values
     cmap = plt.get_cmap('viridis', len(q_values))
     cmap = plt.get_cmap('tab10')
@@ -171,7 +172,8 @@ def plot_convergence_over_q(n, r, max_iterations=1000, tolerance=1e-6):
 
 # Example usage
 n = 200  # Size of the matrix (nxn)
-r = 40  # Rank constraint
+r = 20  # Rank constraint
 plot_convergence_over_q(n, r,max_iterations=10000)
+print("yoav")
 
 
