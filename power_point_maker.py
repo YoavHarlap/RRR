@@ -44,3 +44,66 @@ output_file_path = r'C:\Users\sapir\Pictures\Screenshots\images2\ImagePresentati
 
 # Save the presentation
 presentation.save(output_file_path)
+
+
+"""
+main
+from pptx import Presentation
+from pptx.util import Inches
+import os
+
+# Path to the folder containing images
+image_folder_path = r'C:\Users\sapir\Pictures\Screenshots\images'
+
+# Create a PowerPoint presentation
+presentation = Presentation()
+
+# Iterate through the images in the folder
+for filename in os.listdir(image_folder_path):
+    if filename.endswith(('.png', '.jpg', '.jpeg')):
+        # Create a new slide for each image
+        slide = presentation.slides.add_slide(presentation.slide_layouts[5])
+
+        # Add the image to the slide
+        image_path = os.path.join(image_folder_path, filename)
+        left = Inches(1)
+        top = Inches(1)
+        pic = slide.shapes.add_picture(image_path, left, top)
+
+# Save the presentation
+presentation.save('ImagePresentation.pptx')
+
+
+"""
+
+
+"""
+fit
+
+
+from pptx import Presentation
+from pptx.util import Inches
+import os
+
+# Path to the folder containing images
+image_folder_path = r'C:\Users\sapir\Pictures\Screenshots\images'
+
+# Create a PowerPoint presentation
+presentation = Presentation()
+
+# Iterate through the images in the folder
+for filename in os.listdir(image_folder_path):
+    if filename.endswith(('.png', '.jpg', '.jpeg')):
+        # Create a new slide for each image
+        slide = presentation.slides.add_slide(presentation.slide_layouts[5])
+
+        # Add the image to the slide and resize it to fit the slide
+        image_path = os.path.join(image_folder_path, filename)
+        left = top = Inches(1)
+        pic = slide.shapes.add_picture(image_path, left, top, width=Inches(8), height=Inches(5))
+
+# Save the presentation
+presentation.save('ImagePresentation.pptx')
+
+
+"""
