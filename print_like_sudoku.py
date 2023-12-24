@@ -75,6 +75,7 @@ def plot_2_metrix(matrix1, matrix2,missing_elements_indices):
 n = 9
 r = 5
 q = 20
+
 # matrix1, matrix2 = initialize_matrix(n, r, q)
 init_matrix, hints_matrix, hints_indices = initialize_matrix(n, r, q)
 missing_elements_indices = ~hints_indices
