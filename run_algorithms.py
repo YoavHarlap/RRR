@@ -76,15 +76,16 @@ def Alternative_Projections(y, A, b, max_iter=1000, tolerance=1e-9):
 
 def RRR(y, A, b, beta=1, max_iter=100000, tolerance=1e-9):
     obj_values = []
-
+    print
     # Iterative projections
     for iteration in range(max_iter):
         # Print iteration progress
         # print(f"Iteration {iteration + 1}/{max_iter}")
 
         # Algorithm 2: Update y using a different formula
-        y = y + beta * (proj_A(A, 2 * proj_B(b, y) - y) - proj_B(b, y))
+        # y = y + beta * (proj_A(A, 2 * proj_B(b, y) - y) - proj_B(b, y))
 
+        y = y + beta * (2 * proj_A(A, proj_B(b, y)) - proj_A(A, y) - proj_B(b, y))
         obj_values.append(np.linalg.norm(b - np.abs(y)))
         # obj_values.append(np.linalg.norm(y))
 
@@ -130,8 +131,8 @@ def run_algorithms_for_n(m, n, beta=1, max_iter=1000, tolerance=1e-6):
 # Fix m at 200 and vary n from 20 to 400
 m_fixed = 200
 # n_values = np.arange(20, 199, 60)
-n_values = np.arange(20, 199, 30)
-# n_values = [20,20,20]
+# n_values = np.arange(20, 199, 30)
+n_values = [20]
 
 algo_1_iterations = []
 algo_2_iterations = []
@@ -200,4 +201,3 @@ axs[1].legend()
 
 plt.tight_layout()
 plt.show()
-print("Yoav")
