@@ -27,6 +27,42 @@ def PA(y, A):
 
     return result
 
+def RRR_algorithm(A, b, y_init, beta, max_iter=100, tolerance=1e-6):
+    # Initialize y with the provided initial values
+    y = y_init
+
+    # Storage for plotting
+    norm_diff_list = []
+
+    for iteration in range(max_iter):
+
+        # iterative algorithm step
+        P_Ay = PA(y, A)
+        P_By = PB(y, b)
+        PAPB_y = PA(PB(y, b), A)
+
+        y = y + beta * (2 * PAPB_y - P_Ay - P_By)
+
+        # Calculate the norm difference between |y| and b
+        norm_diff = np.linalg.norm(np.abs(y) - np.abs(b))
+
+        # Store the norm difference for plotting
+        norm_diff_list.append(norm_diff)
+
+        # Check convergence
+        if norm_diff < tolerance:
+            print(f"Converged in {iteration+1} iterations.")
+            break
+
+    # Plot the norm difference over iterations
+    plt.plot(norm_diff_list)
+    plt.xlabel('Iteration')
+    plt.ylabel('|y| - |b|')
+    plt.title('Convergence of RRR Algorithm')
+    plt.show()
+
+    return y
+
 def alternating_projections(A, b, y_init, var_A=1.0, var_x=1.0, max_iter=100, tolerance=1e-6):
     # Initialize y with the provided initial values
     y = y_init
@@ -35,8 +71,6 @@ def alternating_projections(A, b, y_init, var_A=1.0, var_x=1.0, max_iter=100, to
     norm_diff_list = []
 
     for iteration in range(max_iter):
-        # Generate complex vector x with specified standard deviation
-        x = np.sqrt(var_x) * (np.random.randn(A.shape[1]) + 1j * np.random.randn(A.shape[1]))
 
         # Perform alternating projections
         y_PB = PB(y, b)
@@ -67,7 +101,12 @@ def alternating_projections(A, b, y_init, var_A=1.0, var_x=1.0, max_iter=100, to
 
 # Set dimensions
 m = 200
-n = 20
+n = 100
+
+beta = 0.5
+max_iter= 10000
+tolerance = 1e-6
+
 
 # Specify variance for the Gaussian matrix A and standard deviation for vector x
 variance_A = 0.1  # Adjust this value as needed
@@ -76,13 +115,29 @@ std_dev_x = 0.5   # Adjust this value as needed
 # Initialize A as a complex Gaussian matrix with specified variance
 np.random.seed(42)  # For reproducibility
 A = np.sqrt(variance_A) * (np.random.randn(m, n) + 1j * np.random.randn(m, n))
-x= np.sqrt(std_dev_x) * (np.random.randn(n) + 1j * np.random.randn(n))
+x = np.sqrt(std_dev_x) * (np.random.randn(n) + 1j * np.random.randn(n))
+
+A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
+x = np.random.randn(n) + 1j * np.random.randn(n)
+
+
 # Calculate b = |Ax|
-b = np.abs(np.dot(A,x))
+b = np.abs(np.dot(A, x))
+
 
 # Initialize y randomly
 y_initial = np.random.randn(m) + 1j * np.random.randn(m)
 
-# Call the function with specified variance, standard deviation, and initial y
-result = alternating_projections(A, b, y_initial, var_A=variance_A, var_x=std_dev_x)
-# print("Final result:", result)
+# Set RRR parameter beta (adjust as needed)
+# Call the alternating_projections function with specified variance, standard deviation, and initial y
+result_AP = alternating_projections(A, b, y_initial,max_iter=max_iter,tolerance=tolerance)
+print("result_AP:",np.abs(result_AP[-5:]))
+print("b:        ",b[-5:])
+
+
+
+# Call the RRR_algorithm function with specified parameters
+result_RRR = RRR_algorithm(A, b, y_initial, beta,max_iter=max_iter,tolerance=tolerance)
+print("result_RRR:",np.abs(result_RRR[-5:]))
+print("b:        ",b[-5:])
+
