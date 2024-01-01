@@ -1,5 +1,3 @@
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -75,9 +73,10 @@ def alternating_projections(A, b, y_init, var_A=1.0, var_x=1.0, max_iter=100, to
         # Perform alternating projections
         y_PB = PB(y, b)
         y_PA = PA(y_PB, A)
+        y = y_PA
 
         # Calculate the norm difference between |y| and b
-        norm_diff = np.linalg.norm(np.abs(y_PA) - np.abs(b))
+        norm_diff = np.linalg.norm(np.abs(y) - np.abs(b))
 
         # Store the norm difference for plotting
         norm_diff_list.append(norm_diff)
@@ -87,9 +86,6 @@ def alternating_projections(A, b, y_init, var_A=1.0, var_x=1.0, max_iter=100, to
             print(f"Converged in {iteration+1} iterations.")
             break
 
-        # Update y for the next iteration
-        y = y_PA
-
     # Plot the norm difference over iterations
     plt.plot(norm_diff_list)
     plt.xlabel('Iteration')
@@ -97,28 +93,20 @@ def alternating_projections(A, b, y_init, var_A=1.0, var_x=1.0, max_iter=100, to
     plt.title('Convergence of Alternating Projections')
     plt.show()
 
-    return y_PA
+    return y
 
 # Set dimensions
 m = 200
 n = 100
 
-beta = 0.5
-max_iter= 10000
+beta = 1
+max_iter= 100000
 tolerance = 1e-6
 
-
-# Specify variance for the Gaussian matrix A and standard deviation for vector x
-variance_A = 0.1  # Adjust this value as needed
-std_dev_x = 0.5   # Adjust this value as needed
-
-# Initialize A as a complex Gaussian matrix with specified variance
 np.random.seed(42)  # For reproducibility
-A = np.sqrt(variance_A) * (np.random.randn(m, n) + 1j * np.random.randn(m, n))
-x = np.sqrt(std_dev_x) * (np.random.randn(n) + 1j * np.random.randn(n))
-
 A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
 x = np.random.randn(n) + 1j * np.random.randn(n)
+
 
 
 # Calculate b = |Ax|
@@ -128,12 +116,10 @@ b = np.abs(np.dot(A, x))
 # Initialize y randomly
 y_initial = np.random.randn(m) + 1j * np.random.randn(m)
 
-# Set RRR parameter beta (adjust as needed)
 # Call the alternating_projections function with specified variance, standard deviation, and initial y
-result_AP = alternating_projections(A, b, y_initial,max_iter=max_iter,tolerance=tolerance)
-print("result_AP:",np.abs(result_AP[-5:]))
-print("b:        ",b[-5:])
-
+# result_AP = alternating_projections(A, b, y_initial,max_iter=max_iter,tolerance=tolerance)
+# print("result_AP:",np.abs(result_AP[-5:]))
+# print("b:        ",b[-5:])
 
 
 # Call the RRR_algorithm function with specified parameters
