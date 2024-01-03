@@ -1,46 +1,142 @@
-from pptx import Presentation
-from pptx.util import Inches
-from PIL import Image
-import os
-import datetime
+import random
 
-# Updated path to the folder containing images
-image_folder_path = r'C:\Users\sapir\Pictures\Screenshots\images2'
+verbs_list = [
+    ("be", "was/were"),
+    ("become", "became"),
+    ("begin", "began"),
+    ("blow", "blew"),
+    ("break", "broke"),
+    ("bring", "brought"),
+    ("build", "built"),
+    ("buy", "bought"),
+    ("can", "could"),
+    ("catch", "caught"),
+    ("choose", "chose"),
+    ("come", "came"),
+    ("cost", "cost"),
+    ("cut", "cut"),
+    ("do", "did"),
+    ("draw", "drew"),
+    ("drink", "drank"),
+    ("drive", "drove"),
+    ("eat", "ate"),
+    ("fall", "fell"),
+    ("feed", "fed"),
+    ("feel", "felt"),
+    ("find", "found"),
+    ("fly", "flew"),
+    ("forget", "forgot"),
+    ("get", "got"),
+    ("give", "gave"),
+    ("go", "went"),
+    ("grow", "grew"),
+    ("have", "had"),
+    ("hear", "heard"),
+    ("hit", "hit"),
+    ("hold", "held"),
+    ("keep", "kept"),
+    ("know", "knew"),
+    ("learn", "learnt"),
+    ("leave", "left"),
+    ("let", "let"),
+    ("lose", "lost"),
+    ("make", "made"),
+    ("meet", "met"),
+    ("pay", "paid"),
+    ("read", "read"),
+    ("ring", "rang"),
+    ("run", "ran"),
+    ("say", "said"),
+    ("see", "saw"),
+    ("sell", "sold"),
+    ("send", "sent"),
+    ("sing", "sang"),
+    ("sit", "sat"),
+    ("sleep", "slept"),
+    ("speak", "spoke"),
+    ("spend", "spent"),
+    ("stand", "stood"),
+    ("swim", "swam"),
+    ("take", "took"),
+    ("teach", "taught"),
+    ("tell", "told"),
+    ("think", "thought"),
+    ("throw", "threw"),
+    ("understand", "understood"),
+    ("wake", "woke"),
+    ("wear", "wore"),
+    ("win", "won"),
+    ("write", "wrote"),
+    ("beat", "beat"),
+    ("bend", "bent"),
+    ("bet", "bet"),
+    ("bite", "bit"),
+    ("bleed", "bled"),
+    ("burn", "burnt"),
+    ("dig", "dug"),
+    ("hang", "hung"),
+    ("lend", "lent"),
+    ("lie", "lay"),
+    ("put", "put"),
+    ("ride", "rode"),
+    ("set", "set"),
+    ("shake", "shook"),
+    ("shoot", "shot"),
+    ("show", "showed"),
+    ("sink", "sank"),
+    ("spell", "spelt"),
+    ("split", "split"),
+    ("spread", "spread"),
+    ("steal", "stole"),
+    ("strike", "struck")
+]
 
-# Create a PowerPoint presentation
-presentation = Presentation()
 
-# Iterate through the images in the folder
-for filename in os.listdir(image_folder_path):
-    if filename.endswith(('.png', '.jpg', '.jpeg')):
-        # Create a new slide for each image
-        slide = presentation.slides.add_slide(presentation.slide_layouts[5])
+random.seed(42)
+print("test number", ":")
+random.shuffle(verbs_list)
 
-        # Load the image and convert to RGB mode, then crop to keep only the left corner
-        image_path = os.path.join(image_folder_path, filename)
-        img = Image.open(image_path).convert('RGB')
-        width, height = img.size
-        x= 50
-        y= 50
-        left_corner = img.crop((0+x+140, 0+y, width // 2-20+0, height // 2+2*y+155))
+next_text = []
+good = [0,2,3,5,6,10,11,12,15,18,19,24,26,29,32,34,36,38,39,41,43,44,48,49,51,57,59,62,63,68,70,71,72,73,75,78,80,81,83,86]
+for i in range(len(verbs_list)):
+    if i not in good:
+        next_text.append(verbs_list[i])
+        # print(i,") ",verbs_list[i][0],"- ")
+    # print(i,") ",verbs_list[i])
 
-        # Save the cropped image temporarily
-        temp_image_path = os.path.join(image_folder_path, 'temp_cropped_image.jpg')
-        left_corner.save(temp_image_path)
+# for i in range(len(verbs_list)):
+#     print("ans to test number", iter, ":")
+#     # print(i,") ",verbs_list[i][0],"- ")
+#     print(i,") ",verbs_list[i])
 
-        # Move the image a little to the right and down
-        left = Inches(1)  # Adjust the left position as needed
-        top = Inches(1)   # Adjust the top position as needed
 
-        # Add the cropped image to the slide and resize it to fit the slide
-        pic = slide.shapes.add_picture(temp_image_path, left, top, width=Inches(8), height=Inches(5))
 
-# Remove the temporary cropped image
-os.remove(temp_image_path)
 
-# Generate the output file name with the current date and time
-current_datetime = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
-output_file_path = r'C:\Users\sapir\Pictures\Screenshots\images2\ImagePresentation2_' + current_datetime + '.pptx'
 
-# Save the presentation
-presentation.save(output_file_path)
+
+
+
+verbs_list = next_text
+random.seed(78)
+for iter1 in range(3):
+    print("test number",iter1+1,":")
+    random.shuffle(verbs_list)
+    for i in range(0, len(verbs_list), 4):
+        line = f"{i + 1}) {verbs_list[i][0]} -                          | "
+        if i + 1 < len(verbs_list):
+            line += f"{i + 2}) {verbs_list[i + 1][0]} -                          | "
+        if i + 2 < len(verbs_list):
+            line += f"{i + 3}) {verbs_list[i + 2][0]} -                          | "
+        if i + 3 < len(verbs_list):
+            line += f"{i + 4}) {verbs_list[i + 3][0]} -                            "
+        print(line)
+
+#         # print(i,") ",verbs_list[i])
+
+    # for i in range(len(verbs_list)):
+    #     print("ans to test number", iter, ":")
+    #     # print(i,") ",verbs_list[i][0],"- ")
+    #     print(i,") ",verbs_list[i])
+    #
+
+
