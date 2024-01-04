@@ -86,6 +86,9 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     plt.ylabel('|y| - |b|')
     plt.title(f'Convergence of {algo} Algorithm')
     plt.show()
+    
+    print("y:", y[:5])
+    print("abs y:", np.abs(y[:5]))
 
     return y
 
@@ -107,10 +110,10 @@ x = np.random.randn(n) + 1j * np.random.randn(n)
 # Calculate b = |Ax|
 b = np.abs(np.dot(A, x))
 y_true = np.dot(A, x)
-print("y_true:", y_true)
+print("y_true:", y_true[:5])
 # Initialize y randomly
 y_initial = np.random.randn(m) + 1j * np.random.randn(m)
-print("y_initial:", y_initial)
+print("y_initial:", y_initial[:5])
 
 # # Epsilon value
 # epsilon = 1e-1
@@ -118,10 +121,10 @@ print("y_initial:", y_initial)
 # y_initial = y_true + epsilon
 # Call the alternating_projections function with specified variance, standard deviation, and initial y
 result_AP = run_algorithm(A, b, y_initial, algo="alternating_projections", max_iter=max_iter, tolerance=tolerance)
-print("result_AP:", np.abs(result_AP[-5:]))
-print("b:        ", b[-5:])
+print("result_AP:", np.abs(result_AP[:5]))
+print("b:        ", b[:5])
 
 # Call the RRR_algorithm function with specified parameters
 result_RRR = run_algorithm(A, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter, tolerance=tolerance)
-print("result_RRR:", np.abs(result_RRR[-5:]))
-print("b:         ", b[-5:])
+print("result_RRR:", np.abs(result_RRR[:5]))
+print("b:         ", b[:5])
