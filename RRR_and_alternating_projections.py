@@ -1,6 +1,5 @@
-import numpy as np
 import matplotlib.pyplot as plt
-
+import numpy as np
 
 def phase(y):
     # Calculate the phase of the complex vector y
@@ -29,77 +28,63 @@ def PA(y, A):
     return result
 
 
-def RRR_algorithm(A, b, y_init, beta, max_iter=100, tolerance=1e-6):
+def step_RRR(A, b, y, beta):
+    P_Ay = PA(y, A)
+    P_By = PB(y, b)
+    PAPB_y = PA(P_By, A)
+    y = y + beta * (2 * PAPB_y - P_Ay - P_By)
+    return y
+
+
+def step_AP(A, b, y):
+    y_PB = PB(y, b)
+    y_PA = PA(y_PB, A)
+    y = y_PA
+    return y
+
+
+def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     # Initialize y with the provided initial values
     y = y_init
 
     # Storage for plotting
     norm_diff_list = []
 
-    for iteration in range(max_iter):
-        # if iteration % 100 == 0:
-        #     print(iteration)
+    if algo == "RRR_algorithm":
+        for iteration in range(max_iter):
+            y = step_RRR(A, b, y, beta)
 
-        # iterative algorithm step
-        P_Ay = PA(y, A)
-        P_By = PB(y, b)
-        PAPB_y = PA(P_By, A)
+            # Calculate the norm difference between |y| and b
+            norm_diff = np.linalg.norm(np.abs(y) - b)
 
-        y = y + beta * (2 * PAPB_y - P_Ay - P_By)
+            # Store the norm difference for plotting
+            norm_diff_list.append(norm_diff)
 
-        # Calculate the norm difference between |y| and b
-        norm_diff = np.linalg.norm(np.abs(y) - b)
+            # Check convergence
+            if norm_diff < tolerance:
+                print(f"Converged in {iteration + 1} iterations.")
+                break
 
-        # Store the norm difference for plotting
-        norm_diff_list.append(norm_diff)
+    elif algo == "alternating_projections":
+        for iteration in range(max_iter):
+            y = step_AP(A, b, y)
 
-        # Check convergence
-        if norm_diff < tolerance:
-            print(f"Converged in {iteration + 1} iterations.")
-            break
+            # Calculate the norm difference between |y| and b
+            norm_diff = np.linalg.norm(np.abs(y) - b)
+
+            # Store the norm difference for plotting
+            norm_diff_list.append(norm_diff)
+
+            # Check convergence
+            if norm_diff < tolerance:
+                print(f"Converged in {iteration + 1} iterations.")
+                break
 
     # Plot the norm difference over iterations
     plt.plot(norm_diff_list)
     plt.xlabel('Iteration')
     plt.ylabel('|y| - |b|')
-    plt.title('Convergence of RRR Algorithm')
-    plt.show()
-
-    return y
-
-
-def alternating_projections(A, b, y_init, var_A=1.0, var_x=1.0, max_iter=100, tolerance=1e-6):
-    # Initialize y with the provided initial values
-    y = y_init
-
-    # Storage for plotting
-    norm_diff_list = []
-
-    for iteration in range(max_iter):
-        # if iteration % 100 == 0:
-        #     print(iteration)
-
-        # Perform alternating projections
-        y_PB = PB(y, b)
-        y_PA = PA(y_PB, A)
-        y = y_PA
-
-        # Calculate the norm difference between |y| and b
-        norm_diff = np.linalg.norm(np.abs(y) - b)
-
-        # Store the norm difference for plotting
-        norm_diff_list.append(norm_diff)
-
-        # Check convergence
-        if norm_diff < tolerance:
-            print(f"Converged in {iteration + 1} iterations.")
-            break
-
-    # Plot the norm difference over iterations
-    plt.plot(norm_diff_list)
-    plt.xlabel('Iteration')
-    plt.ylabel('|y_PA| - |b|')
-    plt.title('Convergence of Alternating Projections')
+    plt.title(f'Convergence of {algo} Algorithm')
     plt.show()
 
     return y
@@ -108,8 +93,8 @@ def alternating_projections(A, b, y_init, var_A=1.0, var_x=1.0, max_iter=100, to
 # Set dimensions
 m = 100
 n = 100
-print("m =",m)
-print("n =",n)
+print("m =", m)
+print("n =", n)
 
 beta = 1
 max_iter = 10000
@@ -132,15 +117,11 @@ print("y_initial:", y_initial)
 # # epsilon = 1
 # y_initial = y_true + epsilon
 # Call the alternating_projections function with specified variance, standard deviation, and initial y
-result_AP = alternating_projections(A, b, y_initial, max_iter=max_iter, tolerance=tolerance)
+result_AP = run_algorithm(A, b, y_initial, algo="alternating_projections", max_iter=max_iter, tolerance=tolerance)
 print("result_AP:", np.abs(result_AP[-5:]))
 print("b:        ", b[-5:])
 
-
 # Call the RRR_algorithm function with specified parameters
-result_RRR = RRR_algorithm(A, b, y_initial, beta, max_iter=max_iter, tolerance=tolerance)
+result_RRR = run_algorithm(A, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter, tolerance=tolerance)
 print("result_RRR:", np.abs(result_RRR[-5:]))
 print("b:         ", b[-5:])
-
-
-
