@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 def phase(y):
     # Calculate the phase of the complex vector y
     magnitudes = np.abs(y)
@@ -50,11 +51,11 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     # Storage for plotting
     norm_diff_list = []
 
-    if algo == "RRR_algorithm":
+    if algo == "alternating_projections":
         for iteration in range(max_iter):
-            y = step_RRR(A, b, y, beta)
+            y = step_AP(A, b, y)
 
-            # Calculate the norm difference between |y| and b
+            # Calculate the norm difference between |y| and PB(y)
             norm_diff = np.linalg.norm(np.abs(y) - b)
 
             # Store the norm difference for plotting
@@ -65,7 +66,9 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
                 print(f"Converged in {iteration + 1} iterations.")
                 break
 
-    elif algo == "alternating_projections":
+    elif algo == "RRR_algorithm":
+        y = step_RRR(A, b, y, beta)
+
         for iteration in range(max_iter):
             y = step_AP(A, b, y)
 
@@ -86,7 +89,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     plt.ylabel('|y| - |b|')
     plt.title(f'Convergence of {algo} Algorithm')
     plt.show()
-    
+
     print("y:", y[:5])
     print("abs y:", np.abs(y[:5]))
 
