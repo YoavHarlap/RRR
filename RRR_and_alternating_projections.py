@@ -106,10 +106,11 @@ def alternating_projections(A, b, y_init, var_A=1.0, var_x=1.0, max_iter=100, to
 
 
 # Set dimensions
-m = 25
-n = 20
+m = 100
+n = 75
 print("m =",m)
 print("n =",n)
+print("yoav")
 
 beta = 1
 max_iter = 10000
