@@ -1076,6 +1076,773 @@ m = 120 , n = 60
 
 m = 120 , n = 70
 AP Converged in 9361 iterations.
+RRR Converged in 2220 iterations.
+
+
+m = 120 , n = 80
+AP Converged in 761 iterations.
+RRR Converged in 606 iterations.
+
+
+m = 120 , n = 90
+AP Converged in 269 iterations.
+RRR Converged in 313 iterations.
+
+
+m = 120 , n = 100
+AP Converged in 110 iterations.
+RRR Converged in 229 iterations.
+
+
+m = 120 , n = 110
+AP Converged in 62 iterations.
+RRR Converged in 103 iterations.
+
+
+m = 120 , n = 120
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 120 , n = 130
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 120 , n = 140
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 120 , n = 150
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 120 , n = 160
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 120 , n = 170
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 120 , n = 180
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 120 , n = 190
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 120 , n = 200
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 130 , n = 10
+AP Converged in 53 iterations.
+
+
+m = 130 , n = 20
+AP Converged in 105 iterations.
+
+
+m = 130 , n = 30
+AP Converged in 218 iterations.
+
+
+m = 130 , n = 40
+
+
+m = 130 , n = 50
+
+
+m = 130 , n = 60
+
+
+m = 130 , n = 70
+RRR Converged in 8701 iterations.
+
+
+m = 130 , n = 80
+AP Converged in 1681 iterations.
+RRR Converged in 2169 iterations.
+
+
+m = 130 , n = 90
+AP Converged in 459 iterations.
+RRR Converged in 611 iterations.
+
+
+m = 130 , n = 100
+AP Converged in 168 iterations.
+RRR Converged in 265 iterations.
+
+
+m = 130 , n = 110
+AP Converged in 107 iterations.
+RRR Converged in 171 iterations.
+
+
+m = 130 , n = 120
+AP Converged in 64 iterations.
+RRR Converged in 105 iterations.
+
+
+m = 130 , n = 130
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 130 , n = 140
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 130 , n = 150
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 130 , n = 160
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 130 , n = 170
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 130 , n = 180
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 130 , n = 190
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 130 , n = 200
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 140 , n = 10
+AP Converged in 68 iterations.
+
+
+m = 140 , n = 20
+AP Converged in 111 iterations.
+
+
+m = 140 , n = 30
+AP Converged in 150 iterations.
+
+
+m = 140 , n = 40
+AP Converged in 487 iterations.
+
+
+m = 140 , n = 50
+
+
+m = 140 , n = 60
+
+
+m = 140 , n = 70
+
+
+m = 140 , n = 80
+AP Converged in 4477 iterations.
+RRR Converged in 4041 iterations.
+
+
+m = 140 , n = 90
+AP Converged in 1036 iterations.
+RRR Converged in 1043 iterations.
+
+
+m = 140 , n = 100
+AP Converged in 280 iterations.
+RRR Converged in 433 iterations.
+
+
+m = 140 , n = 110
+AP Converged in 186 iterations.
+RRR Converged in 344 iterations.
+
+
+m = 140 , n = 120
+AP Converged in 92 iterations.
+RRR Converged in 153 iterations.
+
+
+m = 140 , n = 130
+AP Converged in 61 iterations.
+RRR Converged in 99 iterations.
+
+
+m = 140 , n = 140
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 140 , n = 150
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 140 , n = 160
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 140 , n = 170
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 140 , n = 180
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 140 , n = 190
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 140 , n = 200
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 150 , n = 10
+AP Converged in 57 iterations.
+
+
+m = 150 , n = 20
+AP Converged in 94 iterations.
+
+
+m = 150 , n = 30
+AP Converged in 227 iterations.
+
+
+m = 150 , n = 40
+
+
+m = 150 , n = 50
+AP Converged in 1720 iterations.
+
+
+m = 150 , n = 60
+
+
+m = 150 , n = 70
+
+
+m = 150 , n = 80
+RRR Converged in 8026 iterations.
+
+
+m = 150 , n = 90
+AP Converged in 4989 iterations.
+RRR Converged in 2314 iterations.
+
+
+m = 150 , n = 100
+AP Converged in 581 iterations.
+RRR Converged in 640 iterations.
+
+
+m = 150 , n = 110
+AP Converged in 235 iterations.
+RRR Converged in 386 iterations.
+
+
+m = 150 , n = 120
+AP Converged in 174 iterations.
+RRR Converged in 266 iterations.
+
+
+m = 150 , n = 130
+AP Converged in 92 iterations.
+RRR Converged in 164 iterations.
+
+
+m = 150 , n = 140
+AP Converged in 60 iterations.
+RRR Converged in 103 iterations.
+
+
+m = 150 , n = 150
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 150 , n = 160
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 150 , n = 170
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 150 , n = 180
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 150 , n = 190
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 150 , n = 200
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 160 , n = 10
+AP Converged in 54 iterations.
+
+
+m = 160 , n = 20
+AP Converged in 80 iterations.
+
+
+m = 160 , n = 30
+AP Converged in 152 iterations.
+
+
+m = 160 , n = 40
+AP Converged in 460 iterations.
+
+
+m = 160 , n = 50
+
+
+m = 160 , n = 60
+
+
+m = 160 , n = 70
+
+
+m = 160 , n = 80
+
+
+m = 160 , n = 90
+RRR Converged in 2951 iterations.
+
+
+m = 160 , n = 100
+AP Converged in 2057 iterations.
+RRR Converged in 1271 iterations.
+
+
+m = 160 , n = 110
+AP Converged in 760 iterations.
+RRR Converged in 610 iterations.
+
+
+m = 160 , n = 120
+AP Converged in 298 iterations.
+RRR Converged in 395 iterations.
+
+
+m = 160 , n = 130
+AP Converged in 149 iterations.
+RRR Converged in 266 iterations.
+
+
+m = 160 , n = 140
+AP Converged in 79 iterations.
+RRR Converged in 154 iterations.
+
+
+m = 160 , n = 150
+AP Converged in 58 iterations.
+RRR Converged in 105 iterations.
+
+
+m = 160 , n = 160
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 160 , n = 170
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 160 , n = 180
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 160 , n = 190
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 160 , n = 200
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 170 , n = 10
+AP Converged in 55 iterations.
+
+
+m = 170 , n = 20
+AP Converged in 86 iterations.
+
+
+m = 170 , n = 30
+AP Converged in 120 iterations.
+
+
+m = 170 , n = 40
+AP Converged in 260 iterations.
+
+
+m = 170 , n = 50
+
+
+m = 170 , n = 60
+
+
+m = 170 , n = 70
+
+
+m = 170 , n = 80
+
+
+m = 170 , n = 90
+
+
+m = 170 , n = 100
+AP Converged in 6848 iterations.
+RRR Converged in 1931 iterations.
+
+
+m = 170 , n = 110
+AP Converged in 1197 iterations.
+RRR Converged in 1149 iterations.
+
+
+m = 170 , n = 120
+AP Converged in 345 iterations.
+RRR Converged in 566 iterations.
+
+
+m = 170 , n = 130
+AP Converged in 222 iterations.
+RRR Converged in 294 iterations.
+
+
+m = 170 , n = 140
+AP Converged in 172 iterations.
+RRR Converged in 207 iterations.
+
+
+m = 170 , n = 150
+AP Converged in 86 iterations.
+RRR Converged in 141 iterations.
+
+
+m = 170 , n = 160
+AP Converged in 53 iterations.
+RRR Converged in 94 iterations.
+
+
+m = 170 , n = 170
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 170 , n = 180
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 170 , n = 190
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 170 , n = 200
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 180 , n = 10
+AP Converged in 63 iterations.
+
+
+m = 180 , n = 20
+AP Converged in 87 iterations.
+
+
+m = 180 , n = 30
+AP Converged in 123 iterations.
+
+
+m = 180 , n = 40
+
+
+m = 180 , n = 50
+AP Converged in 385 iterations.
+
+
+m = 180 , n = 60
+
+
+m = 180 , n = 70
+
+
+m = 180 , n = 80
+
+
+m = 180 , n = 90
+
+
+m = 180 , n = 100
+RRR Converged in 4438 iterations.
+
+
+m = 180 , n = 110
+AP Converged in 2588 iterations.
+RRR Converged in 1746 iterations.
+
+
+m = 180 , n = 120
+AP Converged in 447 iterations.
+RRR Converged in 988 iterations.
+
+
+m = 180 , n = 130
+AP Converged in 340 iterations.
+RRR Converged in 484 iterations.
+
+
+m = 180 , n = 140
+AP Converged in 195 iterations.
+RRR Converged in 289 iterations.
+
+
+m = 180 , n = 150
+AP Converged in 140 iterations.
+RRR Converged in 208 iterations.
+
+
+m = 180 , n = 160
+AP Converged in 83 iterations.
+RRR Converged in 147 iterations.
+
+
+m = 180 , n = 170
+AP Converged in 53 iterations.
+RRR Converged in 104 iterations.
+
+
+m = 180 , n = 180
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 180 , n = 190
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 180 , n = 200
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 190 , n = 10
+AP Converged in 52 iterations.
+
+
+m = 190 , n = 20
+AP Converged in 63 iterations.
+
+
+m = 190 , n = 30
+AP Converged in 126 iterations.
+
+
+m = 190 , n = 40
+AP Converged in 518 iterations.
+
+
+m = 190 , n = 50
+AP Converged in 507 iterations.
+
+
+m = 190 , n = 60
+AP Converged in 1854 iterations.
+
+
+m = 190 , n = 70
+
+
+m = 190 , n = 80
+
+
+m = 190 , n = 90
+
+
+m = 190 , n = 100
+
+
+m = 190 , n = 110
+RRR Converged in 2530 iterations.
+
+
+m = 190 , n = 120
+AP Converged in 2507 iterations.
+RRR Converged in 998 iterations.
+
+
+m = 190 , n = 130
+AP Converged in 448 iterations.
+RRR Converged in 735 iterations.
+
+
+m = 190 , n = 140
+AP Converged in 349 iterations.
+RRR Converged in 359 iterations.
+
+
+m = 190 , n = 150
+AP Converged in 159 iterations.
+RRR Converged in 273 iterations.
+
+
+m = 190 , n = 160
+AP Converged in 112 iterations.
+RRR Converged in 182 iterations.
+
+
+m = 190 , n = 170
+AP Converged in 68 iterations.
+RRR Converged in 132 iterations.
+
+
+m = 190 , n = 180
+AP Converged in 55 iterations.
+RRR Converged in 92 iterations.
+
+
+m = 190 , n = 190
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 190 , n = 200
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+m = 200 , n = 10
+AP Converged in 48 iterations.
+
+
+m = 200 , n = 20
+AP Converged in 76 iterations.
+
+
+m = 200 , n = 30
+AP Converged in 118 iterations.
+
+
+m = 200 , n = 40
+AP Converged in 279 iterations.
+
+
+m = 200 , n = 50
+AP Converged in 864 iterations.
+
+
+m = 200 , n = 60
+
+
+m = 200 , n = 70
+ 
+
+m = 200 , n = 80
+
+
+m = 200 , n = 90
+
+
+m = 200 , n = 100
+
+
+m = 200 , n = 110
+AP Converged in 8930 iterations.
+RRR Converged in 5819 iterations.
+
+
+m = 200 , n = 120
+AP Converged in 2558 iterations.
+RRR Converged in 1888 iterations.
+
+
+m = 200 , n = 130
+AP Converged in 1152 iterations.
+RRR Converged in 1000 iterations.
+
+
+m = 200 , n = 140
+AP Converged in 396 iterations.
+RRR Converged in 631 iterations.
+
+
+m = 200 , n = 150
+AP Converged in 288 iterations.
+RRR Converged in 339 iterations.
+
+
+m = 200 , n = 160
+AP Converged in 135 iterations.
+RRR Converged in 274 iterations.
+
+
+m = 200 , n = 170
+AP Converged in 107 iterations.
+RRR Converged in 187 iterations.
+
+
+m = 200 , n = 180
+AP Converged in 79 iterations.
+RRR Converged in 124 iterations.
+
+
+m = 200 , n = 190
+AP Converged in 58 iterations.
+RRR Converged in 88 iterations.
+
+
+m = 200 , n = 200
+AP Converged in 1 iterations.
+RRR Converged in 1 iterations.
+
+
+
+Process finished with exit code 0
 
 
 """
@@ -1104,7 +1871,7 @@ for entry in data:
 
 for i, entry in enumerate(data):
     plt.scatter(entry['m'], entry['n'], color=colors[i])
-    plt.text(entry['m'], entry['n'], f"AP: {entry['AP_iterations']}, RRR: {entry['RRR_iterations']}", fontsize=8)
+    plt.text(entry['m'], entry['n'], f"AP: {entry['AP_iterations']}, RRR: {entry['RRR_iterations']}", fontsize=4)
 
 plt.title('Convergence Plot')
 plt.xlabel('m')
