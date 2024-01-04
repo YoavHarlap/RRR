@@ -1,0 +1,202 @@
+m = 10, n = 10
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 10, n = 20
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 10, n = 30
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 10, n = 40
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 10, n = 50
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 10, n = 60
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 10, n = 70
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 10, n = 80
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 10, n = 90
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 10, n = 100
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 20, n = 10
+m = 20, n = 20
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 20, n = 30
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 20, n = 40
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 20, n = 50
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 20, n = 60
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 20, n = 70
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 20, n = 80
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 20, n = 90
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 20, n = 100
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 30, n = 10
+m = 30, n = 20
+alternating_projections Converged in 312 iterations.
+RRR_algorithm Converged in 295 iterations.
+m = 30, n = 30
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 30, n = 40
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 30, n = 50
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 30, n = 60
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 30, n = 70
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 30, n = 80
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 30, n = 90
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 30, n = 100
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 40, n = 10
+alternating_projections Converged in 166 iterations.
+RRR_algorithm Converged in 138 iterations.
+m = 40, n = 20
+m = 40, n = 30
+alternating_projections Converged in 372 iterations.
+RRR_algorithm Converged in 262 iterations.
+m = 40, n = 40
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 40, n = 50
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 40, n = 60
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 40, n = 70
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 40, n = 80
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 40, n = 90
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 40, n = 100
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 50, n = 10
+alternating_projections Converged in 148 iterations.
+RRR_algorithm Converged in 212 iterations.
+m = 50, n = 20
+m = 50, n = 30
+alternating_projections Converged in 822 iterations.
+RRR_algorithm Converged in 3469 iterations.
+m = 50, n = 40
+alternating_projections Converged in 124 iterations.
+RRR_algorithm Converged in 220 iterations.
+m = 50, n = 50
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 50, n = 60
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 50, n = 70
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 50, n = 80
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 50, n = 90
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 50, n = 100
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 60, n = 10
+alternating_projections Converged in 101 iterations.
+RRR_algorithm Converged in 105 iterations.
+m = 60, n = 20
+m = 60, n = 30
+m = 60, n = 40
+alternating_projections Converged in 418 iterations.
+RRR_algorithm Converged in 562 iterations.
+m = 60, n = 50
+alternating_projections Converged in 218 iterations.
+RRR_algorithm Converged in 119 iterations.
+m = 60, n = 60
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 60, n = 70
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 60, n = 80
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 60, n = 90
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 60, n = 100
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 70, n = 10
+alternating_projections Converged in 88 iterations.
+RRR_algorithm Converged in 95 iterations.
+m = 70, n = 20
+alternating_projections Converged in 461 iterations.
+m = 70, n = 30
+m = 70, n = 40
+RRR_algorithm Converged in 8389 iterations.
+m = 70, n = 50
+alternating_projections Converged in 490 iterations.
+RRR_algorithm Converged in 800 iterations.
+m = 70, n = 60
+alternating_projections Converged in 103 iterations.
+RRR_algorithm Converged in 106 iterations.
+m = 70, n = 70
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 70, n = 80
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 70, n = 90
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 70, n = 100
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 80, n = 10
+alternating_projections Converged in 89 iterations.
+RRR_algorithm Converged in 94 iterations.
+m = 80, n = 20
+alternating_projections Converged in 214 iterations.
+RRR_algorithm Converged in 227 iterations.
+m = 80, n = 30
+m = 80, n = 40
