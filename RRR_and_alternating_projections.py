@@ -122,10 +122,11 @@ x = np.random.randn(n) + 1j * np.random.randn(n)
 # Calculate b = |Ax|
 b = np.abs(np.dot(A, x))
 y_true = np.dot(A, x)
-y_true
-print(y_true)
+print("y_true:", y_true)
 # Initialize y randomly
 y_initial = np.random.randn(m) + 1j * np.random.randn(m)
+print("y_initial:", y_initial)
+
 # # Epsilon value
 # epsilon = 1e-1
 # # epsilon = 1
@@ -134,6 +135,7 @@ y_initial = np.random.randn(m) + 1j * np.random.randn(m)
 result_AP = alternating_projections(A, b, y_initial, max_iter=max_iter, tolerance=tolerance)
 print("result_AP:", np.abs(result_AP[-5:]))
 print("b:        ", b[-5:])
+
 
 # Call the RRR_algorithm function with specified parameters
 result_RRR = RRR_algorithm(A, b, y_initial, beta, max_iter=max_iter, tolerance=tolerance)
