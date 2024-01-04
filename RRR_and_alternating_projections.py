@@ -48,7 +48,7 @@ def RRR_algorithm(A, b, y_init, beta, max_iter=100, tolerance=1e-6):
         y = y + beta * (2 * PAPB_y - P_Ay - P_By)
 
         # Calculate the norm difference between |y| and b
-        norm_diff = np.linalg.norm(np.abs(y) - np.abs(b))
+        norm_diff = np.linalg.norm(np.abs(y) - b)
 
         # Store the norm difference for plotting
         norm_diff_list.append(norm_diff)
@@ -85,7 +85,7 @@ def alternating_projections(A, b, y_init, var_A=1.0, var_x=1.0, max_iter=100, to
         y = y_PA
 
         # Calculate the norm difference between |y| and b
-        norm_diff = np.linalg.norm(np.abs(y) - np.abs(b))
+        norm_diff = np.linalg.norm(np.abs(y) - b)
 
         # Store the norm difference for plotting
         norm_diff_list.append(norm_diff)
@@ -107,10 +107,9 @@ def alternating_projections(A, b, y_init, var_A=1.0, var_x=1.0, max_iter=100, to
 
 # Set dimensions
 m = 100
-n = 75
+n = 100
 print("m =",m)
 print("n =",n)
-print("yoav")
 
 beta = 1
 max_iter = 10000
@@ -123,6 +122,8 @@ x = np.random.randn(n) + 1j * np.random.randn(n)
 # Calculate b = |Ax|
 b = np.abs(np.dot(A, x))
 y_true = np.dot(A, x)
+y_true
+print(y_true)
 # Initialize y randomly
 y_initial = np.random.randn(m) + 1j * np.random.randn(m)
 # # Epsilon value
@@ -138,5 +139,6 @@ print("b:        ", b[-5:])
 result_RRR = RRR_algorithm(A, b, y_initial, beta, max_iter=max_iter, tolerance=tolerance)
 print("result_RRR:", np.abs(result_RRR[-5:]))
 print("b:         ", b[-5:])
+
 
 
