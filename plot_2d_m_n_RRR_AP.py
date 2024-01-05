@@ -23,18 +23,18 @@ except FileNotFoundError:
         print("File not found in both locations.")
 
 
-
+print(data_text)
 
 # Extract relevant information using regular expressions
-pattern = re.compile(r"m = (\d+) , n = (\d+)\n(?:alternating_projections Converged in (\d+) iterations\.)?(?:\nRRR_algorithm Converged in (\d+) iterations\.)?")
+pattern = re.compile(r"m = (\d+), n = (\d+)\n(?:alternating_projections Converged in (\d+) iterations\.)?(?:\nRRR_algorithm Converged in (\d+) iterations\.)?")
 matches = pattern.findall(data_text)
-
 # Convert matches to dictionary
 data = []
 for match in matches:
     m, n, ap_iterations, rrr_iterations = map(lambda x: int(x) if x else None, match)
     data.append({'m': m, 'n': n, 'AP_iterations': ap_iterations, 'RRR_iterations': rrr_iterations})
 
+print(data)
 # Plotting
 colors = []
 for entry in data:
