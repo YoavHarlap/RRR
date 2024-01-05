@@ -135,7 +135,7 @@ np.random.seed(42)  # For reproducibility
 m = 25
 n = 15
 
-array_limit = 100
+array_limit = 200
 m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
 
