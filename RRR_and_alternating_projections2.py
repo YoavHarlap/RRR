@@ -129,7 +129,7 @@ sys.stdout = Tee(sys.stdout, log_file)
 beta = 1
 max_iter = 10000
 tolerance = 1e-6
-np.random.seed(42)  # For reproducibility
+
 
 # Set dimensions
 m = 25
@@ -147,6 +147,7 @@ n_array = np.arange(10, array_limit + 1, 10)
 # Loop over different values of m and n
 for m in m_array:  # Add more values as needed
     for n in n_array:  # Add more values as needed
+        np.random.seed(42)  # For reproducibility
 
         print(f"m = {m}, n = {n}")        # Restore the standard output after the loop
 
