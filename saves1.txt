@@ -1,3 +1,20 @@
-m = 200, n = 40
-alternating_projections Converged in 143 iterations.
-RRR_algorithm Converged in 157 iterations.
+m = 10, n = 10
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 10, n = 20
+alternating_projections Converged in 1 iterations.
+The projections is not same
+RRR_algorithm Converged in 1 iterations.
+m = 10, n = 30
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 10, n = 40
+The projections is not same
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 10, n = 50
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
+m = 10, n = 60
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 1 iterations.
