@@ -67,4 +67,5 @@ for i, entry in enumerate(data):
 plt.title('Convergence Plot')
 plt.xlabel('m')
 plt.ylabel('n')
+
 plt.show()

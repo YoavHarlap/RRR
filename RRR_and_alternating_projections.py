@@ -182,37 +182,38 @@ np.random.seed(42)  # For reproducibility
 
 
 # Set dimensions
-m = 40
-n = 10
+m = 20
+n = 20
 
 print("m =", m)
 print("n =", n)
 
 
-A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
-# A_real = np.random.randn(m, n)
+# A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
+A_real = np.random.randn(m, n)
 
-x = np.random.randn(n) + 1j * np.random.randn(n)
-# x_real = np.random.randn(n)
+# x = np.random.randn(n) + 1j * np.random.randn(n)
+x_real = np.random.randn(n)
 
 # Calculate b = |Ax|
-b = np.abs(np.dot(A, x))
-# b_real = np.dot(A_real, x_real)
-print("b:", b[:5])
+# b = np.abs(np.dot(A, x))
+b_real = np.abs(np.dot(A_real, x_real))
+# print("b:", b[:5])
+print("b_real:", b_real[:5])
 
 
-y_true = np.dot(A, x)
-# y_true_real = np.dot(A_real, x_real)
+# y_true = np.dot(A, x)
+y_true_real = np.dot(A_real, x_real)
 
-print("y_true:", y_true[:5])
-# print("y_true_real:", y_true_real[:5])
+# print("y_true:", y_true[:5])
+print("y_true_real:", y_true_real[:5])
 
 # Initialize y randomly
-y_initial = np.random.randn(m) + 1j * np.random.randn(m)
-# y_initial_real = np.random.randn(m)
+# y_initial = np.random.randn(m) + 1j * np.random.randn(m)
+y_initial_real = np.random.randn(m)
 
-print("y_initial:", y_initial[:5])
-# print("y_initial_real:", y_initial_real[:5])
+# print("y_initial:", y_initial[:5])
+print("y_initial_real:", y_initial_real[:5])
 
 # # Epsilon value
 # epsilon = 1e-1
@@ -221,13 +222,13 @@ print("y_initial:", y_initial[:5])
 
 
 # Call the alternating_projections function with specified variance, standard deviation, and initial y
-result_AP = run_algorithm(A, b, y_initial, algo="alternating_projections", max_iter=max_iter,
+result_AP = run_algorithm(A_real, b_real, y_initial_real, algo="alternating_projections", max_iter=max_iter,
                           tolerance=tolerance)
 # print("result_AP:", np.abs(result_AP[:5]))
 # print("b:        ", b[:5])
 
 # Call the RRR_algorithm function with specified parameters
-result_RRR = run_algorithm(A, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter,
+result_RRR = run_algorithm(A_real, b_real, y_initial_real, algo="RRR_algorithm", beta=beta, max_iter=max_iter,
                            tolerance=tolerance)
 # print("result_RRR:", np.abs(result_RRR[:5]))
 # print("b:         ", b[:5])
