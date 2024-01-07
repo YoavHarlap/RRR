@@ -1,6 +1,5 @@
 import sys
 
-import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -103,8 +102,9 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     return y
 
 
+log_file_path = "saves2.txt"
 
-log_file_path = "saves1.txt"
+
 # Custom file-like object that writes to both stdout and a file
 class Tee:
     def __init__(self, *files):
@@ -119,17 +119,16 @@ class Tee:
         for f in self.files:
             f.flush()
 
+
 # Create a log file to write to
 log_file = open(log_file_path, "w")
 
 # Redirect sys.stdout to the custom Tee object
 sys.stdout = Tee(sys.stdout, log_file)
 
-
 beta = 1
 max_iter = 10000
 tolerance = 1e-6
-
 
 # Set dimensions
 m = 25
@@ -149,7 +148,7 @@ for m in m_array:  # Add more values as needed
     for n in n_array:  # Add more values as needed
         np.random.seed(42)  # For reproducibility
 
-        print(f"m = {m}, n = {n}")        # Restore the standard output after the loop
+        print(f"m = {m}, n = {n}")  # Restore the standard output after the loop
 
         A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
         # A_real = np.random.randn(m, n)
@@ -176,8 +175,8 @@ for m in m_array:  # Add more values as needed
 
         # # Epsilon value
         # epsilon = 1e-1
-        # # epsilon = 1
-        # y_initial = y_true + epsilon
+        epsilon = 0.2
+        y_initial = y_true + epsilon
 
         # Call the alternating_projections function with specified variance, standard deviation, and initial y
         result_AP = run_algorithm(A, b, y_initial, algo="alternating_projections", max_iter=max_iter,

@@ -182,8 +182,8 @@ np.random.seed(42)  # For reproducibility
 
 
 # Set dimensions
-m = 200
-n = 40
+m = 40
+n = 10
 
 print("m =", m)
 print("n =", n)
