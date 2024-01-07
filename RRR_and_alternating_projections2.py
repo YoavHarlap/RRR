@@ -80,7 +80,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
             y = step_AP(A, b, y)
 
             # Calculate the norm difference between |y| and b
-            norm_diff = np.linalg.norm(PB(y, b) - PA(y, A))
+            norm_diff = np.linalg.norm(np.abs(y) - b)
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
@@ -104,7 +104,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
 
 
 
-log_file_path = "saves.txt"
+log_file_path = "saves1.txt"
 # Custom file-like object that writes to both stdout and a file
 class Tee:
     def __init__(self, *files):
@@ -138,6 +138,11 @@ n = 15
 array_limit = 200
 m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
+
+#
+# m_array = [200]
+# n_array = [40]
+
 
 # Loop over different values of m and n
 for m in m_array:  # Add more values as needed

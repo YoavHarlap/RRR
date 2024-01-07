@@ -34,7 +34,7 @@ for match in matches:
     m, n, ap_iterations, rrr_iterations = map(lambda x: int(x) if x else None, match)
     data.append({'m': m, 'n': n, 'AP_iterations': ap_iterations, 'RRR_iterations': rrr_iterations})
 
-print(data)
+# print(data)
 # Plotting
 colors = []
 for entry in data:
@@ -49,7 +49,8 @@ for entry in data:
 
 for i, entry in enumerate(data):
     plt.scatter(entry['m'], entry['n'], color=colors[i])
-    plt.text(entry['m'], entry['n'], f"AP: {entry['AP_iterations']}, RRR: {entry['RRR_iterations']}", fontsize=4)
+    plt.text(entry['m'], entry['n'], f"AP: {entry['AP_iterations']},"
+                                     f" RRR: {entry['RRR_iterations']}", fontsize=4)
 
 plt.title('Convergence Plot')
 plt.xlabel('m')

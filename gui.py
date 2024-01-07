@@ -94,8 +94,7 @@ class App(ctk.CTk):
             batch_size = self.batchSizeEntry.get()
             text = text + f" with {checkbox_value} and batch size {batch_size}\n"
         elif run_option == "merge":
-            text = text + "."
-
+            text = text + " with not relevant choice and batch size\n"
 
         return text
 

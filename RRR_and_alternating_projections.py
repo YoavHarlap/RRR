@@ -19,12 +19,86 @@ def PB(y, b):
     return result
 
 
+def is_vector_in_image_for_real(matrix, vector):
+    # Convert the vector and matrix to NumPy arrays
+    vector = np.array(vector)
+    matrix = np.array(matrix)
+
+    # Check if the vector is in the column space of the matrix
+    is_in_image = np.all(np.isclose(np.dot(matrix, np.linalg.lstsq(matrix, vector, rcond=None)[0]), vector))
+
+    return is_in_image
+
+def is_vector_in_image2(matrix, vector):
+    # Convert the vector and matrix to NumPy arrays with complex data type
+    vector = np.array(vector, dtype=np.complex128)
+    matrix = np.array(matrix, dtype=np.complex128)
+
+    # Check if the vector is in the column space of the matrix
+    is_in_image = np.all(np.isclose(np.dot(matrix, np.linalg.lstsq(matrix, vector, rcond=None)[0]), vector))
+
+    return is_in_image
+
+def is_vector_in_image(matrix, vector):
+    vector = np.array(vector, dtype=np.complex128)
+    matrix = np.array(matrix, dtype=np.complex128)
+    
+    # Check if the vector is in the image space of the matrix
+    return np.all(np.isclose(np.dot(matrix, np.linalg.lstsq(matrix, vector, rcond=None)[0]), vector))
+
+
+
+def project_onto_image_space_for_real(matrix, vector):
+    # Convert the vector and matrix to NumPy arrays
+    vector = np.array(vector)
+    matrix = np.array(matrix)
+
+    # Calculate the projection matrix P_A using the pseudo-inverse
+    projection_matrix = np.dot(matrix, np.dot(np.linalg.pinv(np.dot(matrix.T, matrix)), matrix.T))
+
+    # Project the vector onto the image space of A
+    projection = np.dot(projection_matrix, vector)
+
+    return projection
+
+def project_onto_image_space(A, y):
+    # Convert the y and A to NumPy arrays
+    y = np.array(y, dtype=np.complex128)
+    A = np.array(A, dtype=np.complex128)
+
+    # Calculate the projection matrix A P_A using the pseudo-inverse
+    projection_matrix = np.dot(A, np.dot(np.linalg.pinv(np.dot(A.T.conj(), A)), A.T.conj()))
+
+    # Project the y onto the image space of A
+    projection = np.dot(projection_matrix, y)
+
+    return projection
+
+
+
+
 def PA(y, A):
+
     # Calculate the pseudo-inverse of A
     A_dagger = np.linalg.pinv(A)
 
     # Matrix-vector multiplication: AA†y
     result = np.dot(A, np.dot(A_dagger, y))
+    result1 = project_onto_image_space(A, y)
+    is_same = np.allclose(result, result1, atol=0.02)
+    
+    
+    if not is_same:
+        print("The projections is not same")
+        
+        
+    # is_in_image_space = is_vector_in_image(A, y)
+    #
+    # if is_in_image_space:
+    #     print("The vector is in the image of the matrix.")
+    # else:
+    #     print("The vector is not in the image of the matrix.")
+    #
 
     return result
 
@@ -78,7 +152,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
             y = step_AP(A, b, y)
 
             # Calculate the norm difference between |y| and b
-            norm_diff = np.linalg.norm(PB(y, b) - PA(y, A))
+            norm_diff = np.linalg.norm(np.abs(y) - b)
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
@@ -91,12 +165,12 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     # Plot the norm difference over iterations
     plt.plot(norm_diff_list)
     plt.xlabel('Iteration')
-    plt.ylabel('|y| - |b|')
+    plt.ylabel('|y| - b')
     plt.title(f'Convergence of {algo} Algorithm')
     plt.show()
 
-    # print("y:", y[:5])
-    # print("abs y:", np.abs(y[:5]))
+    print("y:", y[:5])
+    print("abs y:", np.abs(y[:5]))
 
     return y
 
@@ -108,8 +182,9 @@ np.random.seed(42)  # For reproducibility
 
 
 # Set dimensions
-m = 25
-n = 15
+m = 200
+n = 40
+
 print("m =", m)
 print("n =", n)
 
@@ -123,6 +198,8 @@ x = np.random.randn(n) + 1j * np.random.randn(n)
 # Calculate b = |Ax|
 b = np.abs(np.dot(A, x))
 # b_real = np.dot(A_real, x_real)
+print("b:", b[:5])
+
 
 y_true = np.dot(A, x)
 # y_true_real = np.dot(A_real, x_real)
