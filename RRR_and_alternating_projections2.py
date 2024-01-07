@@ -175,7 +175,7 @@ for m in m_array:  # Add more values as needed
 
         # # Epsilon value
         # epsilon = 1e-1
-        epsilon = 0.2
+        epsilon = 0.5
         y_initial = y_true + epsilon
 
         # Call the alternating_projections function with specified variance, standard deviation, and initial y
