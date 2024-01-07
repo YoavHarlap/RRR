@@ -29,6 +29,7 @@ def is_vector_in_image_for_real(matrix, vector):
 
     return is_in_image
 
+
 def is_vector_in_image2(matrix, vector):
     # Convert the vector and matrix to NumPy arrays with complex data type
     vector = np.array(vector, dtype=np.complex128)
@@ -39,13 +40,13 @@ def is_vector_in_image2(matrix, vector):
 
     return is_in_image
 
+
 def is_vector_in_image(matrix, vector):
     vector = np.array(vector, dtype=np.complex128)
     matrix = np.array(matrix, dtype=np.complex128)
-    
+
     # Check if the vector is in the image space of the matrix
     return np.all(np.isclose(np.dot(matrix, np.linalg.lstsq(matrix, vector, rcond=None)[0]), vector))
-
 
 
 def project_onto_image_space_for_real(matrix, vector):
@@ -61,6 +62,7 @@ def project_onto_image_space_for_real(matrix, vector):
 
     return projection
 
+
 def project_onto_image_space(A, y):
     # Convert the y and A to NumPy arrays
     y = np.array(y, dtype=np.complex128)
@@ -75,10 +77,7 @@ def project_onto_image_space(A, y):
     return projection
 
 
-
-
 def PA(y, A):
-
     # Calculate the pseudo-inverse of A
     A_dagger = np.linalg.pinv(A)
 
@@ -86,12 +85,10 @@ def PA(y, A):
     result = np.dot(A, np.dot(A_dagger, y))
     result1 = project_onto_image_space(A, y)
     is_same = np.allclose(result, result1, atol=0.02)
-    
-    
+
     if not is_same:
         print("The projections is not same")
-        
-        
+
     # is_in_image_space = is_vector_in_image(A, y)
     #
     # if is_in_image_space:
@@ -131,6 +128,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
             #     print("iteration:", iteration)
 
             y = step_AP(A, b, y)
+            # print("y:", y[:3])
 
             # Calculate the norm difference between
             norm_diff = np.linalg.norm(np.abs(y) - b)
@@ -171,6 +169,8 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
 
     print("y:", y[:5])
     print("abs y:", np.abs(y[:5]))
+    print("norm_diff_list:", norm_diff_list[-5:])
+
 
     return y
 
@@ -180,40 +180,38 @@ max_iter = 10000
 tolerance = 1e-6
 np.random.seed(42)  # For reproducibility
 
-
 # Set dimensions
-m = 20
+m = 180
 n = 20
 
 print("m =", m)
 print("n =", n)
 
+A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
+# A_real = np.random.randn(m, n)
 
-# A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
-A_real = np.random.randn(m, n)
-
-# x = np.random.randn(n) + 1j * np.random.randn(n)
-x_real = np.random.randn(n)
+x = np.random.randn(n) + 1j * np.random.randn(n)
+# x_real = np.random.randn(n)
 
 # Calculate b = |Ax|
-# b = np.abs(np.dot(A, x))
-b_real = np.abs(np.dot(A_real, x_real))
-# print("b:", b[:5])
-print("b_real:", b_real[:5])
+b = np.abs(np.dot(A, x))
+# b_real = np.abs(np.dot(A_real, x_real))
+print("b:", b[:5])
+# print("b_real:", b_real[:5])
 
 
-# y_true = np.dot(A, x)
-y_true_real = np.dot(A_real, x_real)
+y_true = np.dot(A, x)
+# y_true_real = np.dot(A_real, x_real)
 
-# print("y_true:", y_true[:5])
-print("y_true_real:", y_true_real[:5])
+print("y_true:", y_true[:5])
+# print("y_true_real:", y_true_real[:5])
 
 # Initialize y randomly
-# y_initial = np.random.randn(m) + 1j * np.random.randn(m)
-y_initial_real = np.random.randn(m)
+y_initial = np.random.randn(m) + 1j * np.random.randn(m)
+# y_initial_real = np.random.randn(m)
 
-# print("y_initial:", y_initial[:5])
-print("y_initial_real:", y_initial_real[:5])
+print("y_initial:", y_initial[:5])
+# print("y_initial_real:", y_initial_real[:5])
 
 # # Epsilon value
 # epsilon = 1e-1
@@ -222,14 +220,13 @@ print("y_initial_real:", y_initial_real[:5])
 
 
 # Call the alternating_projections function with specified variance, standard deviation, and initial y
-result_AP = run_algorithm(A_real, b_real, y_initial_real, algo="alternating_projections", max_iter=max_iter,
+result_AP = run_algorithm(A, b, y_initial, algo="alternating_projections", max_iter=max_iter,
                           tolerance=tolerance)
 # print("result_AP:", np.abs(result_AP[:5]))
 # print("b:        ", b[:5])
 
 # Call the RRR_algorithm function with specified parameters
-result_RRR = run_algorithm(A_real, b_real, y_initial_real, algo="RRR_algorithm", beta=beta, max_iter=max_iter,
+result_RRR = run_algorithm(A, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter,
                            tolerance=tolerance)
 # print("result_RRR:", np.abs(result_RRR[:5]))
 # print("b:         ", b[:5])
-

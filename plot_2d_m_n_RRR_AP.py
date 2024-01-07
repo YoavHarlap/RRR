@@ -64,7 +64,7 @@ for i, entry in enumerate(data):
         plt.text(entry['m'], entry['n'], f"AP: {entry['AP_iterations']}"
                                          f", RRR: {entry['RRR_iterations']}", fontsize=6)
 
-plt.title('Convergence Plot')
+plt.title('Convergence Plot for real system')
 plt.xlabel('m')
 plt.ylabel('n')
 
