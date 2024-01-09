@@ -139,8 +139,8 @@ m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
 
 #
-# m_array = [200]
-# n_array = [40]
+m_array = [120]
+n_array = [10]
 
 
 # Loop over different values of m and n
