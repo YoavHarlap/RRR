@@ -1,7 +1,8 @@
-import matplotlib.pyplot as plt
 import sys
+
 import numpy as np
 from scipy.fft import fft
+
 from print_to_txt_file import Tee
 
 
@@ -141,7 +142,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
 
             # Check convergence
             if norm_diff < tolerance:
-                print(f"Converged in {iteration + 1} iterations.")
+                print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
 
     elif algo == "RRR_algorithm":
@@ -160,7 +161,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
 
             # Check convergence
             if norm_diff < tolerance:
-                print(f"Converged in {iteration + 1} iterations.")
+                print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
     #
     # # Plot the norm difference over iterations
@@ -215,7 +216,6 @@ array_limit = 200
 m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
 
-
 # m_array = [120]
 # n_array = [10]
 
@@ -223,10 +223,10 @@ n_array = np.arange(10, array_limit + 1, 10)
 # Loop over different values of m and n
 for m in m_array:  # Add more values as needed
     for n in n_array:  # Add more values as needed
-    
-        if n>m:
+
+        if n > m:
             break
-    
+
         np.random.seed(42)  # For reproducibility
 
         print(f"m = {m}, n = {n}")  # Restore the standard output after the loop

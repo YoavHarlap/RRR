@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.fft import fft
 
+
 def phase(y):
     # Calculate the phase of the complex vector y
     magnitudes = np.abs(y)
@@ -138,7 +139,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
 
             # Check convergence
             if norm_diff < tolerance:
-                print(f"Converged in {iteration + 1} iterations.")
+                print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
 
     elif algo == "RRR_algorithm":
@@ -157,7 +158,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
 
             # Check convergence
             if norm_diff < tolerance:
-                print(f"Converged in {iteration + 1} iterations.")
+                print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
 
     # Plot the norm difference over iterations
@@ -172,7 +173,6 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     print("norm_diff_list:", norm_diff_list[-5:])
 
     return y
-
 
 
 def dft_matrix(m):

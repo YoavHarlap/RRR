@@ -9,14 +9,21 @@ AP Converged in 1 iterations.
 RRR Converged in 1 iterations.
 
 """
-file_path = r"C:\Users\ASUS\PycharmProjects\RRR\saves2.txt"
+import os
+
+filename = "saves6.txt"
+
+folder_path = r"C:\Users\ASUS\PycharmProjects\RRR"
+file_path = os.path.join(folder_path, filename)
 
 try:
     with open(file_path, "r") as file:
         data_text = file.read()
 except FileNotFoundError:
     # Handle file not found error by trying another location
-    new_file_path = r"/home/yoavharlap/PycharmProjects/RRR/saves2.txt"
+    new_file_path = r"/home/yoavharlap/PycharmProjects/RRR"
+    file_path = os.path.join(new_file_path, filename)
+
     try:
         with open(new_file_path, "r") as file:
             data_text = file.read()
@@ -57,8 +64,8 @@ for i, entry in enumerate(data):
         flag = not flag
     if flag:
         plt.scatter(entry['m'], entry['n'], color=colors[i])
-        plt.text(entry['m'], entry['n']+2.8, f"AP: {entry['AP_iterations']}"
-                                         f", RRR: {entry['RRR_iterations']}", fontsize=6)
+        plt.text(entry['m'], entry['n'] + 2.8, f"AP: {entry['AP_iterations']}"
+                                               f", RRR: {entry['RRR_iterations']}", fontsize=6)
     else:
         plt.scatter(entry['m'], entry['n'], color=colors[i])
         plt.text(entry['m'], entry['n'], f"AP: {entry['AP_iterations']}"

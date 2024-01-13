@@ -1,7 +1,9 @@
 import sys
 
 import numpy as np
+
 from print_to_txt_file import Tee
+
 
 def phase(y):
     # Calculate the phase of the complex vector y
@@ -102,18 +104,12 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     return y
 
 
-
-
 log_file_path = "saves6.txt"
 # Create a log file to write to
 log_file = open(log_file_path, "w")
 
 # Redirect sys.stdout to the custom Tee object
 sys.stdout = Tee(sys.stdout, log_file)
-
-
-
-
 
 beta = 0.5
 max_iter = 10000
