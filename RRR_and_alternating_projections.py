@@ -130,8 +130,8 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
             y = step_AP(A, b, y)
             # print("y:", y[:3])
 
-            # Calculate the norm difference between
-            norm_diff = np.linalg.norm(np.abs(y) - b)
+            # Calculate the norm difference between PB - PA
+            norm_diff = np.linalg.norm(PB(y, b) - PA(y, A))
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
@@ -149,8 +149,8 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
             #     print("iteration:", iteration)
             y = step_AP(A, b, y)
 
-            # Calculate the norm difference between |y| and b
-            norm_diff = np.linalg.norm(np.abs(y) - b)
+            # Calculate the norm difference between PB - PA
+            norm_diff = np.linalg.norm(PB(y, b) - PA(y, A))
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)

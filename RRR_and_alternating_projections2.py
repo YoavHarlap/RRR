@@ -59,8 +59,8 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
 
             y = step_AP(A, b, y)
 
-            # Calculate the norm difference between
-            norm_diff = np.linalg.norm(np.abs(y) - b)
+            # Calculate the norm difference between PB - PA
+            norm_diff = np.linalg.norm(PB(y, b) - PA(y, A))
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
@@ -78,8 +78,8 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
             #     print("iteration:", iteration)
             y = step_AP(A, b, y)
 
-            # Calculate the norm difference between |y| and b
-            norm_diff = np.linalg.norm(np.abs(y) - b)
+            # Calculate the norm difference between PB - PA
+            norm_diff = np.linalg.norm(PB(y, b) - PA(y, A))
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
@@ -139,8 +139,8 @@ m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
 
 #
-m_array = [120]
-n_array = [10]
+# m_array = [120]
+# n_array = [10]
 
 
 # Loop over different values of m and n
@@ -150,25 +150,25 @@ for m in m_array:  # Add more values as needed
 
         print(f"m = {m}, n = {n}")  # Restore the standard output after the loop
 
-        # A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
-        A_real = np.random.randn(m, n)
+        A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
+        # A_real = np.random.randn(m, n)
 
-        # x = np.random.randn(n) + 1j * np.random.randn(n)
-        x_real = np.random.randn(n)
+        x = np.random.randn(n) + 1j * np.random.randn(n)
+        # x_real = np.random.randn(n)
 
         # Calculate b = |Ax|
-        # b = np.abs(np.dot(A, x))
-        b_real = np.abs(np.dot(A_real, x_real))
+        b = np.abs(np.dot(A, x))
+        # b_real = np.abs(np.dot(A_real, x_real))
 
-        # y_true = np.dot(A, x)
-        y_true_real = np.dot(A_real, x_real)
+        y_true = np.dot(A, x)
+        # y_true_real = np.dot(A_real, x_real)
 
         # print("y_true:", y_true[:5])
         # print("y_true_real:", y_true_real[:5])
 
         # Initialize y randomly
-        # y_initial = np.random.randn(m) + 1j * np.random.randn(m)
-        y_initial_real = np.random.randn(m)
+        y_initial = np.random.randn(m) + 1j * np.random.randn(m)
+        # y_initial_real = np.random.randn(m)
 
         # print("y_initial:", y_initial[:5])
         # print("y_initial_real:", y_initial_real[:5])
@@ -179,13 +179,13 @@ for m in m_array:  # Add more values as needed
         # y_initial = y_true + epsilon
 
         # Call the alternating_projections function with specified variance, standard deviation, and initial y
-        result_AP = run_algorithm(A_real, b_real, y_initial_real, algo="alternating_projections", max_iter=max_iter,
+        result_AP = run_algorithm(A, b, y_initial, algo="alternating_projections", max_iter=max_iter,
                                   tolerance=tolerance)
         # print("result_AP:", np.abs(result_AP[:5]))
         # print("b:        ", b[:5])
 
         # Call the RRR_algorithm function with specified parameters
-        result_RRR = run_algorithm(A_real, b_real, y_initial_real, algo="RRR_algorithm", beta=beta, max_iter=max_iter,
+        result_RRR = run_algorithm(A, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter,
                                    tolerance=tolerance)
         # print("result_RRR:", np.abs(result_RRR[:5]))
         # print("b:         ", b[:5])
