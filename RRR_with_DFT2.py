@@ -166,7 +166,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     # # Plot the norm difference over iterations
     # plt.plot(norm_diff_list)
     # plt.xlabel('Iteration')
-    # plt.ylabel('|y| - b')
+    # plt.ylabel('PB(y, b) - PA(y, A)')
     # plt.title(f'Convergence of {algo} Algorithm')
     # plt.show()
     #

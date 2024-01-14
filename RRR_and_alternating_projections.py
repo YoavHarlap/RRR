@@ -142,12 +142,12 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
                 break
 
     elif algo == "RRR_algorithm":
-        y = step_RRR(A, b, y, beta)
+
 
         for iteration in range(max_iter):
             # if iteration % 100 == 0:
             #     print("iteration:", iteration)
-            y = step_AP(A, b, y)
+            y = step_RRR(A, b, y, beta)
 
             # Calculate the norm difference between PB - PA
             norm_diff = np.linalg.norm(PB(y, b) - PA(y, A))
@@ -181,8 +181,8 @@ tolerance = 1e-6
 np.random.seed(42)  # For reproducibility
 
 # Set dimensions
-m = 180
-n = 20
+m = 30
+n = 10
 
 print("m =", m)
 print("n =", n)

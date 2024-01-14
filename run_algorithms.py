@@ -132,7 +132,7 @@ def run_algorithms_for_n(m, n, beta=1, max_iter=1000, tolerance=1e-6):
 m_fixed = 200
 # n_values = np.arange(20, 199, 60)
 # n_values = np.arange(20, 199, 30)
-n_values = [20]
+n_values = [20,23]
 
 algo_1_iterations = []
 algo_2_iterations = []

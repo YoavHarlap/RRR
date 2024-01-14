@@ -7,6 +7,7 @@ def phase(y):
     # Calculate the phase of the complex vector y
     magnitudes = np.abs(y)
     phase_y = np.where(magnitudes != 0, np.divide(y, magnitudes), 0)
+
     return phase_y
 
 
@@ -79,24 +80,61 @@ def project_onto_image_space(A, y):
 
 
 def PA(y, A):
+    
+    m = A.shape[0]
+    n = A.shape[1]
+    
     # Calculate the pseudo-inverse of A
     A_dagger = np.linalg.pinv(A)
+    
+#     u,s,v = np.linalg.svd(A)
+#
+#     v_T = np.transpose(v)
+#     u_T = np.transpose(u)
+#
+#     # Perform element-wise division avoiding division by zero
+# #    s = np.divide(1, s, where=(s != 0), out=np.zeros_like(s))
+#
+# #    s = np.where(s != 0, np.divide(1, s), 0)
+#
+#     S = [1/x if x <= 1e-8 else 0 for x in s]
+
+#     S = np.where(s != 0, np.divide(1, s), 0)
+#
+#     # Create a square matrix A with s on its diagonal
+#     extra_cols = m - n  # Number of additional columns
+#
+#     # Create a matrix A with s on its diagonal and extra columns of zeros
+#     A = np.zeros((n, m))
+#     S = np.fill_diagonal(A[:, :n], s)
+#
+#     A_dagger1 = np.dot(v_T, np.dot(S, u_T))
+#
+#     is_same = np.allclose(A_dagger1, A_dagger, atol=0.02)
+#     if not is_same:
+#         print("\n--------------------------------The A_dagger1 is not same")
+#
+
+    
+    
+    
 
     # Matrix-vector multiplication: AA†y
     result = np.dot(A, np.dot(A_dagger, y))
     result1 = project_onto_image_space(A, y)
     is_same = np.allclose(result, result1, atol=0.02)
-
     if not is_same:
         print("The projections is not same")
-
-    # is_in_image_space = is_vector_in_image(A, y)
-    #
-    # if is_in_image_space:
-    #     print("The vector is in the image of the matrix.")
-    # else:
-    #     print("The vector is not in the image of the matrix.")
-    #
+        
+    
+    u,s,v = np.linalg.svd(A)
+        
+    # Check if any eigenvalue is 0
+    has_eigenvalue_zero = any(np.isclose(s, 0))
+    
+    if has_eigenvalue_zero:
+        print("\n-----------------------------------Matrix A has an eigenvalue of 0.\n")
+   
 
     return result
 
@@ -143,7 +181,6 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
                 break
 
     elif algo == "RRR_algorithm":
-        
         for iteration in range(max_iter):
             # if iteration % 100 == 0:
             #     print("iteration:", iteration)
@@ -163,7 +200,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     # Plot the norm difference over iterations
     plt.plot(norm_diff_list)
     plt.xlabel('Iteration')
-    plt.ylabel('|y| - b')
+    plt.ylabel('PB(y, b) - PA(y, A)')
     plt.title(f'Convergence of {algo} Algorithm')
     plt.show()
 
@@ -203,7 +240,7 @@ tolerance = 1e-6
 np.random.seed(42)  # For reproducibility
 
 # Set dimensions
-m = 120
+m = 60
 n = 10
 
 print("m =", m)
