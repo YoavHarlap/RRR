@@ -12,7 +12,7 @@ RRR Converged in 1 iterations.
 """
 import os
 
-filename = "saves3.txt"
+filename = "savesdftiter100000.txt"
 
 folder_path = r"C:\Users\ASUS\PycharmProjects\RRR"
 file_path = os.path.join(folder_path, filename)
@@ -22,8 +22,9 @@ try:
         data_text = file.read()
 except FileNotFoundError:
     # Handle file not found error by trying another location
-    new_file_path = r"/home/yoavharlap/PycharmProjects/RRR"
-    file_path = os.path.join(new_file_path, filename)
+    folder_path = r"//home//yoavharlap//PycharmProjects//RRR"
+
+    new_file_path = os.path.join(folder_path, filename)
 
     try:
         with open(new_file_path, "r") as file:

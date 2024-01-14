@@ -200,7 +200,7 @@ def dft_matrix_not_square(m, n, symmetric=False):
     return reduced_matrix
 
 
-log_file_path = "saves3.txt"
+log_file_path = "savesdftiter100000.txt"
 # Create a log file to write to
 log_file = open(log_file_path, "w")
 
@@ -208,7 +208,7 @@ log_file = open(log_file_path, "w")
 sys.stdout = Tee(sys.stdout, log_file)
 
 beta = 0.5
-max_iter = 10000
+max_iter = 100000
 tolerance = 1e-6
 
 array_limit = 200
