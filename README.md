@@ -28,14 +28,18 @@ To get started with the project, follow these steps:
     ```bash
     git clone https://github.com/YoavHarlap/RRR.git
     ```
-
-2. Navigate to the project directory:
+    or(after download git from pycharm)
+   ```bash
+    git -c http.sslVerify=false clone https://github.com/YoavHarlap/RRR.git
+    ```
+   
+3. Navigate to the project directory:
 
     ```bash
     cd RRR
     ```
 
-3. Install dependencies:
+4. Install dependencies:
 
     ```bash
     pip install -r requirements.txt
