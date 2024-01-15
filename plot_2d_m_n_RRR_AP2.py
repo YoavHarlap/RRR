@@ -12,7 +12,7 @@ RRR Converged in 1 iterations.
 """
 import os
 
-filename = "savesdftiter100000.txt"
+filename = "saves3.txt"
 
 folder_path = r"C:\Users\ASUS\PycharmProjects\RRR"
 file_path = os.path.join(folder_path, filename)
