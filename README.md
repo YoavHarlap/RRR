@@ -46,14 +46,17 @@ To get started with the project, follow these steps:
     git -c http.sslVerify=false clone https://github.com/YoavHarlap/RRR.git
     ```
    pull:(update - from terminal)
+   
  ```bash
    git -c http.sslVerify=false pull
     ```
    commit:
+
  ```bash
    git -c http.sslVerify=false commit hi
     ```
    push:
+
  ```bash
    git -c http.sslVerify=false push 
     ```
