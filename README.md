@@ -44,7 +44,7 @@ To get started with the project, follow these steps:
    clone:
    
    ```bash
-    git -c http.sslVerify=false clone https://github.com/YoavHarlap/RRR.git
+   git -c http.sslVerify=false clone https://github.com/YoavHarlap/RRR.git
     ```
 
     pull:(update - from terminal)
