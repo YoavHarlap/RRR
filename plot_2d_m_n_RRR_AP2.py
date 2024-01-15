@@ -12,13 +12,13 @@ RRR Converged in 1 iterations.
 """
 import os
 
-filename = "savesdftiter100000.txt"
+filename = "saves3.txt"
 
 folder_path = r"C:\Users\ASUS\PycharmProjects\RRR"
 file_path = os.path.join(folder_path, filename)
 
 try:
-    with open(file_path, "r") as file:
+    with open(filename, "r") as file:
         data_text = file.read()
 except FileNotFoundError:
     # Handle file not found error by trying another location

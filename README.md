@@ -28,10 +28,6 @@ To get started with the project, follow these steps:
     ```bash
     git clone https://github.com/YoavHarlap/RRR.git
     ```
-    or(after download git from pycharm)
-   ```bash
-    git -c http.sslVerify=false clone https://github.com/YoavHarlap/RRR.git
-    ```
    
 3. Navigate to the project directory:
 
@@ -44,6 +40,30 @@ To get started with the project, follow these steps:
     ```bash
     pip install -r requirements.txt
     ```
+5. for unversity: (after download git from pycharm)
+   clone:
+   
+   ```bash
+   git -c http.sslVerify=false clone https://github.com/YoavHarlap/RRR.git
+    ```
+
+    pull:(update - from terminal)
+   
+    ```bash
+    git -c http.sslVerify=false pull
+     ```
+
+   commit:
+
+    ```bash
+   ctrl k and commit with pycharm
+     ```
+   
+   push:
+
+   ```bash
+   git -c http.sslVerify=false push 
+   ```
 
 ---
 

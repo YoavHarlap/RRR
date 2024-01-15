@@ -200,7 +200,7 @@ def dft_matrix_not_square(m, n, symmetric=False):
     return reduced_matrix
 
 
-log_file_path = "savesdftiter100000.txt"
+log_file_path = "savesAnormal.txt"
 # Create a log file to write to
 log_file = open(log_file_path, "w")
 
@@ -230,8 +230,8 @@ for m in m_array:  # Add more values as needed
 
         print(f"m = {m}, n = {n}")  # Restore the standard output after the loop
 
-        A = dft_matrix_not_square(m, n)
-        # A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
+        # A = dft_matrix_not_square(m, n)
+        A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
         # A_real = np.random.randn(m, n)
 
         x = np.random.randn(n) + 1j * np.random.randn(n)
