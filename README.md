@@ -49,19 +49,20 @@ To get started with the project, follow these steps:
 
     pull:(update - from terminal)
    
- ```bash
-   git -c http.sslVerify=false pull
-    ```
+    ```bash
+    git -c http.sslVerify=false pull
+     ```
+
    commit:
 
- ```bash
-   git -c http.sslVerify=false commit hi
+    ```bash
+    git -c http.sslVerify=false commit hi
     ```
    push:
 
- ```bash
+   ```bash
    git -c http.sslVerify=false push 
-    ```
+   ```
 
 ---
 
