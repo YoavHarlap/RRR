@@ -56,8 +56,9 @@ To get started with the project, follow these steps:
    commit:
 
     ```bash
-    git -c http.sslVerify=false commit hi
-    ```
+   ctrl k and commit with pycharm
+     ```
+   
    push:
 
    ```bash
