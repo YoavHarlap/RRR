@@ -100,7 +100,7 @@ if not valid_rrr_values:
 
 color_len = 15
 step = 200
-step = 700
+# step = 700
 
 colormap  = sns.color_palette("viridis", n_colors=color_len)
 colormap = np.flip(colormap)
@@ -138,7 +138,7 @@ for i, entry in enumerate(data):
                  f"AP: {entry['AP_iterations']}, RRR: {entry['RRR_iterations']}", fontsize=6)
 
 # Set title and labels for the first subplot
-ax1.set_title('Convergence Plot with DFT matrix')
+ax1.set_title('Convergence Plot with DFT matrix(mxn)')
 ax1.set_xlabel('m')
 ax1.set_ylabel('n')
 

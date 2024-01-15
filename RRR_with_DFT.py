@@ -160,8 +160,10 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
 
     # Storage for plotting
     norm_diff_list = []
+    norm_diff_min = 1000
 
     if algo == "alternating_projections":
+
         for iteration in range(max_iter):
             # if iteration % 100 == 0:
             #     print("iteration:", iteration)
@@ -174,6 +176,11 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
+
+            if norm_diff_min>=norm_diff:
+                print(iteration,norm_diff)
+                norm_diff_min = norm_diff
+
 
             # Check convergence
             if norm_diff < tolerance:
@@ -191,7 +198,9 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
-
+            if norm_diff_min>=norm_diff:
+                print(iteration,norm_diff)
+                norm_diff_min = norm_diff
             # Check convergence
             if norm_diff < tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations.")
@@ -235,13 +244,13 @@ def dft_matrix_not_square(m, n, symmetric=False):
 
 
 beta = 0.5
-max_iter = 10000
+max_iter = 100000
 tolerance = 1e-6
 np.random.seed(42)  # For reproducibility
 
 # Set dimensions
 m = 60
-n = 10
+n = 20
 
 print("m =", m)
 print("n =", n)

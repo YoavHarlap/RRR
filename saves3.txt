@@ -332,12 +332,6 @@ RRR_algorithm Converged in 2639 iterations.
 m = 160, n = 70
 RRR_algorithm Converged in 3373 iterations.
 m = 160, n = 80
-RRR_algorithm Converged in 454 iterations.
-m = 160, n = 60
-RRR_algorithm Converged in 2639 iterations.
-m = 160, n = 70
-RRR_algorithm Converged in 3373 iterations.
-m = 160, n = 80
 m = 160, n = 90
 RRR_algorithm Converged in 7411 iterations.
 m = 160, n = 100
