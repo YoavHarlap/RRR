@@ -83,6 +83,11 @@ print(result)
 ## Contact 
 For any further inquiries or collaboration opportunities, please reach out to:
 
+https://arxiv.org/pdf/1911.13179.pdf
+
+https://arxiv.org/pdf/1706.00399.pdf
+
+
 Yoav Harlap
 - Email: yoavharlap@mail.tau.ac.il
 - LinkedIn: Yoav Harlap (https://www.linkedin.com/in/yoavharlap/)
