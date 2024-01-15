@@ -42,27 +42,27 @@ To get started with the project, follow these steps:
     ```
 5. for unversity: (after download git from pycharm)
    clone:
-        
-        ```bash
-        git -c http.sslVerify=false clone https://github.com/YoavHarlap/RRR.git
-        ```
+   
+   ```bash
+    git -c http.sslVerify=false clone https://github.com/YoavHarlap/RRR.git
+    ```
 
     pull:(update - from terminal)
-       
-        ```bash
-        git -c http.sslVerify=false pull
-        ```
+   
+    ```bash
+    git -c http.sslVerify=false pull
+     ```
 
    commit:
 
-        ```bash
-        git -c http.sslVerify=false commit hi
-        ```
+    ```bash
+    git -c http.sslVerify=false commit hi
+    ```
    push:
 
-        ```bash
-        git -c http.sslVerify=false push 
-        ```
+   ```bash
+   git -c http.sslVerify=false push 
+   ```
 
 ---
 
