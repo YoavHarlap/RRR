@@ -90,8 +90,8 @@ def plot_2_metrix(matrix1, matrix2,missing_elements_indices,iteration_number):
 
     plt.show()
 
-def matrix_completion(n, r, q, max_iterations=1000, tolerance=1e-6):
-    tolerance = 0.004
+def matrix_completion(n, r, q, max_iterations=100000, tolerance=1e-6):
+    tolerance = 0.001
     # Initialize the matrix with rank r and missing entries
     init_matrix, hints_matrix, hints_indices = initialize_matrix(n, r, q)
     missing_elements_indices = ~hints_indices
@@ -134,11 +134,11 @@ def matrix_completion(n, r, q, max_iterations=1000, tolerance=1e-6):
 
 
 # Example usage
-n = 200  # Size of the matrix (nxn)
-r = 20  # Rank constraint
-q = 15  # Number of missing entries to complete
+n = 9  # Size of the matrix (nxn)
+r = 5  # Rank constraint
+q = 4  # Number of missing entries to complete
 
 completed_matrix = matrix_completion(n, r, q)
 
 print("Completed Matrix:")
-print(completed_matrix)
+# print(completed_matrix)
