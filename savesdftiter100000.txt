@@ -332,3 +332,9 @@ m = 160, n = 40
 alternating_projections Converged in 360 iterations.
 RRR_algorithm Converged in 476 iterations.
 m = 160, n = 50
+RRR_algorithm Converged in 454 iterations.
+m = 160, n = 60
+RRR_algorithm Converged in 2639 iterations.
+m = 160, n = 70
+RRR_algorithm Converged in 3373 iterations.
+m = 160, n = 80
