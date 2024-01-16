@@ -107,7 +107,6 @@ colormap = np.flip(colormap)
 
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns  # Assuming seaborn is imported for sns.palplot
 
 # Assuming you have defined colormap and colors somewhere in your code
 
@@ -138,7 +137,7 @@ for i, entry in enumerate(data):
                  f"AP: {entry['AP_iterations']}, RRR: {entry['RRR_iterations']}", fontsize=6)
 
 # Set title and labels for the first subplot
-ax1.set_title('Convergence Plot with DFT matrix(mxn)')
+ax1.set_title('Convergence Plot with DFT matrix(mxn)\n max iterations = 100000 ')
 ax1.set_xlabel('m')
 ax1.set_ylabel('n')
 
