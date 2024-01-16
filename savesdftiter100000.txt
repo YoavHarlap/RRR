@@ -474,3 +474,58 @@ RRR_algorithm Converged in 649 iterations.
 m = 190, n = 70
 RRR_algorithm Converged in 884 iterations.
 m = 190, n = 80
+RRR_algorithm Converged in 4865 iterations.
+m = 190, n = 90
+m = 190, n = 100
+RRR_algorithm Converged in 24001 iterations.
+m = 190, n = 110
+alternating_projections Converged in 3947 iterations.
+RRR_algorithm Converged in 3740 iterations.
+m = 190, n = 120
+alternating_projections Converged in 1431 iterations.
+RRR_algorithm Converged in 1887 iterations.
+m = 190, n = 130
+alternating_projections Converged in 521 iterations.
+RRR_algorithm Converged in 1049 iterations.
+m = 190, n = 140
+alternating_projections Converged in 341 iterations.
+RRR_algorithm Converged in 599 iterations.
+m = 190, n = 150
+alternating_projections Converged in 178 iterations.
+RRR_algorithm Converged in 373 iterations.
+m = 190, n = 160
+alternating_projections Converged in 98 iterations.
+RRR_algorithm Converged in 245 iterations.
+m = 190, n = 170
+alternating_projections Converged in 88 iterations.
+RRR_algorithm Converged in 199 iterations.
+m = 190, n = 180
+alternating_projections Converged in 43 iterations.
+RRR_algorithm Converged in 109 iterations.
+m = 190, n = 190
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 28 iterations.
+m = 200, n = 10
+alternating_projections Converged in 44 iterations.
+RRR_algorithm Converged in 101 iterations.
+m = 200, n = 20
+alternating_projections Converged in 63 iterations.
+RRR_algorithm Converged in 240 iterations.
+m = 200, n = 30
+alternating_projections Converged in 98 iterations.
+RRR_algorithm Converged in 321 iterations.
+m = 200, n = 40
+RRR_algorithm Converged in 257 iterations.
+m = 200, n = 50
+alternating_projections Converged in 594 iterations.
+RRR_algorithm Converged in 635 iterations.
+m = 200, n = 60
+RRR_algorithm Converged in 682 iterations.
+m = 200, n = 70
+RRR_algorithm Converged in 829 iterations.
+m = 200, n = 80
+RRR_algorithm Converged in 1110 iterations.
+m = 200, n = 90
+RRR_algorithm Converged in 74841 iterations.
+m = 200, n = 100
+m = 200, n = 110
