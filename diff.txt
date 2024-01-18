@@ -1,0 +1,20 @@
+m = 70, n = 40
+alternating_projections Converged in 12666 iterations.
+m = 90, n = 50
+alternating_projections Converged in 45941 iterations.
+m = 130, n = 70
+alternating_projections Converged in 14775 iterations.
+RRR_algorithm Converged in 14349 iterations.
+m = 150, n = 80
+alternating_projections Converged in 21717 iterations.
+RRR_algorithm Converged in 13435 iterations.
+m = 160, n = 90
+alternating_projections Converged in 25887 iterations.
+m = 170, n = 90
+RRR_algorithm Converged in 30982 iterations.
+m = 180, n = 100
+alternating_projections Converged in 30401 iterations.
+m = 190, n = 100
+RRR_algorithm Converged in 24001 iterations.
+m = 200, n = 90
+RRR_algorithm Converged in 74841 iterations.
