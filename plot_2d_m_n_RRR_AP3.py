@@ -37,7 +37,7 @@ RRR Converged in 1 iterations.
 """
 import os
 
-filename = "savesdftiter100000.txt"
+filename = "savesAnormal.txt"
 
 folder_path = r"C:\Users\ASUS\PycharmProjects\RRR"
 file_path = os.path.join(folder_path, filename)
@@ -137,7 +137,7 @@ for i, entry in enumerate(data):
                  f"AP: {entry['AP_iterations']}, RRR: {entry['RRR_iterations']}", fontsize=6)
 
 # Set title and labels for the first subplot
-ax1.set_title('Convergence Plot with DFT matrix(mxn)\n max iterations = 100000 ')
+ax1.set_title('Convergence Plot with A normal matrix(mxn)\n max iterations = 10000 ')
 ax1.set_xlabel('m')
 ax1.set_ylabel('n')
 
