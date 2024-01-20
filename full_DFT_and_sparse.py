@@ -47,10 +47,10 @@ def step_RRR(S, b, p, beta):
     p = p + beta * (P_2 - P_1)
     return p
 
-def pow_p2_S(p,S):
-    P_1 = sparse_projection(p, S)
-    P_2 = PB(2 * P_1 - p, b)
-    return ____
+# def pow_p2_S(p,S):
+#     P_1 = sparse_projection(p, S)
+#     P_2 = PB(2 * P_1 - p, b)
+#     return
 
 
 
@@ -102,7 +102,7 @@ def run_algorithm(S, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
 
             # Calculate the norm difference between PB - PA
             norm_diff = np.linalg.norm(PB(y, b) - sparse_projection(y, S))
-            norm_diff = np.linalg.norm(pow_p2_S(y,S))
+            # norm_diff = np.linalg.norm(pow_p2_S(y,S))
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
@@ -111,6 +111,12 @@ def run_algorithm(S, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
                 norm_diff_min = norm_diff
             # Check convergence
             if norm_diff > tolerance:
+                # print(f"{algo} Converged in {iteration + 1} iterations.")
+                # break
+                print("0:", 0)
+
+
+            if norm_diff < 0.02:
                 print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
 
@@ -133,24 +139,24 @@ def dft_matrix(m):
 
 
 beta = 0.5
-max_iter = 100000
+max_iter = 10000
 tolerance = 0.95
 np.random.seed(42)  # For reproducibility
 
 # Set dimensions
 m = 10
-n = 10
+# n = 10
 S = 1
 print("m =", m)
-print("n =", n)
+# print("n =", n)
 
 A = dft_matrix(m)
 # A = dft_matrix_not_square(m, n)
 # A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
 # A_real = np.random.randn(m, n)
 
-x = np.random.randn(n) + 1j * np.random.randn(n)
-# x_real = np.random.randn(n)
+x = np.random.randn(m) + 1j * np.random.randn(m)
+# x_real = np.random.randn(m)
 
 # Calculate b = |Ax|
 b = np.abs(np.dot(A, x))
@@ -187,5 +193,5 @@ print("y_initial:", y_initial[:5])
 # Call the RRR_algorithm function with specified parameters
 result_RRR = run_algorithm(S, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter,
                            tolerance=tolerance)
-# print("result_RRR:", np.abs(result_RRR[:5]))
-# print("b:         ", b[:5])
+print("result_RRR:", np.abs(result_RRR[:5]))
+print("b:         ", b[:5])
