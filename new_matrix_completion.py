@@ -223,4 +223,4 @@ result_AP = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hin
 
 result_RRR = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices, r,
                                                  algo="RRR_algorithm", beta=beta, max_iter=max_iter,
-                                                 tolerance=tolerance)
+                                                 tolerance = tolerance     )
