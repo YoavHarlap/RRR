@@ -58,23 +58,34 @@ def sparse_projection_on_y(y, S):
 
 
 def step_RRR(S, b, p, beta):
-    P_1 = sparse_projection_on_y(p, S)
+    P_1 = sparse_projection_on_x(p, S)
     P_2 = PB(2 * P_1 - p, b)
     p = p + beta * (P_2 - P_1)
     return p
 
 
 def i_f(p):
-    return sum(x ** 2 for x in p)
+    new_x = ifft(p)
+    return sum(x ** 2 for x in new_x)
 
 
 def i_s(p, S):
-    new_p = sparse_projection_on_y(p, S)
-    return sum(x ** 2 for x in new_p)
+    n = len(p)  # Infer the size of the DFT matrix from the length of y
+
+    # Perform inverse FFT to get the sparse x
+    x_sparse = ifft(p)
+
+    # Find indices of S largest elements in absolute values
+    indices = np.argsort(np.abs(x_sparse))[-S:]
+
+    # Create a sparse vector by zeroing out elements not in indices
+    x_sparse_sparse = np.zeros(n, dtype='complex_')
+    x_sparse_sparse[indices] = np.array(x_sparse)[indices.astype(int)]
+    return sum(x ** 2 for x in x_sparse_sparse)
 
 
 def power_p2_S(p, S):
-    P_1 = sparse_projection_on_y(p, S)
+    P_1 = sparse_projection_on_x(p, S)
     P_2 = PB(2 * P_1 - p, b)
     print("i_s(P_2, S) / i_f(P_2):", i_s(P_2, S) / i_f(P_2))
     
@@ -83,7 +94,7 @@ def power_p2_S(p, S):
 
 def step_AP(S, b, y):
     y_PB = PB(y, b)
-    y_PA = sparse_projection_on_y(y_PB, S)
+    y_PA = sparse_projection_on_x(y_PB, S)
     y = y_PA
     return y
 
@@ -106,7 +117,7 @@ def run_algorithm(S, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
             # print("y:", y[:3])
 
             # Calculate the norm difference between PB - PA
-            norm_diff = np.linalg.norm(PB(y, b) - sparse_projection_on_y(y, S))
+            norm_diff = np.linalg.norm(PB(y, b) - sparse_projection_on_x(y, S))
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
@@ -132,9 +143,6 @@ def run_algorithm(S, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
-            if norm_diff_min >= norm_diff:
-                print(iteration, norm_diff)
-                norm_diff_min = norm_diff
             # Check convergence
             if norm_diff > tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations.")
@@ -165,7 +173,6 @@ np.random.seed(42)  # For reproducibility
 
 # Set dimensions
 m = 50
-# n = 10
 S = 5
 print("m =", m)
 # print("n =", n)
@@ -175,7 +182,7 @@ A = dft_matrix(m)
 # A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
 # A_real = np.random.randn(m, n)
 
-x = np.random.randn(m) + 1j * np.random.randn(m)
+# x = np.random.randn(m) + 1j * np.random.randn(m)
 x = np.random.randn(m)
 # x_real = np.random.randn(m)
 

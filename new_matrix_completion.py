@@ -132,16 +132,14 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
     matrix = initial_matrix.copy()
     missing_elements_indices = ~hints_indices
 
-
     # Storage for plotting
     norm_diff_list = []
     norm_diff_list2 = []
     norm_diff_min = 1000
 
     if algo == "alternating_projections":
-
         for iteration in range(max_iter):
-            plot_2_metrix(true_matrix, matrix, missing_elements_indices, iteration)
+            # plot_2_metrix(true_matrix, matrix, missing_elements_indices, iteration)
             # if iteration % 100 == 0:
             #     print("iteration:", iteration)
 
@@ -170,7 +168,7 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
 
     elif algo == "RRR_algorithm":
         for iteration in range(max_iter):
-            plot_2_metrix(true_matrix, matrix, missing_elements_indices, iteration)
+            # plot_2_metrix(true_matrix, matrix, missing_elements_indices, iteration)
             # if iteration % 100 == 0:
             #     print("iteration:", iteration)
             matrix = step_RRR(matrix, r, hints_matrix, hints_indices, beta)
@@ -185,7 +183,6 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
 
             norm_diff2 = np.linalg.norm(matrix - true_matrix)
             norm_diff_list2.append(norm_diff2)
-
 
             # if norm_diff_min >= norm_diff:
             #     print(iteration, norm_diff)
@@ -219,26 +216,21 @@ np.random.seed(42)  # For reproducibility
 
 # Example usage
 n = 9  # Size of the matrix (nxn)
-r = 5  # Rank constraint
+r = 3  # Rank constraint
 q = 15  # Number of missing entries to complete
 
 print(f"n = {n}, r = {r}, q = {q}")
 
 [true_matrix, initial_matrix, hints_matrix, hints_indices] = initialize_matrix(n, r, q, seed=42)
 missing_elements_indices = ~hints_indices
- 
- 
+
 result_AP = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices, r,
                                                 algo="alternating_projections", max_iter=max_iter,
                                                 tolerance=tolerance)
 
-plot_2_metrix(true_matrix, result_AP, missing_elements_indices, "end AP")
+plot_2_metrix(true_matrix, result_AP, missing_elements_indices, f"_END_ AP, for n = {n}, r = {r}, q = {q}")
 
 result_RRR = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices, r,
                                                  algo="RRR_algorithm", beta=beta, max_iter=max_iter,
-                                                 tolerance = tolerance     )
-plot_2_metrix(true_matrix, result_RRR, missing_elements_indices, "end RRR")
-
-
-
-
+                                                 tolerance=tolerance)
+plot_2_metrix(true_matrix, result_RRR, missing_elements_indices, f"_END_ RRR, for n = {n}, r = {r}, q = {q}")
