@@ -86,9 +86,12 @@ def plot_sudoku(matrix, colors, ax, title, missing_elements_indices):
 
 def plot_2_metrix(matrix1, matrix2, missing_elements_indices, iteration_number):
     # Set a threshold for coloring based on absolute differences
-    threshold = 0.004
+    threshold = 0
     # Calculate absolute differences between matrix1 and matrix2
-    diff_matrix = np.abs(matrix2 - matrix1)
+    rounded_matrix1 = np.round(matrix1, 2)
+    rounded_matrix2 = np.round(matrix2, 2)
+
+    diff_matrix = np.abs(rounded_matrix2 - rounded_matrix1)
     colors = np.where(diff_matrix > threshold, 'red', 'green')
     # Create subplots
     fig, axs = plt.subplots(1, 2, figsize=(10, 5))
@@ -119,7 +122,9 @@ def step_AP(matrix, r, hints_matrix, hints_indices):
 
 def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices, r, algo, beta=None,
                                         max_iter=100, tolerance=1e-6):
-    matrix = initial_matrix
+    matrix = initial_matrix.copy()
+    missing_elements_indices = ~hints_indices
+
 
     # Storage for plotting
     norm_diff_list = []
@@ -129,6 +134,7 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
     if algo == "alternating_projections":
 
         for iteration in range(max_iter):
+            plot_2_metrix(true_matrix, matrix, missing_elements_indices, iteration)
             # if iteration % 100 == 0:
             #     print("iteration:", iteration)
 
@@ -157,6 +163,7 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
 
     elif algo == "RRR_algorithm":
         for iteration in range(max_iter):
+            plot_2_metrix(true_matrix, matrix, missing_elements_indices, iteration)
             # if iteration % 100 == 0:
             #     print("iteration:", iteration)
             matrix = step_RRR(matrix, r, hints_matrix, hints_indices, beta)
@@ -204,7 +211,7 @@ tolerance = 1e-6
 np.random.seed(42)  # For reproducibility
 
 # Example usage
-n = 5  # Size of the matrix (nxn)
+n = 9  # Size of the matrix (nxn)
 r = 3  # Rank constraint
 q = 10  # Number of missing entries to complete
 
