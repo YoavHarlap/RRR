@@ -2,7 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.fft import fft, ifft
 
-
+#print("\033[H\033[J") 
+#clear console
 def phase(y):
     # Calculate the phase of the complex vector y
     magnitudes = np.abs(y)
@@ -21,7 +22,7 @@ def PB(y, b):
     return result
 
 
-def sparse_projection(y, S):
+def sparse_projection_on_x(y, S):
     n = len(y)  # Infer the size of the DFT matrix from the length of y
 
     # Perform inverse FFT to get the sparse x
@@ -31,9 +32,8 @@ def sparse_projection(y, S):
     indices = np.argsort(np.abs(x_sparse))[-S:]
 
     # Create a sparse vector by zeroing out elements not in indices
-    x_sparse_sparse = np.zeros(n)
-    x_sparse_sparse[indices] =np.array(x_sparse)[indices.astype(int)]
-
+    x_sparse_sparse = np.zeros(n, dtype='complex_')
+    x_sparse_sparse[indices] = np.array(x_sparse)[indices.astype(int)]
 
     # Reconstruct y using DFT matrix and the sparse x
     y_reconstructed = fft(x_sparse_sparse)
@@ -41,22 +41,49 @@ def sparse_projection(y, S):
     return y_reconstructed
 
 
+def sparse_projection_on_y(y, S):
+    n = len(y)  # Infer the size of the DFT matrix from the length of y
+
+    # Perform inverse FFT to get the sparse x
+    x_sparse = ifft(y)
+
+    # Find indices of S largest elements in absolute values
+    indices = np.argsort(np.abs(y))[-S:]
+
+    # Create a sparse vector by zeroing out elements not in indices
+    y_sparse = np.zeros(n, dtype='complex_')
+    y_sparse[indices] = np.array(y)[indices.astype(int)]
+
+    return y_sparse
+
+
 def step_RRR(S, b, p, beta):
-    P_1 = sparse_projection(p, S)
-    P_2 = PB(2*P_1-p, b)
+    P_1 = sparse_projection_on_y(p, S)
+    P_2 = PB(2 * P_1 - p, b)
     p = p + beta * (P_2 - P_1)
     return p
 
-# def pow_p2_S(p,S):
-#     P_1 = sparse_projection(p, S)
-#     P_2 = PB(2 * P_1 - p, b)
-#     return
 
+def i_f(p):
+    return sum(x ** 2 for x in p)
+
+
+def i_s(p, S):
+    new_p = sparse_projection_on_y(p, S)
+    return sum(x ** 2 for x in new_p)
+
+
+def power_p2_S(p, S):
+    P_1 = sparse_projection_on_y(p, S)
+    P_2 = PB(2 * P_1 - p, b)
+    print("i_s(P_2, S) / i_f(P_2):", i_s(P_2, S) / i_f(P_2))
+    
+    return i_s(P_2, S) / i_f(P_2)
 
 
 def step_AP(S, b, y):
     y_PB = PB(y, b)
-    y_PA = sparse_projection(y_PB, S)
+    y_PA = sparse_projection_on_y(y_PB, S)
     y = y_PA
     return y
 
@@ -79,15 +106,14 @@ def run_algorithm(S, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
             # print("y:", y[:3])
 
             # Calculate the norm difference between PB - PA
-            norm_diff = np.linalg.norm(PB(y, b) - sparse_projection(y, S))
+            norm_diff = np.linalg.norm(PB(y, b) - sparse_projection_on_y(y, S))
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
 
-            if norm_diff_min>=norm_diff:
-                print(iteration,norm_diff)
+            if norm_diff_min >= norm_diff:
+                print(iteration, norm_diff)
                 norm_diff_min = norm_diff
-
 
             # Check convergence
             if norm_diff < tolerance:
@@ -101,22 +127,16 @@ def run_algorithm(S, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
             y = step_RRR(S, b, y, beta)
 
             # Calculate the norm difference between PB - PA
-            norm_diff = np.linalg.norm(PB(y, b) - sparse_projection(y, S))
-            # norm_diff = np.linalg.norm(pow_p2_S(y,S))
+            # norm_diff = np.linalg.norm(PB(y, b) - sparse_projection(y, S))
+            norm_diff = power_p2_S(y, S)
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
-            if norm_diff_min>=norm_diff:
-                print(iteration,norm_diff)
+            if norm_diff_min >= norm_diff:
+                print(iteration, norm_diff)
                 norm_diff_min = norm_diff
             # Check convergence
             if norm_diff > tolerance:
-                # print(f"{algo} Converged in {iteration + 1} iterations.")
-                # break
-                print("0:", 0)
-
-
-            if norm_diff < 0.02:
                 print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
 
@@ -144,9 +164,9 @@ tolerance = 0.95
 np.random.seed(42)  # For reproducibility
 
 # Set dimensions
-m = 10
+m = 50
 # n = 10
-S = 1
+S = 5
 print("m =", m)
 # print("n =", n)
 
@@ -156,6 +176,7 @@ A = dft_matrix(m)
 # A_real = np.random.randn(m, n)
 
 x = np.random.randn(m) + 1j * np.random.randn(m)
+x = np.random.randn(m)
 # x_real = np.random.randn(m)
 
 # Calculate b = |Ax|
