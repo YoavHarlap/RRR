@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jan 21 15:44:57 2024
+no figgggg noooo
+@author: ASUS
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.linalg import matrix_rank, svd
@@ -10,14 +17,14 @@ def initialize_matrix(n, r, q, seed=None):
     # Initialize a random matrix of rank r
     true_matrix = np.random.rand(n, r) @ np.random.rand(r, n)
     hints_matrix = true_matrix.copy()
-    print("Original matrix rank:", matrix_rank(hints_matrix))
+    # print("Original matrix rank:", matrix_rank(hints_matrix))
 
     # Set q random entries to NaN (missing entries)
     missing_entries = np.random.choice(n * n, q, replace=False)
     row_indices, col_indices = np.unravel_index(missing_entries, (n, n))
     # print(row_indices,col_indices)
     hints_matrix[row_indices, col_indices] = 0
-    print("Matrix rank after setting entries to zero:", matrix_rank(hints_matrix))
+    # print("Matrix rank after setting entries to zero:", matrix_rank(hints_matrix))
 
     hints_indices = np.ones_like(true_matrix, dtype=bool)
     hints_indices[row_indices, col_indices] = False
@@ -26,7 +33,7 @@ def initialize_matrix(n, r, q, seed=None):
     U, Sigma, Vt = svd(hints_matrix)
     Sigma[r:] = 0  # Zero out singular values beyond rank r
     new_matrix = U @ np.diag(Sigma) @ Vt
-    print("Matrix rank after preserving rank:", matrix_rank(new_matrix))
+    # print("Matrix rank after preserving rank:", matrix_rank(new_matrix))
     initial_matrix = new_matrix
 
     return [true_matrix, initial_matrix, hints_matrix, hints_indices]
@@ -152,9 +159,9 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
             norm_diff2 = np.linalg.norm(matrix - true_matrix)
             norm_diff_list2.append(norm_diff2)
 
-            if norm_diff_min >= norm_diff:
-                print(iteration, norm_diff)
-                norm_diff_min = norm_diff
+            # if norm_diff_min >= norm_diff:
+            #     print(iteration, norm_diff)
+            #     norm_diff_min = norm_diff
 
             # Check convergence
             if norm_diff < tolerance:
@@ -180,9 +187,9 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
             norm_diff_list2.append(norm_diff2)
 
 
-            if norm_diff_min >= norm_diff:
-                print(iteration, norm_diff)
-                norm_diff_min = norm_diff
+            # if norm_diff_min >= norm_diff:
+            #     print(iteration, norm_diff)
+            #     norm_diff_min = norm_diff
             # Check convergence
             if norm_diff < tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations.")
@@ -212,15 +219,26 @@ np.random.seed(42)  # For reproducibility
 
 # Example usage
 n = 9  # Size of the matrix (nxn)
-r = 3  # Rank constraint
-q = 10  # Number of missing entries to complete
+r = 5  # Rank constraint
+q = 15  # Number of missing entries to complete
+
+print(f"n = {n}, r = {r}, q = {q}")
 
 [true_matrix, initial_matrix, hints_matrix, hints_indices] = initialize_matrix(n, r, q, seed=42)
-
+missing_elements_indices = ~hints_indices
+ 
+ 
 result_AP = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices, r,
                                                 algo="alternating_projections", max_iter=max_iter,
                                                 tolerance=tolerance)
 
+plot_2_metrix(true_matrix, result_AP, missing_elements_indices, "end AP")
+
 result_RRR = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices, r,
                                                  algo="RRR_algorithm", beta=beta, max_iter=max_iter,
                                                  tolerance = tolerance     )
+plot_2_metrix(true_matrix, result_RRR, missing_elements_indices, "end RRR")
+
+
+
+
