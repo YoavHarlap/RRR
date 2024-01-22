@@ -212,6 +212,21 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     plt.ylabel('PB(y, b) - PA(y, A)')
     plt.title(f'Convergence of {algo} Algorithm')
     plt.show()
+    
+        
+    last_element =  100
+    norm_diff_list = norm_diff_list[-100:]
+    # Calculate the changes |y_i+1 - y_i|
+    changes = [abs(y - x) for x, y in zip(norm_diff_list, norm_diff_list[1:])]
+    
+    # Plot circles at each point
+    plt.scatter(range(1, len(norm_diff_list)), changes, marker='o')
+    plt.title(f"Changes in last {last_element} elements of norm_diff_list for {algo}")
+    plt.xlabel('Index')
+    plt.ylabel('|y_i+1 - y_i|')
+    plt.show()
+
+
 
     print("y:", y[:5])
     print("abs y:", np.abs(y[:5]))
@@ -244,12 +259,12 @@ def dft_matrix_not_square(m, n, symmetric=False):
 
 
 beta = 0.5
-max_iter = 100000
+max_iter = 10000
 tolerance = 1e-6
 np.random.seed(42)  # For reproducibility
 
 # Set dimensions
-m = 60
+m = 40
 n = 20
 
 print("m =", m)
