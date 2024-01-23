@@ -259,7 +259,7 @@ def dft_matrix_not_square(m, n, symmetric=False):
 
 
 beta = 0.5
-max_iter = 10000
+max_iter = 100000
 tolerance = 1e-6
 np.random.seed(42)  # For reproducibility
 
