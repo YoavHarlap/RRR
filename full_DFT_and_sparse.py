@@ -48,9 +48,31 @@ def sparse_projection_on_vector(v, S):
 def step_RRR(S, b, p, beta):
     P_1 = sparse_projection_on_vector(p, S)
     P_2 = PB_for_p(2 * P_1 - p, b)
+    P_2 = mask_epsilon_values(P_2)
+    P_3cp =  sparse_projection_on_vector(P_2, S)
     p = p + beta * (P_2 - P_1)
+    P_4dp = sparse_projection_on_vector(p, S)
     return p
 
+def mask_epsilon_values(p):
+    # Separate real and imaginary parts
+    real_part = p.real
+    imag_part = p.imag
+    
+    epsilon = 1e-14
+    # Zero out elements with absolute values less than or equal to 1e-16 for real part
+    real_part[np.abs(real_part) <= epsilon] = 0
+    
+    # Zero out elements with absolute values less than or equal to 1e-16 for imaginary part
+    imag_part[np.abs(imag_part) <= epsilon] = 0
+    
+    # Combine real and imaginary parts back into the complex array
+    result = real_part + 1j * imag_part
+    
+    # Printing the modified array
+    # print(result)
+
+    return result
 
 def i_f(p):
     return sum(x ** 2 for x in p)
@@ -118,7 +140,7 @@ tolerance = 0.95
 np.random.seed(42)  # For reproducibility
 
 # Set dimensions
-m = 10
+m = 20
 S = 2
 print(f"m = {m}, S = {S}")
 
