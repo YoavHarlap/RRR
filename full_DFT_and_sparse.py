@@ -48,10 +48,10 @@ def sparse_projection_on_vector(v, S):
 def step_RRR(S, b, p, beta):
     P_1 = sparse_projection_on_vector(p, S)
     P_2 = PB_for_p(2 * P_1 - p, b)
-    P_2 = mask_epsilon_values(P_2)
-    P_3cp =  sparse_projection_on_vector(P_2, S)
+    # P_2 = mask_epsilon_values(P_2)
+    # P_3cp =  sparse_projection_on_vector(P_2, S)
     p = p + beta * (P_2 - P_1)
-    P_4dp = sparse_projection_on_vector(p, S)
+    # P_4dp = sparse_projection_on_vector(p, S)
     return p
 
 def mask_epsilon_values(p):
@@ -59,7 +59,7 @@ def mask_epsilon_values(p):
     real_part = p.real
     imag_part = p.imag
     
-    epsilon = 1e-14
+    epsilon = 2
     # Zero out elements with absolute values less than or equal to 1e-16 for real part
     real_part[np.abs(real_part) <= epsilon] = 0
     
@@ -122,7 +122,7 @@ def run_algorithm(S, b, p_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     plt.plot(norm_diff_list)
     plt.xlabel('Iteration')
     plt.ylabel(' i_s(P_2, S) / i_f(P_2) ratio')
-    plt.title(f' i_s(P_2, S) / i_f(P_2) ratio of {algo} Algorithm')
+    plt.title(f' i_s(P_2, S) / i_f(P_2) ratio of {algo} Algorithm, threshold = {tolerance}')
     plt.show()
 
     print("norm_diff_list:", norm_diff_list[-5:])
@@ -130,21 +130,21 @@ def run_algorithm(S, b, p_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     return p
 
 
-def dft_matrix(m):
-    return fft(np.eye(m))
+# def dft_matrix(m):
+#     return fft(np.eye(m))
 
 
 beta = 0.5
 max_iter = 10000
-tolerance = 0.95
-np.random.seed(42)  # For reproducibility
+tolerance = 0.999
+np.random.seed(44)  # For reproducibility
 
 # Set dimensions
-m = 20
-S = 2
+m = 1000
+S = 10
 print(f"m = {m}, S = {S}")
 
-A = dft_matrix(m)
+# A = dft_matrix(m)
 
 x_sparse_real_true = sparse_projection_on_vector(np.random.randn(m), S)
 print("x_sparse_real_true:", x_sparse_real_true[:5])
@@ -156,12 +156,25 @@ b = np.abs(fft(x_sparse_real_true))
 x_sparse_real_init = sparse_projection_on_vector(np.random.randn(m), S)
 print("x_sparse_real_init:", x_sparse_real_init[:5])
 
+
+
+###
+epsilon = 5e-1
+# Set the standard deviation (sqrt of variance) for the Gaussian noise
+low_variance = 0.5
+
+# Generate random Gaussian noise with low variance
+noise = np.random.normal(loc=0, scale=low_variance, size=m)
+
+# x_sparse_real_init = x_sparse_real_true  + epsilon
+x_sparse_real_init = x_sparse_real_true + noise
+####
+
+
+x_sparse_real_init = np.random.randn(m)
 p_init = x_sparse_real_init
 
 
-# # Epsilon value
-# epsilon = 1e-1
-# y_initial = y_true + epsilon
 
 
 # result_AP = run_algorithm(S, b, y_initial, algo="alternating_projections", max_iter=max_iter,
@@ -174,3 +187,44 @@ result_RRR = run_algorithm(S, b, p_init, algo="RRR_algorithm", beta=beta, max_it
 print("result_RRR:        ", result_RRR[:5])
 print("x_sparse_real_true:", x_sparse_real_true[:5])
 
+# Plot the data with specified colors and labels
+plt.plot(x_sparse_real_true, label=f"Sparse: S = {S}, Original Vector", color='blue')
+plt.plot(x_sparse_real_init, label='Random Initial Vector', color='green')
+plt.plot(result_RRR, label='Result RRR', color='red')
+# Add legend
+plt.legend()
+plt.title("The vectors values")
+# Show the plot
+plt.show()
+
+plt.plot(np.abs(fft(x_sparse_real_true)), label='abs fft for Sparse Original Vector', color='blue')
+# Add legend
+# plt.legend()
+plt.title("abs fft for Sparse Original Vector")
+# Show the plot
+plt.show()
+
+# plt.plot(np.abs(fft(result_RRR)), label='abs fft for result_RRR', color='blue')
+# # Add legend
+# # plt.legend()
+# plt.title("abs fft for result_RRR")
+# # Show the plot
+# plt.show()
+
+
+plt.plot(sparse_projection_on_vector(result_RRR, S), label='result_RRR after sparse projection', color='red')
+
+plt.plot(x_sparse_real_true, label='Sparse Original Vector', color='blue')
+# Add legend
+plt.legend()
+plt.title("Original Vector and result_RRR after sparse projection")
+# Show the plot
+plt.show()
+
+
+plt.plot(np.abs(fft(sparse_projection_on_vector(result_RRR, S))), label='abs fft for result_RRR after sparse projection', color='blue')
+# Add legend
+# plt.legend()
+plt.title("abs fft for result_RRR after sparse projection")
+# Show the plot
+plt.show()
