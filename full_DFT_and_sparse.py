@@ -141,7 +141,7 @@ np.random.seed(44)  # For reproducibility
 
 # Set dimensions
 m = 1000
-S = 10
+S = 2
 print(f"m = {m}, S = {S}")
 
 # A = dft_matrix(m)
