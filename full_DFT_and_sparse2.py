@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.fft import fft, ifft
 from matplotlib import cm
+from scipy.fft import fft, ifft
 
 
 # print("\033[H\033[J")
@@ -128,47 +128,45 @@ def run_algorithm(S, b, p_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     plt.plot(norm_diff_list)
     plt.xlabel('Iteration')
     plt.ylabel(' i_s(P_2, S) / i_f(P_2) ratio')
-    plt.title(f' i_s(P_2, S) / i_f(P_2) ratio of {algo} Algorithm, threshold = {tolerance}'+m_s_string)
+    plt.title(f' i_s(P_2, S) / i_f(P_2) ratio of {algo} Algorithm, threshold = {tolerance}' + m_s_string)
     plt.show()
 
     print("norm_diff_list:", norm_diff_list[-5:])
 
     return p, converged
 
+
 def plot_m_S_average(m_S_average):
-    
     m_S_average = np.array(m_S_average)
 
     # Extracting m, S, and average_changes
     m_values = m_S_average[:, 0]
     S_values = m_S_average[:, 1]
     average_changes_values = m_S_average[:, 2]
-    converged_values =  m_S_average[:, 3]
-    
+    converged_values = m_S_average[:, 3]
+
     # Set a threshold for constant color
     threshold_value = 2
     # Clip values greater than the threshold to the threshold
     clipped_values = np.clip(average_changes_values, None, threshold_value)
-    
+
     # Creating a colormap based on clipped_values
     norm = plt.Normalize(clipped_values.min(), threshold_value)
     # cmap = cm.viridis  # Viridis colormap
     cmap = cm.RdYlGn_r  # Reverse Red-Yellow-Green colormap
 
-    
     # Plotting
     scatter = plt.scatter(m_values, S_values, c=clipped_values, cmap=cmap, norm=norm)
     # Plotting
     for m, S, avg_change, converged in zip(m_values, S_values, clipped_values, converged_values):
         if converged is None:
             plt.scatter(m, S, marker='x', color='black')
-            
+
     plt.xlabel('m')
     plt.ylabel('S')
     plt.title('Scatter Plot for m and S with Color-Coded average_changes (Plot "x" if converged is None)')
     plt.colorbar(scatter, label='average_changes (clipped)')
     plt.show()
-    
 
 
 beta = 0.5
@@ -177,7 +175,6 @@ tolerance = 0.999
 # Set dimensions
 m_array = [1000]
 S_array = [2]
-
 
 array_limit = 200
 m_array = np.arange(10, array_limit + 1, 10)
@@ -209,8 +206,8 @@ for m in m_array:  # Add more values as needed
         # print("result_AP:", np.abs(result_AP[:5]))
         # print("b:        ", b[:5])
 
-        result_RRR,converged = run_algorithm(S, b, p_init, algo="RRR_algorithm", beta=beta, max_iter=max_iter,
-                                   tolerance=tolerance)
+        result_RRR, converged = run_algorithm(S, b, p_init, algo="RRR_algorithm", beta=beta, max_iter=max_iter,
+                                              tolerance=tolerance)
         print("result_RRR:        ", result_RRR[:5])
         print("x_sparse_real_true:", x_sparse_real_true[:5])
 
@@ -268,15 +265,9 @@ for m in m_array:  # Add more values as needed
         # plt.ylabel('Magnitude Difference')
         # plt.legend()
         # plt.show()
-        
+
         average_changes = np.mean(np.abs(fft_a - fft_b))
 
-        m_S_average.append([m, S, average_changes,converged])
-        
-
-
+        m_S_average.append([m, S, average_changes, converged])
 
 plot_m_S_average(m_S_average)
-
-
-

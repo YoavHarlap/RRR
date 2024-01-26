@@ -54,25 +54,27 @@ def step_RRR(S, b, p, beta):
     # P_4dp = sparse_projection_on_vector(p, S)
     return p
 
+
 def mask_epsilon_values(p):
     # Separate real and imaginary parts
     real_part = p.real
     imag_part = p.imag
-    
+
     epsilon = 2
     # Zero out elements with absolute values less than or equal to 1e-16 for real part
     real_part[np.abs(real_part) <= epsilon] = 0
-    
+
     # Zero out elements with absolute values less than or equal to 1e-16 for imaginary part
     imag_part[np.abs(imag_part) <= epsilon] = 0
-    
+
     # Combine real and imaginary parts back into the complex array
     result = real_part + 1j * imag_part
-    
+
     # Printing the modified array
     # print(result)
 
     return result
+
 
 def i_f(p):
     return sum(x ** 2 for x in p)
@@ -143,7 +145,6 @@ S = 2
 
 np.random.seed(44)  # For reproducibility
 
-
 m_s_string = f"\nm = {m}, S = {S}, threshold = {tolerance}"
 print(f"m = {m}, S = {S}")
 
@@ -158,9 +159,6 @@ b = np.abs(fft(x_sparse_real_true))
 # Initialize x randomly
 x_sparse_real_init = np.random.randn(m)
 p_init = x_sparse_real_init
-
-
-
 
 # result_AP = run_algorithm(S, b, y_initial, algo="alternating_projections", max_iter=max_iter,
 #                           tolerance=tolerance)
@@ -178,14 +176,14 @@ plt.plot(x_sparse_real_init, label='Random Initial Vector', color='green')
 plt.plot(result_RRR, label='Result RRR', color='red')
 # Add legend
 plt.legend()
-plt.title("The vectors values"+m_s_string)
+plt.title("The vectors values" + m_s_string)
 # Show the plot
 plt.show()
 
 plt.plot(np.abs(fft(x_sparse_real_true)), label='abs fft for Sparse Original Vector', color='blue')
 # Add legend
 # plt.legend()
-plt.title("abs fft for Sparse Original Vector"+m_s_string)
+plt.title("abs fft for Sparse Original Vector" + m_s_string)
 # Show the plot
 plt.show()
 
@@ -202,18 +200,17 @@ plt.plot(sparse_projection_on_vector(result_RRR, S), label='result_RRR after spa
 plt.plot(x_sparse_real_true, label='Sparse Original Vector', color='blue')
 # Add legend
 plt.legend()
-plt.title("Original Vector and result_RRR after sparse projection"+m_s_string)
+plt.title("Original Vector and result_RRR after sparse projection" + m_s_string)
 # Show the plot
 plt.show()
 
-
-plt.plot(np.abs(fft(sparse_projection_on_vector(result_RRR, S))), label='abs fft for result_RRR after sparse projection', color='blue')
+plt.plot(np.abs(fft(sparse_projection_on_vector(result_RRR, S))),
+         label='abs fft for result_RRR after sparse projection', color='blue')
 # Add legend
 # plt.legend()
-plt.title("abs fft for result_RRR after sparse projection"+m_s_string)
+plt.title("abs fft for result_RRR after sparse projection" + m_s_string)
 # Show the plot
 plt.show()
-
 
 # Compute FFT for both vectors
 fft_a = np.abs(fft(sparse_projection_on_vector(result_RRR, S)))
