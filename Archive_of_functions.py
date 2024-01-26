@@ -37,3 +37,11 @@ def sparse_projection_on_y(y, S):
     y_sparse[indices] = np.array(y)[indices.astype(int)]
 
     return y_sparse
+
+
+def dft_matrix(m):
+    return fft(np.eye(m))
+
+
+
+
