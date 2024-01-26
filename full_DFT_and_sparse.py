@@ -136,12 +136,14 @@ def run_algorithm(S, b, p_init, algo, beta=None, max_iter=100, tolerance=1e-6):
 
 beta = 0.5
 max_iter = 10000
-tolerance = 0.99999999
-np.random.seed(44)  # For reproducibility
-
+tolerance = 0.999
 # Set dimensions
 m = 1000
 S = 2
+
+np.random.seed(44)  # For reproducibility
+
+
 m_s_string = f"\nm = {m}, S = {S}, threshold = {tolerance}"
 print(f"m = {m}, S = {S}")
 
