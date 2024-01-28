@@ -136,8 +136,10 @@ def run_algorithm(S, b, p_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     return p, converged
 
 
-def plot_m_S_average(m_S_average):
+def plot_m_S_average(m_S_average,max_iter,tolerance):
+    
     m_S_average = np.array(m_S_average)
+    max_iter_str = f", max_iter: {max_iter}, threshold = {tolerance}"
 
     # Extracting m, S, and average_changes
     m_values = m_S_average[:, 0]
@@ -162,23 +164,27 @@ def plot_m_S_average(m_S_average):
         if converged is None:
             plt.scatter(m, S, marker='x', color='black')
 
+
     plt.xlabel('m')
     plt.ylabel('S')
-    plt.title('Scatter Plot for m and S with Color-Coded average_changes (Plot "x" if converged is None)')
+    plt.title('Scatter Plot for m and S with Color-Coded average_changes' +"\n" 'Plot "x" if not converged'+max_iter_str)
     plt.colorbar(scatter, label='average_changes (clipped)')
     plt.show()
 
 
 beta = 0.5
 max_iter = 10000
-tolerance = 0.999
+tolerance = 0.95
 # Set dimensions
-m_array = [1000]
-S_array = [2]
-
 array_limit = 200
 m_array = np.arange(10, array_limit + 1, 10)
 S_array = np.arange(10, array_limit + 1, 10)
+# S_array = np.arange(10, 70 + 1, 10)
+
+m_array = [1000]
+S_array = [2]
+
+
 
 m_S_average = []
 
@@ -211,63 +217,84 @@ for m in m_array:  # Add more values as needed
         print("result_RRR:        ", result_RRR[:5])
         print("x_sparse_real_true:", x_sparse_real_true[:5])
 
-        # # Plot the data with specified colors and labels
-        # plt.plot(x_sparse_real_true, label=f"Sparse: S = {S}, Original Vector", color='blue')
-        # plt.plot(x_sparse_real_init, label='Random Initial Vector', color='green')
-        # plt.plot(result_RRR, label='Result RRR', color='red')
-        # # Add legend
-        # plt.legend()
-        # plt.title("The vectors values" + m_s_string)
-        # # Show the plot
-        # plt.show()
+        # Plot the data with specified colors and labels
+        plt.plot(x_sparse_real_true, label=f"Sparse: S = {S}, Original Vector", color='blue')
+        plt.plot(x_sparse_real_init, label='Random Initial Vector', color='green')
+        plt.plot(result_RRR, label='Result RRR', color='red')
+        # Add legend
+        plt.legend()
+        plt.title("The vectors values" + m_s_string)
+        # Show the plot
+        plt.show()
 
-        # plt.plot(np.abs(fft(x_sparse_real_true)), label='abs fft for Sparse Original Vector', color='blue')
-        # # Add legend
-        # # plt.legend()
-        # plt.title("abs fft for Sparse Original Vector" + m_s_string)
-        # # Show the plot
-        # plt.show()
 
-        # # plt.plot(np.abs(fft(result_RRR)), label='abs fft for result_RRR', color='blue')
-        # # # Add legend
-        # # # plt.legend()
-        # # plt.title("abs fft for result_RRR"+m_s_string)
-        # # # Show the plot
-        # # plt.show()
-
-        # plt.plot(sparse_projection_on_vector(result_RRR, S), label='result_RRR after sparse projection', color='red')
-
-        # plt.plot(x_sparse_real_true, label='Sparse Original Vector', color='blue')
-        # # Add legend
-        # plt.legend()
-        # plt.title("Original Vector and result_RRR after sparse projection" + m_s_string)
-        # # Show the plot
-        # plt.show()
-
-        # plt.plot(np.abs(fft(sparse_projection_on_vector(result_RRR, S))),
-        #          label='abs fft for result_RRR after sparse projection', color='blue')
+        # plt.plot(np.abs(fft(result_RRR)), label='abs fft for result_RRR', color='blue')
         # # Add legend
         # # plt.legend()
-        # plt.title("abs fft for result_RRR after sparse projection" + m_s_string)
+        # plt.title("abs fft for result_RRR"+m_s_string)
         # # Show the plot
         # plt.show()
+
+        plt.plot(sparse_projection_on_vector(result_RRR, S), label='result_RRR after sparse projection', color='red')
+
+        plt.plot(x_sparse_real_true, label='Sparse Original Vector', color='blue')
+        # Add legend
+        plt.legend()
+        plt.title("Original Vector and result_RRR after sparse projection" + m_s_string)
+        # Show the plot
+        plt.show()
+
+
+        plt.plot(np.abs(fft(x_sparse_real_true)), label='abs fft for Sparse Original Vector', color='blue')
+        # Add legend
+        # plt.legend()
+        plt.title("abs fft for Sparse Original Vector" + m_s_string)
+        # Show the plot
+        plt.show()
+        
+                
+        plt.plot(np.abs(fft(sparse_projection_on_vector(result_RRR, S))),
+                  label='abs fft for result_RRR after sparse projection', color='blue')
+        # Add legend
+        # plt.legend()
+        plt.title("abs fft for result_RRR after sparse projection" + m_s_string)
+        # Show the plot
+        plt.show()
+        
+        
+        
+        plt.plot(np.abs(fft(x_sparse_real_true)), label='abs fft for Sparse Original Vector', color='blue')
+        plt.plot(np.abs(fft(sparse_projection_on_vector(result_RRR, S))),
+                  label='abs fft for result_RRR after sparse projection', color='red')
+        # Add legend
+        plt.legend()
+        plt.title("abs fft for Sparse Original Vector And abs fft for result_RRR after sparse projection" + m_s_string)
+        # Show the plot
+        plt.show()
+        
+        
 
         # Compute FFT for both vectors
         fft_a = np.abs(fft(sparse_projection_on_vector(result_RRR, S)))
         fft_b = np.abs(fft(x_sparse_real_true))
-
-        # # Plot the absolute difference of FFT magnitudes
-        # plt.figure(figsize=(10, 6))
-        # plt.plot(np.abs(fft_a - fft_b), label='||FFT(a)| - |FFT(b)||')
-
-        # plt.title('Difference of FFT Magnitudes')
-        # # plt.xlabel('Frequency')
-        # plt.ylabel('Magnitude Difference')
-        # plt.legend()
-        # plt.show()
-
         average_changes = np.mean(np.abs(fft_a - fft_b))
 
         m_S_average.append([m, S, average_changes, converged])
+        
+        mean = np.round(average_changes, 2)
+        # Plot the absolute difference of FFT magnitudes
+        plt.figure(figsize=(10, 6))
+        plt.plot(np.abs(fft_a - fft_b), label='||FFT(a)| - |FFT(b)||')
+        plt.title('Difference of FFT Magnitudes'+ m_s_string)
+        plt.axhline(y=average_changes, color='g', linestyle=':', label=f"Horizontal Line at mean changes: {mean}")
+        # plt.xlabel('Frequency')
+        plt.ylabel('Magnitude Difference')
+        plt.legend()
+        plt.show()
 
-plot_m_S_average(m_S_average)
+     
+
+plot_m_S_average(m_S_average,max_iter,tolerance)
+
+
+
