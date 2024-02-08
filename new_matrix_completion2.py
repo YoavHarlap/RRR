@@ -120,14 +120,11 @@ def step_RRR(matrix, r, hints_matrix, hints_indices, beta):
     return new_matrix
 
 
-
 def step_RRR_original(matrix, r, hints_matrix, hints_indices, beta):
     matrix_proj_2 = proj_2(matrix, r)
-    matrix_proj_1 = proj_1(2*matrix_proj_2 - matrix, hints_matrix, hints_indices)
+    matrix_proj_1 = proj_1(2 * matrix_proj_2 - matrix, hints_matrix, hints_indices)
     new_matrix = matrix + beta * (matrix_proj_1 - matrix_proj_2)
     return new_matrix
-
-
 
 
 def step_AP(matrix, r, hints_matrix, hints_indices):
@@ -183,7 +180,6 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
             # matrix = step_RRR(matrix, r, hints_matrix, hints_indices, beta)
             matrix = step_RRR_original(matrix, r, hints_matrix, hints_indices, beta)
 
-
             # Calculate the norm difference between PB - PA
             matrix_proj_2 = proj_2(matrix, r)
             matrix_proj_1 = proj_1(matrix, hints_matrix, hints_indices)
@@ -219,31 +215,59 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
 
     return matrix
 
+def run_experiment(n, r, q, max_iter=1000, tolerance=1e-6, beta=0.5):
+    np.random.seed(42)  # For reproducibility
+
+    print(f"n = {n}, r = {r}, q = {q}")
+
+    [true_matrix, initial_matrix, hints_matrix, hints_indices] = initialize_matrix(n, r, q, seed=42)
+    missing_elements_indices = ~hints_indices
+
+    # Alternating Projections
+    result_AP = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices, r,
+                                                    algo="alternating_projections", max_iter=max_iter,
+                                                    tolerance=tolerance)
+
+    # plot_2_metrix(true_matrix, result_AP, missing_elements_indices, f"_END_ AP, for n = {n}, r = {r}, q = {q}")
+
+    # Randomized Rounding Relaxation
+    result_RRR = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices, r,
+                                                     algo="RRR_algorithm", beta=beta, max_iter=max_iter,
+                                                     tolerance=tolerance)
+    result_RRR = proj_1(result_RRR, hints_matrix, hints_indices)
+
+    # plot_2_metrix(true_matrix, result_RRR, missing_elements_indices, f"_END_ RRR, for n = {n}, r = {r}, q = {q}")
+
+
+n_values = np.linspace(10, 150, 5)
+r_values = np.linspace(10, 150, 5)
+q_values = np.linspace(10, 20 ** 2, 5)
+
+# Convert to integer arrays
+n_values_int = n_values.astype(int)
+r_values_int = r_values.astype(int)
+q_values_int = q_values.astype(int)
+
+n_values_int = [100]
+r_values_int = [50]
+q_values_int = [100]
+
+#
+# # Example usage of the loop
+# for n in n_values_int:  # Set your desired values for n
+#     for r in r_values_int:  # Set your desired values for r
+#         for q in q_values_int:  # Set your desired values for q
+#             run_experiment(n, r, q, max_iter=max_iter, tolerance=tolerance, beta=beta)
 
 beta = 0.5
-max_iter = 100000
+max_iter = 10000
 tolerance = 1e-6
 np.random.seed(42)  # For reproducibility
 
-# Example usage
-n = 100  # Size of the matrix (nxn)
-r = 12  # Rank constraint
-q = 100  # Number of missing entries to complete
 
-print(f"n = {n}, r = {r}, q = {q}")
 
-[true_matrix, initial_matrix, hints_matrix, hints_indices] = initialize_matrix(n, r, q, seed=42)
-missing_elements_indices = ~hints_indices
-
-result_AP = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices, r,
-                                                algo="alternating_projections", max_iter=max_iter,
-                                                tolerance=tolerance)
-
-# plot_2_metrix(true_matrix, result_AP, missing_elements_indices, f"_END_ AP, for n = {n}, r = {r}, q = {q}")
-
-result_RRR = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices, r,
-                                                 algo="RRR_algorithm", beta=beta, max_iter=max_iter,
-                                                 tolerance=tolerance)
-result_RRR = proj_1(result_RRR, hints_matrix, hints_indices)
-
-# plot_2_metrix(true_matrix, result_RRR, missing_elements_indices, f"_END_ RRR, for n = {n}, r = {r}, q = {q}")
+# Example usage of the loop
+for n in range(10, 201, 10):  # Set your desired values for n
+    for r in range(10, min(n, 201), 10):  # Set your desired values for r
+        for q in range(10, min((n - r) ** 2, n ** 2) + 1, 10):  # Set your desired values for q
+            run_experiment(n, r, q, max_iter=max_iter, tolerance=tolerance, beta=beta)
