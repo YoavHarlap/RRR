@@ -142,6 +142,7 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
     norm_diff_list = []
     norm_diff_list2 = []
     norm_diff_min = 1000
+    n_iter = -1
 
     if algo == "alternating_projections":
         for iteration in range(max_iter):
@@ -170,6 +171,7 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
             # Check convergence
             if norm_diff < tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations.")
+                n_iter = iteration + 1
                 break
 
     elif algo == "RRR_algorithm":
@@ -197,6 +199,7 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
             # Check convergence
             if norm_diff < tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations.")
+                n_iter = iteration + 1
                 break
 
     # # Plot the norm difference over iterations
@@ -213,7 +216,8 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
     # plt.title(f'Convergence of {algo} Algorithm, |true_matrix - iter_matrix|')
     # plt.show()
 
-    return matrix
+    return matrix, n_iter
+
 
 def run_experiment(n, r, q, max_iter=1000, tolerance=1e-6, beta=0.5):
     np.random.seed(42)  # For reproducibility
@@ -224,19 +228,23 @@ def run_experiment(n, r, q, max_iter=1000, tolerance=1e-6, beta=0.5):
     missing_elements_indices = ~hints_indices
 
     # Alternating Projections
-    result_AP = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices, r,
-                                                    algo="alternating_projections", max_iter=max_iter,
-                                                    tolerance=tolerance)
+    result_AP, AP_n_iter = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices,
+                                                               r,
+                                                               algo="alternating_projections", max_iter=max_iter,
+                                                               tolerance=tolerance)
 
     # plot_2_metrix(true_matrix, result_AP, missing_elements_indices, f"_END_ AP, for n = {n}, r = {r}, q = {q}")
 
     # Randomized Rounding Relaxation
-    result_RRR = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices, r,
-                                                     algo="RRR_algorithm", beta=beta, max_iter=max_iter,
-                                                     tolerance=tolerance)
+    result_RRR, RRR_n_iter = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix,
+                                                                 hints_indices, r,
+                                                                 algo="RRR_algorithm", beta=beta, max_iter=max_iter,
+                                                                 tolerance=tolerance)
     result_RRR = proj_1(result_RRR, hints_matrix, hints_indices)
 
     # plot_2_metrix(true_matrix, result_RRR, missing_elements_indices, f"_END_ RRR, for n = {n}, r = {r}, q = {q}")
+
+    return AP_n_iter, RRR_n_iter
 
 
 n_values = np.linspace(10, 150, 5)
@@ -264,10 +272,15 @@ max_iter = 10000
 tolerance = 1e-6
 np.random.seed(42)  # For reproducibility
 
-
+n_r_q_n_iter = []
 
 # Example usage of the loop
-for n in range(10, 201, 10):  # Set your desired values for n
+for n in range(10, 201, 30):  # Set your desired values for n
     for r in range(10, min(n, 201), 10):  # Set your desired values for r
-        for q in range(10, min((n - r) ** 2, n ** 2) + 1, 10):  # Set your desired values for q
-            run_experiment(n, r, q, max_iter=max_iter, tolerance=tolerance, beta=beta)
+        for q in range(10, min((n - r) ** 2, n ** 2) + 1, 100):  # Set your desired values for q
+            AP_n_iter, RRR_n_iter = run_experiment(n, r, q, max_iter=max_iter, tolerance=tolerance, beta=beta)
+            n_r_q_n_iter.append([n, r, q, AP_n_iter, RRR_n_iter])
+            
+            
+print("done")
+
