@@ -5,9 +5,13 @@ no figgggg noooo
 @author: ASUS
 """
 
+import sys
+
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.linalg import matrix_rank, svd
+
+from print_to_txt_file import Tee
 
 
 def initialize_matrix(n, r, q, seed=None):
@@ -267,6 +271,14 @@ q_values_int = [100]
 #         for q in q_values_int:  # Set your desired values for q
 #             run_experiment(n, r, q, max_iter=max_iter, tolerance=tolerance, beta=beta)
 
+
+log_file_path = r"n_r_q_n_iter.txt"
+# Create a log file to write to
+log_file = open(log_file_path, "w")
+
+# Redirect sys.stdout to the custom Tee object
+sys.stdout = Tee(sys.stdout, log_file)
+
 beta = 0.5
 max_iter = 10000
 tolerance = 1e-6
@@ -275,12 +287,8 @@ np.random.seed(42)  # For reproducibility
 n_r_q_n_iter = []
 
 # Example usage of the loop
-for n in range(10, 201, 30):  # Set your desired values for n
-    for r in range(10, min(n, 201), 10):  # Set your desired values for r
+for n in range(10, 121, 30):  # Set your desired values for n
+    for r in range(10, min(n, 121), 10):  # Set your desired values for r
         for q in range(10, min((n - r) ** 2, n ** 2) + 1, 100):  # Set your desired values for q
             AP_n_iter, RRR_n_iter = run_experiment(n, r, q, max_iter=max_iter, tolerance=tolerance, beta=beta)
             n_r_q_n_iter.append([n, r, q, AP_n_iter, RRR_n_iter])
-            
-            
-print("done")
-

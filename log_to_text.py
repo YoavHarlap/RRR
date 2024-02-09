@@ -19,10 +19,15 @@ class Tee:
         for f in self.files:
             f.flush()
 
-# Create a log file to write to
-log_file = open(log_file_path, "w")
 
-# Redirect sys.stdout to the custom Tee object
-sys.stdout = Tee(sys.stdout, log_file)
 
-print("popopo")
+
+# import sys
+# from print_to_txt_file import Tee
+# # Create a log file to write to
+# log_file = open(log_file_path, "w")
+#
+# # Redirect sys.stdout to the custom Tee object
+# sys.stdout = Tee(sys.stdout, log_file)
+#
+# print("popopo")
