@@ -186,9 +186,9 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
             # plot_2_metrix(true_matrix, matrix, missing_elements_indices, iteration)
             if iteration % 100 == 0:
                 
-                plot_2_metrix(true_matrix, matrix, missing_elements_indices, iteration)
+                # plot_2_metrix(true_matrix, matrix, missing_elements_indices, iteration)
 
-                # print("iteration:", iteration)
+                print("iteration:", iteration)
             # matrix = step_RRR(matrix, r, hints_matrix, hints_indices, beta)
             matrix = step_RRR_original(matrix, r, hints_matrix, hints_indices, beta)
 
@@ -247,9 +247,9 @@ tolerance = 1e-6
 np.random.seed(42)  # For reproducibility
 
 # Example usage
-n = 5  # Size of the matrix (nxn)
-r = 2 # Rank constraint
-q = 8  # Number of missing entries to complete
+n = 17  # Size of the matrix (nxn)
+r = 10 # Rank constraint
+q = 20  # Number of missing entries to complete
 nr = (n-r)**2
 print(f"(n-r)**2 = {nr} / {n*n}")
 
