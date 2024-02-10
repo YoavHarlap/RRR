@@ -60,6 +60,11 @@ def proj_1(matrix, hints_matrix, hints_indices):
     matrix_proj_1[hints_indices] = hints_matrix[hints_indices]
     return matrix_proj_1
 
+def hints_matrix_norm(matrix, hints_matrix, hints_indices):
+    # Set non-missing entries to the corresponding values in the initialization matrix
+    norm = np.linalg.norm(matrix[hints_indices] - hints_matrix[hints_indices])
+    return norm
+
 
 def plot_sudoku(matrix, colors, ax, title, missing_elements_indices):
     n = matrix.shape[0]
@@ -104,7 +109,7 @@ def plot_2_metrix(matrix1, matrix2, missing_elements_indices, iteration_number):
     fig, axs = plt.subplots(1, 2, figsize=(10, 5))
 
     # Plot the initial matrix with the specified threshold
-    plot_sudoku(matrix1, colors, axs[0], "Init_matrix", missing_elements_indices)
+    plot_sudoku(matrix1, colors, axs[0], "True_matrix", missing_elements_indices)
 
     # Plot the matrix after setting entries to zero with the specified threshold
     plot_sudoku(matrix2, colors, axs[1], "iteration_number: " + str(iteration_number), missing_elements_indices)
@@ -159,6 +164,7 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
             matrix_proj_2 = proj_2(matrix, r)
             matrix_proj_1 = proj_1(matrix, hints_matrix, hints_indices)
             norm_diff = np.linalg.norm(matrix_proj_2 - matrix_proj_1)
+            # norm_diff = hints_matrix_norm(matrix, hints_matrix, hints_indices)
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
@@ -178,16 +184,20 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
     elif algo == "RRR_algorithm":
         for iteration in range(max_iter):
             # plot_2_metrix(true_matrix, matrix, missing_elements_indices, iteration)
-            # if iteration % 100 == 0:
-            #     print("iteration:", iteration)
+            if iteration % 100 == 0:
+                
+                plot_2_metrix(true_matrix, matrix, missing_elements_indices, iteration)
+
+                # print("iteration:", iteration)
             # matrix = step_RRR(matrix, r, hints_matrix, hints_indices, beta)
             matrix = step_RRR_original(matrix, r, hints_matrix, hints_indices, beta)
-
 
             # Calculate the norm difference between PB - PA
             matrix_proj_2 = proj_2(matrix, r)
             matrix_proj_1 = proj_1(matrix, hints_matrix, hints_indices)
             norm_diff = np.linalg.norm(matrix_proj_2 - matrix_proj_1)
+            # norm_diff = hints_matrix_norm(matrix, hints_matrix, hints_indices)
+
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
@@ -209,35 +219,48 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
     # plt.ylabel('|PB(y, b) - PA(y, A)|')
     # plt.title(f'Convergence of {algo} Algorithm, |PB(y, b) - PA(y, A)|')
     # plt.show()
-    #
-    # # Plot the norm difference over iterations
-    # plt.plot(norm_diff_list2)
-    # plt.xlabel('Iteration')
-    # plt.ylabel('|true_matrix - iter_matrix|')
-    # plt.title(f'Convergence of {algo} Algorithm, |true_matrix - iter_matrix|')
-    # plt.show()
+    
+    # Plot the norm difference over iterations
+    plt.plot(norm_diff_list)
+    plt.xlabel('Iteration')
+    plt.ylabel('hints_matrix_norm')
+    plt.title(f'Convergence of {algo} Algorithm, hints_matrix_norm')
+    plt.show()
+    
+    
+    
+    # Plot the norm difference over iterations
+    plt.plot(norm_diff_list2)
+    plt.xlabel('Iteration')
+    plt.ylabel('|true_matrix - iter_matrix|')
+    plt.title(f'Convergence of {algo} Algorithm, |true_matrix - iter_matrix|')
+    plt.show()
 
     return matrix
 
 
 beta = 0.5
-max_iter = 100000
+max_iter = 10000
 tolerance = 1e-6
+# tolerance = 0.1
+
 np.random.seed(42)  # For reproducibility
 
 # Example usage
-n = 100  # Size of the matrix (nxn)
-r = 12  # Rank constraint
-q = 100  # Number of missing entries to complete
+n = 5  # Size of the matrix (nxn)
+r = 2 # Rank constraint
+q = 8  # Number of missing entries to complete
+nr = (n-r)**2
+print(f"(n-r)**2 = {nr} / {n*n}")
 
 print(f"n = {n}, r = {r}, q = {q}")
 
 [true_matrix, initial_matrix, hints_matrix, hints_indices] = initialize_matrix(n, r, q, seed=42)
 missing_elements_indices = ~hints_indices
 
-result_AP = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices, r,
-                                                algo="alternating_projections", max_iter=max_iter,
-                                                tolerance=tolerance)
+# result_AP = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix, hints_indices, r,
+#                                                 algo="alternating_projections", max_iter=max_iter,
+#                                                 tolerance=tolerance)
 
 # plot_2_metrix(true_matrix, result_AP, missing_elements_indices, f"_END_ AP, for n = {n}, r = {r}, q = {q}")
 
@@ -246,4 +269,4 @@ result_RRR = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hi
                                                  tolerance=tolerance)
 result_RRR = proj_1(result_RRR, hints_matrix, hints_indices)
 
-# plot_2_metrix(true_matrix, result_RRR, missing_elements_indices, f"_END_ RRR, for n = {n}, r = {r}, q = {q}")
+plot_2_metrix(true_matrix, result_RRR, missing_elements_indices, f"_END_ RRR, for n = {n}, r = {r}, q = {q}")

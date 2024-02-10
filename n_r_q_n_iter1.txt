@@ -1,0 +1,834 @@
+n = 4, r = 2, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 67 iterations.
+n = 4, r = 2, q = 4
+alternating_projections Converged in 1 iterations.
+n = 4, r = 3, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 2 iterations.
+n = 6, r = 2, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 15 iterations.
+n = 6, r = 2, q = 4
+alternating_projections Converged in 1 iterations.
+n = 6, r = 2, q = 7
+alternating_projections Converged in 1 iterations.
+n = 6, r = 2, q = 10
+alternating_projections Converged in 1 iterations.
+n = 6, r = 2, q = 13
+alternating_projections Converged in 1 iterations.
+n = 6, r = 2, q = 16
+alternating_projections Converged in 1 iterations.
+n = 6, r = 3, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 135 iterations.
+n = 6, r = 3, q = 4
+alternating_projections Converged in 1 iterations.
+n = 6, r = 3, q = 7
+alternating_projections Converged in 1 iterations.
+n = 6, r = 4, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 123 iterations.
+n = 6, r = 4, q = 4
+alternating_projections Converged in 1 iterations.
+n = 6, r = 5, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 2 iterations.
+n = 8, r = 2, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 71 iterations.
+n = 8, r = 2, q = 4
+alternating_projections Converged in 1 iterations.
+n = 8, r = 2, q = 7
+alternating_projections Converged in 1 iterations.
+n = 8, r = 2, q = 10
+alternating_projections Converged in 1 iterations.
+n = 8, r = 2, q = 13
+alternating_projections Converged in 1 iterations.
+n = 8, r = 2, q = 16
+alternating_projections Converged in 1 iterations.
+n = 8, r = 2, q = 19
+alternating_projections Converged in 1 iterations.
+n = 8, r = 2, q = 22
+alternating_projections Converged in 1 iterations.
+n = 8, r = 2, q = 25
+alternating_projections Converged in 1 iterations.
+n = 8, r = 2, q = 28
+alternating_projections Converged in 1 iterations.
+n = 8, r = 2, q = 31
+alternating_projections Converged in 1 iterations.
+n = 8, r = 2, q = 34
+alternating_projections Converged in 1 iterations.
+n = 8, r = 3, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 39 iterations.
+n = 8, r = 3, q = 4
+alternating_projections Converged in 1 iterations.
+n = 8, r = 3, q = 7
+alternating_projections Converged in 1 iterations.
+n = 8, r = 3, q = 10
+alternating_projections Converged in 1 iterations.
+n = 8, r = 3, q = 13
+alternating_projections Converged in 1 iterations.
+n = 8, r = 3, q = 16
+alternating_projections Converged in 1 iterations.
+n = 8, r = 3, q = 19
+alternating_projections Converged in 1 iterations.
+n = 8, r = 3, q = 22
+alternating_projections Converged in 1 iterations.
+n = 8, r = 3, q = 25
+alternating_projections Converged in 1 iterations.
+n = 8, r = 4, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 157 iterations.
+n = 8, r = 4, q = 4
+alternating_projections Converged in 1 iterations.
+n = 8, r = 4, q = 7
+alternating_projections Converged in 1 iterations.
+n = 8, r = 4, q = 10
+alternating_projections Converged in 1 iterations.
+n = 8, r = 4, q = 13
+alternating_projections Converged in 1 iterations.
+n = 8, r = 4, q = 16
+alternating_projections Converged in 1 iterations.
+n = 8, r = 5, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 104 iterations.
+n = 8, r = 5, q = 4
+alternating_projections Converged in 1 iterations.
+n = 8, r = 5, q = 7
+alternating_projections Converged in 1 iterations.
+n = 8, r = 6, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 823 iterations.
+n = 8, r = 6, q = 4
+alternating_projections Converged in 1 iterations.
+n = 8, r = 7, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 2 iterations.
+n = 10, r = 2, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 53 iterations.
+n = 10, r = 2, q = 4
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 7
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 10
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 13
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 16
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 19
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 22
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 25
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 28
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 31
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 34
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 37
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 40
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 43
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 46
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 49
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 52
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 55
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 58
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 61
+alternating_projections Converged in 1 iterations.
+n = 10, r = 2, q = 64
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 22 iterations.
+n = 10, r = 3, q = 4
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 7
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 10
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 13
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 16
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 19
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 22
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 25
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 28
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 31
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 34
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 37
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 40
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 43
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 46
+alternating_projections Converged in 1 iterations.
+n = 10, r = 3, q = 49
+alternating_projections Converged in 1 iterations.
+n = 10, r = 4, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 79 iterations.
+n = 10, r = 4, q = 4
+alternating_projections Converged in 1 iterations.
+n = 10, r = 4, q = 7
+alternating_projections Converged in 1 iterations.
+n = 10, r = 4, q = 10
+alternating_projections Converged in 1 iterations.
+n = 10, r = 4, q = 13
+alternating_projections Converged in 1 iterations.
+n = 10, r = 4, q = 16
+alternating_projections Converged in 1 iterations.
+n = 10, r = 4, q = 19
+alternating_projections Converged in 1 iterations.
+n = 10, r = 4, q = 22
+alternating_projections Converged in 1 iterations.
+n = 10, r = 4, q = 25
+alternating_projections Converged in 1 iterations.
+n = 10, r = 4, q = 28
+alternating_projections Converged in 1 iterations.
+n = 10, r = 4, q = 31
+alternating_projections Converged in 1 iterations.
+n = 10, r = 4, q = 34
+alternating_projections Converged in 1 iterations.
+n = 10, r = 5, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 55 iterations.
+n = 10, r = 5, q = 4
+alternating_projections Converged in 1 iterations.
+n = 10, r = 5, q = 7
+alternating_projections Converged in 1 iterations.
+n = 10, r = 5, q = 10
+alternating_projections Converged in 1 iterations.
+n = 10, r = 5, q = 13
+alternating_projections Converged in 1 iterations.
+n = 10, r = 5, q = 16
+alternating_projections Converged in 1 iterations.
+n = 10, r = 5, q = 19
+alternating_projections Converged in 1 iterations.
+n = 10, r = 5, q = 22
+alternating_projections Converged in 1 iterations.
+n = 10, r = 5, q = 25
+alternating_projections Converged in 1 iterations.
+n = 10, r = 6, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 2 iterations.
+n = 10, r = 6, q = 4
+alternating_projections Converged in 1 iterations.
+n = 10, r = 6, q = 7
+alternating_projections Converged in 1 iterations.
+n = 10, r = 6, q = 10
+alternating_projections Converged in 1 iterations.
+n = 10, r = 6, q = 13
+alternating_projections Converged in 1 iterations.
+n = 10, r = 6, q = 16
+alternating_projections Converged in 1 iterations.
+n = 10, r = 7, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 2 iterations.
+n = 10, r = 7, q = 4
+alternating_projections Converged in 1 iterations.
+n = 10, r = 7, q = 7
+alternating_projections Converged in 1 iterations.
+n = 10, r = 8, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 2 iterations.
+n = 10, r = 8, q = 4
+alternating_projections Converged in 1 iterations.
+n = 10, r = 9, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 2 iterations.
+n = 12, r = 2, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 31 iterations.
+n = 12, r = 2, q = 4
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 7
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 10
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 13
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 16
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 19
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 22
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 25
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 28
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 31
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 34
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 37
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 40
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 43
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 46
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 49
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 52
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 55
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 58
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 61
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 64
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 67
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 70
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 73
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 76
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 79
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 82
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 85
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 88
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 91
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 94
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 97
+alternating_projections Converged in 1 iterations.
+n = 12, r = 2, q = 100
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 70 iterations.
+n = 12, r = 3, q = 4
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 7
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 10
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 13
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 16
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 19
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 22
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 25
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 28
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 31
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 34
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 37
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 40
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 43
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 46
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 49
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 52
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 55
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 58
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 61
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 64
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 67
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 70
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 73
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 76
+alternating_projections Converged in 1 iterations.
+n = 12, r = 3, q = 79
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 53 iterations.
+n = 12, r = 4, q = 4
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 7
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 10
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 13
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 16
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 19
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 22
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 25
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 28
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 31
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 34
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 37
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 40
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 43
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 46
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 49
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 52
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 55
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 58
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 61
+alternating_projections Converged in 1 iterations.
+n = 12, r = 4, q = 64
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 176 iterations.
+n = 12, r = 5, q = 4
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 7
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 10
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 13
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 16
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 19
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 22
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 25
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 28
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 31
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 34
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 37
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 40
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 43
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 46
+alternating_projections Converged in 1 iterations.
+n = 12, r = 5, q = 49
+alternating_projections Converged in 1 iterations.
+n = 12, r = 6, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 278 iterations.
+n = 12, r = 6, q = 4
+alternating_projections Converged in 1 iterations.
+n = 12, r = 6, q = 7
+alternating_projections Converged in 1 iterations.
+n = 12, r = 6, q = 10
+alternating_projections Converged in 1 iterations.
+n = 12, r = 6, q = 13
+alternating_projections Converged in 1 iterations.
+n = 12, r = 6, q = 16
+alternating_projections Converged in 1 iterations.
+n = 12, r = 6, q = 19
+alternating_projections Converged in 1 iterations.
+n = 12, r = 6, q = 22
+alternating_projections Converged in 1 iterations.
+n = 12, r = 6, q = 25
+alternating_projections Converged in 1 iterations.
+n = 12, r = 6, q = 28
+alternating_projections Converged in 1 iterations.
+n = 12, r = 6, q = 31
+alternating_projections Converged in 1 iterations.
+n = 12, r = 6, q = 34
+alternating_projections Converged in 1 iterations.
+n = 12, r = 7, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 718 iterations.
+n = 12, r = 7, q = 4
+alternating_projections Converged in 1 iterations.
+n = 12, r = 7, q = 7
+alternating_projections Converged in 1 iterations.
+n = 12, r = 7, q = 10
+alternating_projections Converged in 1 iterations.
+n = 12, r = 7, q = 13
+alternating_projections Converged in 1 iterations.
+n = 12, r = 7, q = 16
+alternating_projections Converged in 1 iterations.
+n = 12, r = 7, q = 19
+alternating_projections Converged in 1 iterations.
+n = 12, r = 7, q = 22
+alternating_projections Converged in 1 iterations.
+n = 12, r = 7, q = 25
+alternating_projections Converged in 1 iterations.
+n = 12, r = 8, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 2 iterations.
+n = 12, r = 8, q = 4
+alternating_projections Converged in 1 iterations.
+n = 12, r = 8, q = 7
+alternating_projections Converged in 1 iterations.
+n = 12, r = 8, q = 10
+alternating_projections Converged in 1 iterations.
+n = 12, r = 8, q = 13
+alternating_projections Converged in 1 iterations.
+n = 12, r = 8, q = 16
+alternating_projections Converged in 1 iterations.
+n = 12, r = 9, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 2 iterations.
+n = 12, r = 9, q = 4
+alternating_projections Converged in 1 iterations.
+n = 12, r = 9, q = 7
+alternating_projections Converged in 1 iterations.
+n = 12, r = 10, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 2 iterations.
+n = 12, r = 10, q = 4
+alternating_projections Converged in 1 iterations.
+n = 12, r = 11, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 2 iterations.
+n = 14, r = 2, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 16 iterations.
+n = 14, r = 2, q = 4
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 7
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 10
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 13
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 16
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 19
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 22
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 25
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 28
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 31
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 34
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 37
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 40
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 43
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 46
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 49
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 52
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 55
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 58
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 61
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 64
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 67
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 70
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 73
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 76
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 79
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 82
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 85
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 88
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 91
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 94
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 97
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 100
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 103
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 106
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 109
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 112
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 115
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 118
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 121
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 124
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 127
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 130
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 133
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 136
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 139
+alternating_projections Converged in 1 iterations.
+n = 14, r = 2, q = 142
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 39 iterations.
+n = 14, r = 3, q = 4
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 7
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 10
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 13
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 16
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 19
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 22
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 25
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 28
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 31
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 34
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 37
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 40
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 43
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 46
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 49
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 52
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 55
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 58
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 61
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 64
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 67
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 70
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 73
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 76
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 79
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 82
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 85
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 88
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 91
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 94
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 97
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 100
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 103
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 106
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 109
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 112
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 115
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 118
+alternating_projections Converged in 1 iterations.
+n = 14, r = 3, q = 121
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 39 iterations.
+n = 14, r = 4, q = 4
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 7
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 10
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 13
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 16
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 19
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 22
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 25
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 28
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 31
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 34
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 37
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 40
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 43
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 46
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 49
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 52
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 55
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 58
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 61
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 64
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 67
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 70
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 73
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 76
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 79
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 82
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 85
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 88
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 91
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 94
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 97
+alternating_projections Converged in 1 iterations.
+n = 14, r = 4, q = 100
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 1
+alternating_projections Converged in 1 iterations.
+RRR_algorithm Converged in 124 iterations.
+n = 14, r = 5, q = 4
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 7
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 10
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 13
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 16
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 19
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 22
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 25
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 28
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 31
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 34
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 37
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 40
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 43
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 46
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 49
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 52
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 55
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 58
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 61
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 64
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 67
+alternating_projections Converged in 1 iterations.
+n = 14, r = 5, q = 70
+alternating_projections Converged in 1 iterations.

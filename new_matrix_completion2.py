@@ -95,6 +95,12 @@ def plot_sudoku(matrix, colors, ax, title, missing_elements_indices):
     ax.set_title(title)
 
 
+def hints_matrix_norm(matrix, hints_matrix, hints_indices):
+    # Set non-missing entries to the corresponding values in the initialization matrix
+    norm = np.linalg.norm(matrix[hints_indices] - hints_matrix[hints_indices])
+    return norm
+
+
 def plot_2_metrix(matrix1, matrix2, missing_elements_indices, iteration_number):
     # Set a threshold for coloring based on absolute differences
     threshold = 0
@@ -108,7 +114,7 @@ def plot_2_metrix(matrix1, matrix2, missing_elements_indices, iteration_number):
     fig, axs = plt.subplots(1, 2, figsize=(10, 5))
 
     # Plot the initial matrix with the specified threshold
-    plot_sudoku(matrix1, colors, axs[0], "Init_matrix", missing_elements_indices)
+    plot_sudoku(matrix1, colors, axs[0], "True_matrix", missing_elements_indices)
 
     # Plot the matrix after setting entries to zero with the specified threshold
     plot_sudoku(matrix2, colors, axs[1], "iteration_number: " + str(iteration_number), missing_elements_indices)
@@ -161,6 +167,8 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
             matrix_proj_2 = proj_2(matrix, r)
             matrix_proj_1 = proj_1(matrix, hints_matrix, hints_indices)
             norm_diff = np.linalg.norm(matrix_proj_2 - matrix_proj_1)
+            # norm_diff = hints_matrix_norm(matrix, hints_matrix, hints_indices)
+
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
@@ -190,6 +198,8 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
             matrix_proj_2 = proj_2(matrix, r)
             matrix_proj_1 = proj_1(matrix, hints_matrix, hints_indices)
             norm_diff = np.linalg.norm(matrix_proj_2 - matrix_proj_1)
+            # norm_diff = hints_matrix_norm(matrix, hints_matrix, hints_indices)
+
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
@@ -287,8 +297,8 @@ np.random.seed(42)  # For reproducibility
 n_r_q_n_iter = []
 
 # Example usage of the loop
-for n in range(10, 121, 30):  # Set your desired values for n
-    for r in range(10, min(n, 121), 10):  # Set your desired values for r
-        for q in range(10, min((n - r) ** 2, n ** 2) + 1, 100):  # Set your desired values for q
+for n in range(2, 20, 3):  # Set your desired values for n
+    for r in range(1, min(n, 20), 1):  # Set your desired values for r
+        for q in range(1, min((n - r) ** 2, n ** 2) + 1, 5):  # Set your desired values for q
             AP_n_iter, RRR_n_iter = run_experiment(n, r, q, max_iter=max_iter, tolerance=tolerance, beta=beta)
             n_r_q_n_iter.append([n, r, q, AP_n_iter, RRR_n_iter])
