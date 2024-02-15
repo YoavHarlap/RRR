@@ -1,9 +1,4 @@
-
-
 #this code print to text all print in the code
-
-
-import sys
 log_file_path = "save_logs.txt"
 # Custom file-like object that writes to both stdout and a file
 class Tee:
@@ -20,14 +15,15 @@ class Tee:
             f.flush()
 
 
-
-
+# in file printing:
 # import sys
-# from print_to_txt_file import Tee
-# # Create a log file to write to
 # log_file = open(log_file_path, "w")
-#
-# # Redirect sys.stdout to the custom Tee object
 # sys.stdout = Tee(sys.stdout, log_file)
-#
-# print("popopo")
+
+# read file:
+# filename = r"n_r_q_n_iter.txt"
+# try:
+#     with open(filename, "r") as file:
+#         data_text = file.read()
+# except FileNotFoundError:
+#     print(f"filename{filename} not found")
