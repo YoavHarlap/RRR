@@ -151,6 +151,7 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
     # Storage for plotting
     norm_diff_list = []
     norm_diff_list2 = []
+    norm_diff_list3 = []
     norm_diff_min = 1000
     n_iter = -1
 
@@ -167,8 +168,8 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
             matrix_proj_2 = proj_2(matrix, r)
             matrix_proj_1 = proj_1(matrix, hints_matrix, hints_indices)
             norm_diff = np.linalg.norm(matrix_proj_2 - matrix_proj_1)
-            # norm_diff = hints_matrix_norm(matrix, hints_matrix, hints_indices)
-
+            norm_diff3 = hints_matrix_norm(matrix, hints_matrix, hints_indices)
+            norm_diff_list3.append(norm_diff3)
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
@@ -198,8 +199,8 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
             matrix_proj_2 = proj_2(matrix, r)
             matrix_proj_1 = proj_1(matrix, hints_matrix, hints_indices)
             norm_diff = np.linalg.norm(matrix_proj_2 - matrix_proj_1)
-            # norm_diff = hints_matrix_norm(matrix, hints_matrix, hints_indices)
-
+            norm_diff3 = hints_matrix_norm(matrix, hints_matrix, hints_indices)
+            norm_diff_list3.append(norm_diff3)
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
@@ -216,19 +217,26 @@ def run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matri
                 n_iter = iteration + 1
                 break
 
+    # Plot the norm difference over iterations
+    plt.plot(norm_diff_list)
+    plt.xlabel('Iteration')
+    plt.ylabel('|PB(y, b) - PA(y, A)|')
+    plt.title(f'Convergence of {algo} Algorithm, |PB(y, b) - PA(y, A)|')
+    plt.show()
+
     # # Plot the norm difference over iterations
-    # plt.plot(norm_diff_list)
+    # plt.plot(norm_diff_list3)
     # plt.xlabel('Iteration')
-    # plt.ylabel('|PB(y, b) - PA(y, A)|')
-    # plt.title(f'Convergence of {algo} Algorithm, |PB(y, b) - PA(y, A)|')
+    # plt.ylabel('|hints_matrix - iter_matrix| at hints indexes')
+    # plt.title(f'Convergence of {algo} Algorithm, |hints_matrix - iter_matrix| at hints indexes')
     # plt.show()
-    #
-    # # Plot the norm difference over iterations
-    # plt.plot(norm_diff_list2)
-    # plt.xlabel('Iteration')
-    # plt.ylabel('|true_matrix - iter_matrix|')
-    # plt.title(f'Convergence of {algo} Algorithm, |true_matrix - iter_matrix|')
-    # plt.show()
+
+    # Plot the norm difference over iterations
+    plt.plot(norm_diff_list2)
+    plt.xlabel('Iteration')
+    plt.ylabel('|true_matrix - iter_matrix|')
+    plt.title(f'Convergence of {algo} Algorithm, |true_matrix - iter_matrix|')
+    plt.show()
 
     return matrix, n_iter
 
@@ -247,7 +255,7 @@ def run_experiment(n, r, q, max_iter=1000, tolerance=1e-6, beta=0.5):
                                                                algo="alternating_projections", max_iter=max_iter,
                                                                tolerance=tolerance)
 
-    # plot_2_metrix(true_matrix, result_AP, missing_elements_indices, f"_END_ AP, for n = {n}, r = {r}, q = {q}")
+    plot_2_metrix(true_matrix, result_AP, missing_elements_indices, f"_END_ AP, for n = {n}, r = {r}, q = {q}")
 
     # Randomized Rounding Relaxation
     result_RRR, RRR_n_iter = run_algorithm_for_matrix_completion(true_matrix, initial_matrix, hints_matrix,
@@ -256,7 +264,7 @@ def run_experiment(n, r, q, max_iter=1000, tolerance=1e-6, beta=0.5):
                                                                  tolerance=tolerance)
     result_RRR = proj_1(result_RRR, hints_matrix, hints_indices)
 
-    # plot_2_metrix(true_matrix, result_RRR, missing_elements_indices, f"_END_ RRR, for n = {n}, r = {r}, q = {q}")
+    plot_2_metrix(true_matrix, result_RRR, missing_elements_indices, f"_END_ RRR, for n = {n}, r = {r}, q = {q}")
 
     return AP_n_iter, RRR_n_iter
 
@@ -282,7 +290,7 @@ q_values_int = [100]
 #             run_experiment(n, r, q, max_iter=max_iter, tolerance=tolerance, beta=beta)
 
 
-log_file_path = r"n_r_q_n_iter.txt"
+log_file_path = r"n_r_q_n_iter1.txt"
 # Create a log file to write to
 log_file = open(log_file_path, "w")
 
@@ -290,15 +298,37 @@ log_file = open(log_file_path, "w")
 sys.stdout = Tee(sys.stdout, log_file)
 
 beta = 0.5
-max_iter = 10000
+max_iter = 100000
 tolerance = 1e-6
 np.random.seed(42)  # For reproducibility
 
 n_r_q_n_iter = []
+#
+# # Example usage of the loop
+# for n in range(2, 20, 3):  # Set your desired values for n
+#     for r in range(1, min(n, 20), 1):  # Set your desired values for r
+#         for q in range(1, min((n - r) ** 2, n ** 2) + 1, 5):  # Set your desired values for q
+#             AP_n_iter, RRR_n_iter = run_experiment(n, r, q, max_iter=max_iter, tolerance=tolerance, beta=beta)
+#             n_r_q_n_iter.append([n, r, q, AP_n_iter, RRR_n_iter])
 
-# Example usage of the loop
-for n in range(2, 20, 3):  # Set your desired values for n
-    for r in range(1, min(n, 20), 1):  # Set your desired values for r
-        for q in range(1, min((n - r) ** 2, n ** 2) + 1, 5):  # Set your desired values for q
-            AP_n_iter, RRR_n_iter = run_experiment(n, r, q, max_iter=max_iter, tolerance=tolerance, beta=beta)
-            n_r_q_n_iter.append([n, r, q, AP_n_iter, RRR_n_iter])
+
+n = 20
+
+r = 3
+
+# nr = (n-r)**2
+# print(f"(n-r)**2 = {nr} / {n*n}")
+
+# q_values = range(1, n ** 2 - 1, 5)
+
+q_values = range(1, (n-r) ** 2-1, 5)
+
+# q_values = [340]
+for q in q_values:  # Set your desired values for q
+    AP_n_iter, RRR_n_iter = run_experiment(n, r, q, max_iter=max_iter, tolerance=tolerance, beta=beta)
+    n_r_q_n_iter.append([n, r, q, AP_n_iter, RRR_n_iter])
+
+
+
+
+
