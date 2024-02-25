@@ -1,7 +1,7 @@
 import sys
 
 import numpy as np
-
+import matplotlib.pyplot as plt
 from print_to_txt_file import Tee
 
 
@@ -31,7 +31,12 @@ def PA(y, A):
 
     return result
 
-
+def step_gd(A, b, y, beta):
+    P_Ay = PA(y, A)
+    P_By = PB(y, b)
+    PAPB_y = PA(P_By, A)
+    y = y - beta * (-2 * PAPB_y + P_Ay + P_By)
+    return y
 def step_RRR(A, b, y, beta):
     P_Ay = PA(y, A)
     P_By = PB(y, b)
@@ -74,7 +79,6 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
 
     elif algo == "RRR_algorithm":
 
-
         for iteration in range(max_iter):
             # if iteration % 100 == 0:
             #     print("iteration:", iteration)
@@ -90,13 +94,29 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
             if norm_diff < tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
+    elif algo == "gd":
+        for iteration in range(max_iter):
+            # if iteration % 100 == 0:
+            #     print("iteration:", iteration)
+            y = step_gd(A, b, y, beta)
 
-    # # Plot the norm difference over iterations
-    # plt.plot(norm_diff_list)
-    # plt.xlabel('Iteration')
-    # plt.ylabel('|y| - |b|')
-    # plt.title(f'Convergence of {algo} Algorithm')
-    # plt.show()
+            # Calculate the norm difference between PB - PA
+            norm_diff = np.linalg.norm(PB(y, b) - PA(y, A))
+
+            # Store the norm difference for plotting
+            norm_diff_list.append(norm_diff)
+
+            # Check convergence
+            if norm_diff < tolerance:
+                print(f"{algo} Converged in {iteration + 1} iterations.")
+                break
+
+    # Plot the norm difference over iterations
+    plt.plot(norm_diff_list)
+    plt.xlabel('Iteration')
+    plt.ylabel('|PB - PA|')
+    plt.title(f'Convergence of {algo} Algorithm')
+    plt.show()
 
     # print("y:", y[:5])
     # print("abs y:", np.abs(y[:5]))
@@ -174,3 +194,5 @@ for m in m_array:  # Add more values as needed
                                    tolerance=tolerance)
         # print("result_RRR:", np.abs(result_RRR[:5]))
         # print("b:         ", b[:5])
+        result_gd = run_algorithm(A, b, y_initial, algo="gd", beta=beta, max_iter=max_iter,
+                                  tolerance=tolerance)
