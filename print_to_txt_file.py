@@ -1,5 +1,3 @@
-import sys
-# Custom file-like object that writes to both stdout and a file
 class Tee:
     def __init__(self, *files):
         self.files = files
@@ -14,11 +12,10 @@ class Tee:
             f.flush()
 
 
-
+# # write in your specific code
+# import sys
+# from print_to_txt_file import Tee
 # log_file_path = "stamm4.txt"
-# # Create a log file to write to
 # log_file = open(log_file_path, "w")
-# # Redirect sys.stdout to the custom Tee object
 # sys.stdout = Tee(sys.stdout, log_file)
-# #
-# print("pppp")
+# print("hi")

@@ -11,9 +11,9 @@ RRR Converged in 1 iterations.
 """
 import os
 
-filename = "saves6.txt"
+filename = os.path.join("../texts", "saves6.txt")
 
-folder_path = r"C:\Users\ASUS\PycharmProjects\RRR"
+folder_path = r"/"
 file_path = os.path.join(folder_path, filename)
 
 try:

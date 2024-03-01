@@ -1,6 +1,6 @@
 import re
-
-filename = r"n_r_q_n_iter.txt"
+import os
+filename = os.path.join("texts", "n_r_q_n_iter.txt")
 try:
     with open(filename, "r") as file:
         data_text = file.read()

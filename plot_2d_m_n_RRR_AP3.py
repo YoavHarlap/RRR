@@ -37,7 +37,7 @@ RRR Converged in 1 iterations.
 """
 import os
 
-filename = "savesAnormal.txt"
+filename = os.path.join("texts", "savesAnormal.txt")
 
 folder_path = r"C:\Users\ASUS\PycharmProjects\RRR"
 file_path = os.path.join(folder_path, filename)

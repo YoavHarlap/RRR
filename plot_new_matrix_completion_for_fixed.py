@@ -1,8 +1,8 @@
 import re
-
+import os
 import matplotlib.pyplot as plt
 
-filename = r"n_r_q_n_iter1.txt"
+filename = os.path.join("texts", "n_r_q_n_iter1.txt")
 try:
     with open(filename, "r") as file:
         data_text = file.read()
