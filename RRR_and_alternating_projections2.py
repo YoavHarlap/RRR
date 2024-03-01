@@ -196,3 +196,5 @@ for m in m_array:  # Add more values as needed
         # print("b:         ", b[:5])
         result_gd = run_algorithm(A, b, y_initial, algo="gd", beta=beta, max_iter=max_iter,
                                   tolerance=tolerance)
+
+print("000:", 000)
