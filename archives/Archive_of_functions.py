@@ -43,5 +43,65 @@ def dft_matrix(m):
     return fft(np.eye(m))
 
 
+def cyclic_shift_all_np(arr):
+    result = [np.roll(arr, i) for i in range(len(arr))]
+    return result
 
+# Example usage:
+my_array = np.array([1, 2, 3])
+
+result_array = cyclic_shift_all_np(result_gd)
+
+# for shifted_list in result_array:
+#     # print(shifted_list)
+#     plt.plot(b)
+#     plt.plot(shifted_list)
+#     plt.show()
+
+
+# # Assuming b and shifted_list are your arrays
+# for shifted_list in result_array:
+#     # Calculate correlation coefficient
+#     correlation = np.corrcoef(b, shifted_list)[0, 1]
+#     print(f"Correlation coefficient: {correlation}")
+
+#     # Plot the arrays
+#     plt.plot(b, label='b')
+#     plt.plot(shifted_list, label='shifted_list')
+#     plt.legend()
+#     plt.title(f"Correlation: {correlation}")
+#     plt.show()
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Assuming b and result_array are your arrays
+best_correlation = 0
+best_array = None
+
+# for shifted_list in result_array:
+#     # Calculate correlation coefficient
+#     correlation = np.corrcoef(b, shifted_list)[0, 1]
+    
+#     # Update best_array if the current correlation is higher
+#     if abs(correlation) > best_correlation:
+#         best_correlation = abs(correlation)
+#         best_array = shifted_list
+
+#     # Plot the arrays
+#     plt.plot(b, label='b')
+#     plt.plot(np.abs(shifted_list), label='shifted_list')
+#     plt.legend()
+#     plt.title(f"Correlation: {correlation}")
+#     plt.show()
+
+# Print the overall best array
+# print(f"\nOverall best array: with correlation coefficient: {best_correlation}")
+
+plt.plot(b, label='b')
+plt.plot(np.abs(PA(result_RRR, A)), label='result_RRR')
+plt.legend()
+# plt.title(f"best Correlation: {best_correlation}")
+plt.show()
+print("000:", 000)
 

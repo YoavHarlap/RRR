@@ -1,3 +1,4 @@
+import os
 import sys
 
 import numpy as np
@@ -94,7 +95,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
             if norm_diff < tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
-    elif algo == "gd":
+    elif algo == "GD":
         for iteration in range(max_iter):
             # if iteration % 100 == 0:
             #     print("iteration:", iteration)
@@ -124,7 +125,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6):
     return y
 
 
-log_file_path = "saves6.txt"
+log_file_path = os.path.join("texts", "RRR_and_GD.txt")
 # Create a log file to write to
 log_file = open(log_file_path, "w")
 
@@ -133,7 +134,7 @@ sys.stdout = Tee(sys.stdout, log_file)
 
 beta = 0.5
 max_iter = 10000
-tolerance = 1e-6
+tolerance = 1e-9
 
 # Set dimensions
 m = 25
@@ -144,8 +145,8 @@ m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
 
 #
-# m_array = [120]
-# n_array = [10]
+m_array = [200]
+n_array = [20]
 
 
 # Loop over different values of m and n
@@ -156,24 +157,24 @@ for m in m_array:  # Add more values as needed
         print(f"m = {m}, n = {n}")  # Restore the standard output after the loop
 
         A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
-        # A_real = np.random.randn(m, n)
-
+        A_real = np.random.randn(m, n)
+        #
         x = np.random.randn(n) + 1j * np.random.randn(n)
-        # x_real = np.random.randn(n)
-
+        x_real = np.random.randn(n)
+        #
         # Calculate b = |Ax|
         b = np.abs(np.dot(A, x))
-        # b_real = np.abs(np.dot(A_real, x_real))
+        b_real = np.abs(np.dot(A_real, x_real))
 
         y_true = np.dot(A, x)
-        # y_true_real = np.dot(A_real, x_real)
+        y_true_real = np.dot(A_real, x_real)
 
         # print("y_true:", y_true[:5])
         # print("y_true_real:", y_true_real[:5])
 
         # Initialize y randomly
         y_initial = np.random.randn(m) + 1j * np.random.randn(m)
-        # y_initial_real = np.random.randn(m)
+        y_initial_real = np.random.randn(m)
 
         # print("y_initial:", y_initial[:5])
         # print("y_initial_real:", y_initial_real[:5])
@@ -183,18 +184,31 @@ for m in m_array:  # Add more values as needed
         # epsilon = 0.5
         # y_initial = y_true + epsilon
 
+        A = A_real
+        b = b_real
+        y_initial = y_initial_real
+
+
         # Call the alternating_projections function with specified variance, standard deviation, and initial y
         result_AP = run_algorithm(A, b, y_initial, algo="alternating_projections", max_iter=max_iter,
                                   tolerance=tolerance)
-        # print("result_AP:", np.abs(result_AP[:5]))
-        # print("b:        ", b[:5])
+        print("result_AP:", np.abs(result_AP[:5]))
+        print("b:        ", b[:5])
 
         # Call the RRR_algorithm function with specified parameters
         result_RRR = run_algorithm(A, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter,
                                    tolerance=tolerance)
-        # print("result_RRR:", np.abs(result_RRR[:5]))
-        # print("b:         ", b[:5])
-        result_gd = run_algorithm(A, b, y_initial, algo="gd", beta=beta, max_iter=max_iter,
+        print("result_RRR:", np.abs(result_RRR[:5]))
+        print("b:         ", b[:5])
+        result_gd = run_algorithm(A, b, y_initial, algo="GD", beta=beta, max_iter=max_iter,
                                   tolerance=tolerance)
+        print("result_GD:", np.abs(result_gd[:5]))
+        print("b:         ", b[:5])
 
+
+plt.plot(b, label='b')
+plt.plot(np.abs(PA(result_RRR, A)), label='result_RRR')
+plt.legend()
+plt.title(f"result_RRR and original b")
+plt.show()
 print("000:", 000)
