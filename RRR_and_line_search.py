@@ -148,12 +148,12 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6,al
             y = y - learning_rate * grad
     
     
-            print("learning_rate:", learning_rate)
-            print("objective_function:", objective_function(y))
+            # print("learning_rate:", learning_rate)
+            # print("objective_function:", objective_function(y))
 
             objective_function_array.append(objective_function(y))
             
-            plt.plot(abs(y), label='result_RRR_line_search')
+            plt.plot(abs(y), label='Iter_RRR_line_search')
             plt.plot(b, label='b')
 
             # Adding labels and legend
@@ -168,14 +168,14 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6,al
             
 
             # Calculate the norm difference between PB - PA
-            norm_diff = np.linalg.norm(PB(y, b) - PA(y, A))
+            norm_diff = np.linalg.norm(abs(PB(y, b)) - abs(PA(y, A)))
 
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
             iteration=iteration+1
             # Check convergence
             if norm_diff < tolerance:
-                print(f"Converged in {iteration + 1} iterations.")
+                print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
         # Plot the objective function values
         plt.plot(objective_function_array, marker='o', linestyle='-', color='b')
@@ -251,7 +251,7 @@ sys.stdout = Tee(sys.stdout, log_file)
 
 beta = 0.5
 max_iter = 100
-tolerance = 1e-9
+tolerance = 1e-6
 
 # Set dimensions
 m = 25
@@ -262,8 +262,8 @@ m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
 
 #
-m_array = [20]
-n_array = [5]
+m_array = [10,15,20]
+n_array = [5,7,10]
 
 # Loop over different values of m and n
 for m in m_array:  # Add more values as needed
@@ -324,6 +324,7 @@ for m in m_array:  # Add more values as needed
 
         plt.plot(abs(PA(result_RRR_line_search,A)), label='result_RRR_line_search')
         plt.plot(abs(PA(result_RRR,A)), label='result_RRR')
+        # plt.plot(abs(PB(result_RRR, b)))
         # plt.plot(abs(PA(result_AP,A)), label='result_AP')
         plt.plot(b, label='b')
 
