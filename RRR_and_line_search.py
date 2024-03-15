@@ -81,6 +81,17 @@ def step_AP(A, b, y):
     return y
 
 
+def armijo_line_search(y, grad, alpha=0.5, beta=0.5, max_iter=100):
+    t = 1.0  # Initial step size
+    for _ in range(max_iter):
+        if objective_function(y - t * grad) <= objective_function(y) + alpha * t * np.dot(grad, -grad):
+            return t
+        else:
+            t *= beta
+    return t
+
+
+
 def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6,alpha=0.5):
     # Initialize y with the provided initial values
     y = y_init
@@ -124,35 +135,88 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6,al
             if norm_diff < tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
-    elif algo == "line_search":
+    # elif algo == "line_search":
 
-        lr_param = 0.8
-        iteration = 0
-        objective_function_array = []
-        while iteration < max_iter:
-            # grad = gradient(y)
-            # learning_rate = 1.0  # Initialize learning rate to 1
-            # Backtracking line search
-            # while np.linalg.norm(objective_function(y - learning_rate * grad)) > np.linalg.norm(objective_function(y)):
-            #     learning_rate *= lr_param
-            # y = y - learning_rate * grad
+    #     lr_param = 0.8
+    #     iteration = 0
+    #     objective_function_array = []
+    #     while iteration < max_iter:
+    #         # grad = gradient(y)
+    #         # learning_rate = 1.0  # Initialize learning rate to 1
+    #         # Backtracking line search
+    #         # while np.linalg.norm(objective_function(y - learning_rate * grad)) > np.linalg.norm(objective_function(y)):
+    #         #     learning_rate *= lr_param
+    #         # y = y - learning_rate * grad
 
         
-            learning_rate = 0.5
-            grad =  gradient(y,A,b)
-            value = objective_function(y)
+    #         learning_rate = 0.5
+    #         grad =  gradient(y,A,b)
+    #         value = objective_function(y)
         
-            while iteration>10 and objective_function(y - learning_rate * grad) > value - alpha * learning_rate * np.dot(grad, grad):
-                learning_rate *= lr_param
+    #         while objective_function(y - learning_rate * grad) > value - alpha * learning_rate * np.dot(grad, grad):
+    #             learning_rate *= lr_param
         
-            y = y - learning_rate * grad
+    #         y = y - learning_rate * grad
     
     
-            # print("learning_rate:", learning_rate)
-            # print("objective_function:", objective_function(y))
+    #         # print("learning_rate:", learning_rate)
+    #         # print("objective_function:", objective_function(y))
 
-            objective_function_array.append(objective_function(y))
+    #         objective_function_array.append(objective_function(y))
             
+    #         plt.plot(abs(y), label='Iter_RRR_line_search')
+    #         plt.plot(b, label='b')
+
+    #         # Adding labels and legend
+    #         plt.xlabel('element')
+    #         plt.ylabel('value')
+    #         plt.title(f'Plots learning_rate = {learning_rate}')
+    #         plt.legend()
+
+    #         # Display the plot
+    #         plt.show()
+
+            
+
+    #         # Calculate the norm difference between PB - PA
+    #         norm_diff = np.linalg.norm(abs(PB(y, b)) - abs(PA(y, A)))
+
+    #         # Store the norm difference for plotting
+    #         norm_diff_list.append(norm_diff)
+    #         iteration=iteration+1
+    #         # Check convergence
+    #         if norm_diff < tolerance:
+    #             print(f"{algo} Converged in {iteration + 1} iterations.")
+    #             break
+
+
+    elif algo == "line_search":
+        objective_function_array = []
+        learning_rate = 1.0  # Initial learning rate
+        for iteration in range(max_iter):
+            grad = gradient(y, A, b)
+            obj_func = objective_function(y)
+            
+            # Perform Armijo line search
+            learning_rate = armijo_line_search(y, grad)
+    
+            # Update solution
+            y_new = y - learning_rate * grad
+    
+            # Calculate the norm difference between PB - PA
+            norm_diff = np.linalg.norm(PB(y_new, b) - PA(y_new, A))
+    
+            # Store the norm difference for plotting
+            norm_diff_list.append(norm_diff)
+    
+            # Check convergence
+            if norm_diff < tolerance:
+                print(f"{algo} Converged in {iteration + 1} iterations.")
+                break
+    
+            # Update solution for next iteration
+            y = y_new
+            objective_function_array.append(objective_function(y))
             plt.plot(abs(y), label='Iter_RRR_line_search')
             plt.plot(b, label='b')
 
@@ -165,18 +229,10 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6,al
             # Display the plot
             plt.show()
 
-            
 
-            # Calculate the norm difference between PB - PA
-            norm_diff = np.linalg.norm(abs(PB(y, b)) - abs(PA(y, A)))
+        
 
-            # Store the norm difference for plotting
-            norm_diff_list.append(norm_diff)
-            iteration=iteration+1
-            # Check convergence
-            if norm_diff < tolerance:
-                print(f"{algo} Converged in {iteration + 1} iterations.")
-                break
+
         # Plot the objective function values
         plt.plot(objective_function_array, marker='o', linestyle='-', color='b')
         plt.xlabel('Iteration')
@@ -250,7 +306,7 @@ log_file = open(log_file_path, "w")
 sys.stdout = Tee(sys.stdout, log_file)
 
 beta = 0.5
-max_iter = 100
+max_iter = 1000
 tolerance = 1e-6
 
 # Set dimensions
@@ -262,8 +318,8 @@ m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
 
 #
-m_array = [10,15,20]
-n_array = [5,7,10]
+m_array = [20]
+n_array = [10]
 
 # Loop over different values of m and n
 for m in m_array:  # Add more values as needed
@@ -331,7 +387,7 @@ for m in m_array:  # Add more values as needed
         # Adding labels and legend
         plt.xlabel('element')
         plt.ylabel('value')
-        plt.title('Plot of 4 Terms')
+        plt.title('Plot of Terms')
         plt.legend()
 
         # Display the plot
