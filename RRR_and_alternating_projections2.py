@@ -205,6 +205,6 @@ for m in m_array:  # Add more values as needed
 plt.plot(b, label='b')
 plt.plot(np.abs(PA(result_RRR, A)), label='result_RRR')
 plt.legend()
-plt.title(f"result_RRR and original b")
+plt.title("result_RRR and original b")
 plt.show()
 print("000:", 000)

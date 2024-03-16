@@ -221,7 +221,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6,al
             
             if iteration % 100 == 0:
                 
-                plt.plot(abs(PB(y, b)), label=f'Iter_RRR_line_search_{iteration}')
+                plt.plot(abs(PA(y, A)), label=f'Iter_RRR_line_search_{iteration}')
                 plt.plot(b, label='b')
     
                 # Adding labels and legend
@@ -320,7 +320,7 @@ n_array = np.arange(10, array_limit + 1, 10)
 
 #
 m_array = [20]
-n_array = [10]
+n_array = [11]
 
 # Loop over different values of m and n
 for m in m_array:  # Add more values as needed
@@ -360,6 +360,7 @@ for m in m_array:  # Add more values as needed
         A = A_real
         b = b_real
         y_initial = y_initial_real
+        y_true = y_true_real
 
         # Call the alternating_projections function with specified variance, standard deviation, and initial y
         result_AP = run_algorithm(A, b, y_initial, algo="alternating_projections", max_iter=max_iter,
@@ -379,7 +380,7 @@ for m in m_array:  # Add more values as needed
         print("b:                     ", b[:5])
 
 
-        plt.plot(abs(PB(result_RRR_line_search,b)), label='result_RRR_line_search')
+        plt.plot(abs(PA(result_RRR_line_search,A)), label='result_RRR_line_search')
         plt.plot(abs(PA(result_RRR,A)), label='result_RRR')
         # plt.plot(abs(PB(result_RRR, b)))
         # plt.plot(abs(PA(result_AP,A)), label='result_AP')
@@ -393,3 +394,17 @@ for m in m_array:  # Add more values as needed
 
         # Display the plot
         plt.show()
+        
+        
+        plt.plot(y_true_real, label="y_true_real")
+        plt.plot(result_RRR_line_search, label='y_result_RRR_line_search')
+
+        # Adding labels and legend
+        plt.xlabel('element')
+        plt.ylabel('value')
+        plt.title('Plot of Terms')
+        plt.legend()
+
+        # Display the plot
+        plt.show()
+
