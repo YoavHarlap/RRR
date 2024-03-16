@@ -134,19 +134,15 @@ sys.stdout = Tee(sys.stdout, log_file)
 
 beta = 0.5
 max_iter = 10000
-tolerance = 1e-9
-
-# Set dimensions
-m = 25
-n = 15
+tolerance = 1e-6
 
 array_limit = 200
 m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
 
 #
-m_array = [200]
-n_array = [20]
+m_array = [21]
+n_array = [11]
 
 
 # Loop over different values of m and n
@@ -200,10 +196,10 @@ for m in m_array:  # Add more values as needed
                                    tolerance=tolerance)
         print("result_RRR:", np.abs(result_RRR[:5]))
         print("b:         ", b[:5])
-        result_gd = run_algorithm(A, b, y_initial, algo="GD", beta=beta, max_iter=max_iter,
-                                  tolerance=tolerance)
-        print("result_GD:", np.abs(result_gd[:5]))
-        print("b:         ", b[:5])
+        # result_gd = run_algorithm(A, b, y_initial, algo="GD", beta=beta, max_iter=max_iter,
+        #                           tolerance=tolerance)
+        # print("result_GD:", np.abs(result_gd[:5]))
+        # print("b:         ", b[:5])
 
 
 plt.plot(b, label='b')

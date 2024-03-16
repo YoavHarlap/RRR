@@ -217,17 +217,21 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6,al
             # Update solution for next iteration
             y = y_new
             objective_function_array.append(objective_function(y))
-            plt.plot(abs(y), label='Iter_RRR_line_search')
-            plt.plot(b, label='b')
-
-            # Adding labels and legend
-            plt.xlabel('element')
-            plt.ylabel('value')
-            plt.title(f'Plots learning_rate = {learning_rate}')
-            plt.legend()
-
-            # Display the plot
-            plt.show()
+            # plt.plot(abs(y), label='Iter_RRR_line_search')
+            
+            if iteration % 100 == 0:
+                
+                plt.plot(abs(PB(y, b)), label=f'Iter_RRR_line_search_{iteration}')
+                plt.plot(b, label='b')
+    
+                # Adding labels and legend
+                plt.xlabel('element')
+                plt.ylabel('value')
+                plt.title(f'Plots learning_rate = {learning_rate}')
+                plt.legend()
+    
+                # Display the plot
+                plt.show()
 
 
         
@@ -306,12 +310,9 @@ log_file = open(log_file_path, "w")
 sys.stdout = Tee(sys.stdout, log_file)
 
 beta = 0.5
-max_iter = 1000
+max_iter = 10000
 tolerance = 1e-6
 
-# Set dimensions
-m = 25
-n = 15
 
 array_limit = 200
 m_array = np.arange(10, array_limit + 1, 10)
@@ -378,7 +379,7 @@ for m in m_array:  # Add more values as needed
         print("b:                     ", b[:5])
 
 
-        plt.plot(abs(PA(result_RRR_line_search,A)), label='result_RRR_line_search')
+        plt.plot(abs(PB(result_RRR_line_search,b)), label='result_RRR_line_search')
         plt.plot(abs(PA(result_RRR,A)), label='result_RRR')
         # plt.plot(abs(PB(result_RRR, b)))
         # plt.plot(abs(PA(result_AP,A)), label='result_AP')
