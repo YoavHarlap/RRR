@@ -208,7 +208,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6,al
     
             # Store the norm difference for plotting
             norm_diff_list.append(norm_diff)
-    
+           
             # Check convergence
             if norm_diff < tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations.")
@@ -219,8 +219,8 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6,al
             objective_function_array.append(objective_function(y))
             # plt.plot(abs(y), label='Iter_RRR_line_search')
             
-            if iteration % 100 == 0:
-                
+            if iteration % 300 == 0:
+                print("norm_diff: ", norm_diff)
                 plt.plot(abs(PA(y, A)), label=f'Iter_RRR_line_search_{iteration}')
                 plt.plot(b, label='b')
     
@@ -319,8 +319,8 @@ m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
 
 #
-m_array = [20]
-n_array = [11]
+m_array = [70]
+n_array = [20]
 
 # Loop over different values of m and n
 for m in m_array:  # Add more values as needed
@@ -396,15 +396,15 @@ for m in m_array:  # Add more values as needed
         plt.show()
         
         
-        plt.plot(y_true_real, label="y_true_real")
-        plt.plot(result_RRR_line_search, label='y_result_RRR_line_search')
+        # plt.plot(y_true_real, label="y_true_real")
+        # plt.plot(result_RRR_line_search, label='y_result_RRR_line_search')
 
-        # Adding labels and legend
-        plt.xlabel('element')
-        plt.ylabel('value')
-        plt.title('Plot of Terms')
-        plt.legend()
+        # # Adding labels and legend
+        # plt.xlabel('element')
+        # plt.ylabel('value')
+        # plt.title('Plot of Terms')
+        # plt.legend()
 
-        # Display the plot
-        plt.show()
+        # # Display the plot
+        # plt.show()
 
