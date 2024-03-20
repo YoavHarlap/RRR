@@ -82,9 +82,10 @@ def step_AP(A, b, y):
 
 
 def armijo_line_search(y, grad, alpha=0.5, beta=0.5, max_iter=100):
-    t = 1.0  # Initial step size
+    t = 20.0  # Initial step size
     for _ in range(max_iter):
         if objective_function(y - t * grad) <= objective_function(y) + alpha * t * np.dot(grad, -grad):
+            print("step is:", t)
             return t
         else:
             t *= beta
@@ -192,10 +193,10 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6,al
 
     elif algo == "line_search":
         objective_function_array = []
-        learning_rate = 1.0  # Initial learning rate
+        learning_rate = 0.5  # Initial learning rate
         for iteration in range(max_iter):
             grad = gradient(y, A, b)
-            obj_func = objective_function(y)
+            # obj_func = objective_function(y)
             
             # Perform Armijo line search
             learning_rate = armijo_line_search(y, grad)
@@ -219,7 +220,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6,al
             objective_function_array.append(objective_function(y))
             # plt.plot(abs(y), label='Iter_RRR_line_search')
             
-            if iteration % 300 == 0:
+            if iteration % 100 == 0:
                 print("norm_diff: ", norm_diff)
                 plt.plot(abs(PA(y, A)), label=f'Iter_RRR_line_search_{iteration}')
                 plt.plot(b, label='b')
@@ -319,8 +320,8 @@ m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
 
 #
-m_array = [70]
-n_array = [20]
+m_array = [20]
+n_array = [11]
 
 # Loop over different values of m and n
 for m in m_array:  # Add more values as needed
@@ -363,25 +364,25 @@ for m in m_array:  # Add more values as needed
         y_true = y_true_real
 
         # Call the alternating_projections function with specified variance, standard deviation, and initial y
-        result_AP = run_algorithm(A, b, y_initial, algo="alternating_projections", max_iter=max_iter,
-                                  tolerance=tolerance)
-        print("result_AP:", np.abs(result_AP[:5]))
-        print("b:        ", b[:5])
+        # result_AP = run_algorithm(A, b, y_initial, algo="alternating_projections", max_iter=max_iter,
+        #                           tolerance=tolerance)
+        # print("result_AP:", np.abs(result_AP[:5]))
+        # print("b:        ", b[:5])
 
-        # Call the RRR_algorithm function with specified parameters
-        result_RRR = run_algorithm(A, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter,
-                                   tolerance=tolerance)
-        print("result_RRR:", np.abs(result_RRR[:5]))
-        print("b:         ", b[:5])
+        # # Call the RRR_algorithm function with specified parameters
+        # result_RRR = run_algorithm(A, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter,
+        #                            tolerance=tolerance)
+        # print("result_RRR:", np.abs(result_RRR[:5]))
+        # print("b:         ", b[:5])
 
         result_RRR_line_search = run_algorithm(A, b, y_initial, algo="line_search", max_iter=max_iter,
                                                tolerance=tolerance)
-        print("result_RRR_line_search:", np.abs(result_RRR_line_search[:5]))
+        print("result_RRR_line_search:", np.abs(PA(result_RRR_line_search,A)[:5]))
         print("b:                     ", b[:5])
 
 
         plt.plot(abs(PA(result_RRR_line_search,A)), label='result_RRR_line_search')
-        plt.plot(abs(PA(result_RRR,A)), label='result_RRR')
+        # plt.plot(abs(PA(result_RRR,A)), label='result_RRR')
         # plt.plot(abs(PB(result_RRR, b)))
         # plt.plot(abs(PA(result_AP,A)), label='result_AP')
         plt.plot(b, label='b')
