@@ -82,7 +82,7 @@ def step_AP(A, b, y):
 
 
 def armijo_line_search(y, grad, alpha=0.5, beta=0.5, max_iter=100):
-    t = 20.0  # Initial step size
+    t = 1.0  # Initial step size
     for _ in range(max_iter):
         if objective_function(y - t * grad) <= objective_function(y) + alpha * t * np.dot(grad, -grad):
             print("step is:", t)
@@ -193,7 +193,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6,al
 
     elif algo == "line_search":
         objective_function_array = []
-        learning_rate = 0.5  # Initial learning rate
+        learning_rate = 1  # Initial learning rate
         for iteration in range(max_iter):
             grad = gradient(y, A, b)
             # obj_func = objective_function(y)
