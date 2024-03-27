@@ -23,11 +23,22 @@ def objective_function(y):
     return result1 - 0.5 * (result2 + result3)
 
 
-def gradient(y, A, b):
+def objective_function_power2(y):
+    x = objective_function(y)
+    return x ** 2
+
+
+def gradient_objective_function(y, A, b):
     P_Ay = PA(y, A)
     P_By = PB(y, b)
     PAPB_y = PA(P_By, A)
     return -2 * PAPB_y + P_Ay + P_By
+
+
+def gradient_objective_function_power2(y, A, b):
+    gradient_objective_func = gradient_objective_function(y, A, b)
+    objective_func = objective_function(y)
+    return 2 * objective_func * gradient_objective_func
 
 
 def phase(y):
@@ -68,10 +79,10 @@ def step_AP(A, b, y):
     return y
 
 
-def armijo_line_search(y, grad, alpha=0.5, beta=0.5, max_iter=100):
+def armijo_line_search(y, grad,  objective_func=objective_function, alpha=0.5, beta=0.5, max_iter=100):
     t = 1.0  # Initial step size
     for _ in range(max_iter):
-        if objective_function(y - t * grad) <= objective_function(y) + alpha * t * np.dot(grad, -grad):
+        if objective_func(y - t * grad) <= objective_func(y) + alpha * t * np.dot(grad, -grad):
             print("step is:", t)
             return t
         else:
@@ -79,12 +90,16 @@ def armijo_line_search(y, grad, alpha=0.5, beta=0.5, max_iter=100):
     return t
 
 
-def step_line_search(A, b, y):
-    grad = gradient(y, A, b)
-    # obj_func = objective_function(y)
-    learning_rate = armijo_line_search(y, grad)
+def step_line_search(A, b, y, objective="objective"):
+    if objective == "objective":
+        grad = gradient_objective_function(y, A, b)
+        learning_rate = armijo_line_search(y, grad)
+    if objective == "power2":
+        grad = gradient_objective_function_power2(y, A, b)
+        learning_rate = armijo_line_search(y, grad, objective_function_power2)
+
     y_new = y - learning_rate * grad
-    return y_new
+    return y_new,learning_rate
 
 
 def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6, alpha=0.5):
@@ -136,7 +151,7 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6, a
         objective_function_array = []
         learning_rate = 1  # Initial learning rate
         for iteration in range(max_iter):
-            y = step_line_search(A, b, y)
+            y,lr = step_line_search(A, b, y)
             # Calculate the norm difference between PB - PA
             norm_diff = np.linalg.norm(PB(y, b) - PA(y, A))
             # Store the norm difference for plotting
@@ -150,13 +165,13 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6, a
 
             if iteration % 100 == 0:
                 print("norm_diff: ", norm_diff)
-                plt.plot(abs(PA(y, A)), label=f'Iter_RRR_line_search_{iteration}')
+                plt.plot(abs(PA(y, A)), label=f'Iter_line_search_{iteration}')
                 plt.plot(b, label='b')
 
                 # Adding labels and legend
                 plt.xlabel('element')
                 plt.ylabel('value')
-                plt.title(f'Plots learning_rate = {learning_rate}')
+                plt.title(f'Plots learning_rate = {lr}')
                 plt.legend()
 
                 # Display the plot
@@ -166,9 +181,51 @@ def run_algorithm(A, b, y_init, algo, beta=None, max_iter=100, tolerance=1e-6, a
         plt.plot(objective_function_array, marker='o', linestyle='-', color='b')
         plt.xlabel('Iteration')
         plt.ylabel('Objective Function Value')
-        plt.title('Objective Function Value per Iteration')
+        plt.title('Objective Function Value per Iteration line search')
         plt.grid(True)
         plt.show()
+
+
+    elif algo == "line_search_power2":
+
+        objective_function_array = []
+        learning_rate = 1  # Initial learning rate
+        for iteration in range(max_iter):
+            y,lr = step_line_search(A, b, y,objective="power2")
+            # Calculate the norm difference between PB - PA
+            norm_diff = np.linalg.norm(PB(y, b) - PA(y, A))
+            # Store the norm difference for plotting
+            norm_diff_list.append(norm_diff)
+            objective_function_array.append(objective_function_power2(y))
+
+            # Check convergence
+            if norm_diff < tolerance:
+                print(f"{algo} Converged in {iteration + 1} iterations.")
+                break
+
+            if iteration % 100 == 0:
+                print("norm_diff: ", norm_diff)
+                plt.plot(abs(PA(y, A)), label=f'Iter_line_search_power2_{iteration}')
+                plt.plot(b, label='b')
+
+                # Adding labels and legend
+                plt.xlabel('element')
+                plt.ylabel('value')
+                plt.title(f'Plots learning_rate = {lr}')
+                plt.legend()
+
+                # Display the plot
+                plt.show()
+
+        # Plot the objective function values
+        plt.plot(objective_function_array, marker='o', linestyle='-', color='b')
+        plt.xlabel('Iteration')
+        plt.ylabel('Objective Function Value')
+        plt.title('Objective Function Value per Iteration line search power2')
+        plt.grid(True)
+        plt.show()
+
+
 
     # Plot the norm difference over iterations
     plt.plot(norm_diff_list)
@@ -188,7 +245,7 @@ log_file = open(log_file_path, "w")
 sys.stdout = Tee(sys.stdout, log_file)
 
 beta = 0.5
-max_iter = 10000
+max_iter = 1000
 tolerance = 1e-6
 
 array_limit = 200
@@ -238,12 +295,21 @@ for m in m_array:  # Add more values as needed
         # print("result_RRR:", np.abs(result_RRR[:5]))
         # print("b:         ", b[:5])
 
-        result_line_search = run_algorithm(A, b, y_initial, algo="line_search", max_iter=max_iter,
+        # result_line_search = run_algorithm(A, b, y_initial, algo="line_search", max_iter=max_iter,
+        #                                    tolerance=tolerance)
+        # print("result_line_search:", np.abs(PA(result_line_search, A)[:5]))
+        # print("b:                     ", b[:5])
+
+        result_line_search_power2 = run_algorithm(A, b, y_initial, algo="line_search_power2", max_iter=max_iter,
                                            tolerance=tolerance)
-        print("result_line_search:", np.abs(PA(result_line_search, A)[:5]))
+        print("result_line_search_power2:", np.abs(PA(result_line_search_power2, A)[:5]))
         print("b:                     ", b[:5])
 
-        plt.plot(abs(PA(result_line_search, A)), label='result_line_search')
+
+
+        # plt.plot(abs(PA(result_line_search, A)), label='result_line_search')
+        plt.plot(abs(PA(result_line_search_power2, A)), label='result_line_search_power2')
+
         # plt.plot(abs(PA(result_RRR,A)), label='result_RRR')
         # plt.plot(abs(PA(result_AP,A)), label='result_AP')
         plt.plot(b, label='b')
