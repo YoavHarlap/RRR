@@ -68,15 +68,15 @@ def step_RRR(A, b, y, beta):
     P_Ay = PA(y, A)
     P_By = PB(y, b)
     PAPB_y = PA(P_By, A)
-    y = y + beta * (2 * PAPB_y - P_Ay - P_By)
-    return y
+    result = y + beta * (2 * PAPB_y - P_Ay - P_By)
+    return result
 
 
 def step_AP(A, b, y):
     y_PB = PB(y, b)
     y_PA = PA(y_PB, A)
-    y = y_PA
-    return y
+    resulr = y_PA
+    return resulr
 
 
 def armijo_line_search(y, grad, objective_func=objective_function, alpha=0.5, beta=0.5, max_iter=100):
@@ -116,42 +116,19 @@ def step_previous_iterations(A, b, y, beta, prev_y, rrr_weight=1,y_initial = 0):
 
 
 # ##############
-import numpy as np
 
-def step_previous_iterations(A, b, y, beta, prev_y, rrr_weight, num_prev_points):
+def step_prevs_iterations(A, b, y, beta, prev_y, rrr_weight, num_prev_points):
+    rrr_weight = 0.9995
+    num_prev_points = 20
     rrr_step =step_RRR(A, b, y, beta)
     # Calculate the average of the previous points
-    prev_step = np.mean([y - prev_y[i] for i in range(min(num_prev_points, len(prev_y)))], axis=0)
+    prev_step = np.mean([prev_y[i] for i in range(min(num_prev_points, len(prev_y)))], axis=0)
 
     if np.linalg.norm(prev_step) != 0:
-        return y - rrr_weight * rrr_step - (1 - rrr_weight) * prev_step * (1 / np.linalg.norm(prev_step))
+        return rrr_weight * rrr_step + (1 - rrr_weight) * prev_step #* (1 / np.linalg.norm(prev_step))
     else:
-        return y - rrr_weight * rrr_step
+        return rrr_step
 
-def previous_iterations_smart_weighting(A, b, y_initial, beta, max_iter, tolerance, rrr_weight, num_prev_points):
-
-    norm_diff_list = []
-
-    prev_y = [y_initial.copy()] * num_prev_points
-
-    for iteration in range(max_iter):
-        y = step_previous_iterations(A, b, y_initial, beta, prev_y, rrr_weight, num_prev_points)
-        prev_y.pop(0)
-        prev_y.append(y_initial.copy())
-
-        # Calculate the norm difference between PB - PA
-        norm_diff = np.linalg.norm(b - A @ y)
-
-        # Store the norm difference for plotting
-        norm_diff_list.append(norm_diff)
-
-        # Check convergence
-        if norm_diff < tolerance:
-            print("previous_iterations algorithm converged in", iteration + 1, "iterations.")
-            return y
-
-    print("previous_iterations algorithm did not converge within the maximum number of iterations.")
-    return y
 
 # ##############
 
@@ -333,11 +310,14 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
         rrr_weight = 0.5
         learning_rate = 1  # Initial learning rate        
         prev_y = [y_initial.copy()] * num_prev_points
-     
+        max_iter = 100000
         for iteration in range(max_iter):
-            y = step_previous_iterations(A, b, y_initial, beta, prev_y, rrr_weight, num_prev_points)
+            y1 = step_RRR(A, b, y, beta)
+            y = step_prevs_iterations(A, b, y, beta, prev_y, rrr_weight, num_prev_points)
+            # print("",y[0:3],'\n',y1[0:3])
+            # print("8--------------8")
             prev_y.pop(0)
-            prev_y.append(y_initial.copy())
+            prev_y.append(y)
 
             norm_diff = np.linalg.norm(PB(y, b) - PA(y, A))
             # Store the norm difference for plotting
@@ -350,9 +330,9 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
                 print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
 
-            if iteration % 100 == 0:
+            if iteration % 10 == 0:
                 print("norm_diff: ", norm_diff)
-                plt.plot(abs(PA(y, A)), label=f'Iter_smart_w{iteration}')
+                plt.plot(abs(PA(y, A)), label=f'prevs_Iter_smart_w{iteration}')
                 plt.plot(b, label='b')
 
                 # Adding labels and legend
