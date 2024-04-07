@@ -36,14 +36,17 @@ def gradient_objective_function(y, A, b):
 
 
 def gradient_objective_function_power2(y, A, b):
-    gradient_objective_func = gradient_objective_function(y, A, b)
+    gradient_objective_func1 = gradient_objective_function(y, A, b)
     objective_func = objective_function(y)
-    return 2 * objective_func * gradient_objective_func
+    # return 2 * objective_func * gradient_objective_func
+    return gradient_objective_func1 *objective_func * 2 
+
 
 
 def phase(y):
     # Calculate the phase of the complex vector y
     magnitudes = np.abs(y)
+    6521638521.
     phase_y = np.where(magnitudes != 0, np.divide(y, magnitudes), 0)
     return phase_y
 
@@ -96,8 +99,10 @@ def step_line_search(A, b, y, objective="objective"):
         learning_rate = armijo_line_search(y, grad)
     if objective == "power2":
         grad = gradient_objective_function_power2(y, A, b)
-        learning_rate = armijo_line_search(y, grad, objective_function_power2)
-
+        # learning_rate = armijo_line_search(y, grad, objective_function_power2)
+        learning_rate = 0.5
+        
+ 
     y_new = y - learning_rate * grad
     return y_new, learning_rate
 
@@ -118,7 +123,7 @@ def step_previous_iterations(A, b, y, beta, prev_y, rrr_weight=1,y_initial = 0):
 # ##############
 
 def step_prevs_iterations(A, b, y, beta, prev_y, rrr_weight, num_prev_points):
-    rrr_weight = 0.9995
+    rrr_weight = 0.5
     num_prev_points = 20
     rrr_step =step_RRR(A, b, y, beta)
     # Calculate the average of the previous points
@@ -247,7 +252,7 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
             objective_function_array.append(obj_value)
 
             # Check convergence
-            if norm_diff < tolerance or obj_value < tolerance:
+            if norm_diff < tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
 
@@ -370,7 +375,7 @@ log_file = open(log_file_path, "w")
 sys.stdout = Tee(sys.stdout, log_file)
 
 beta = 0.5
-max_iter = 1000
+max_iter = 10000
 tolerance = 1e-6
 
 array_limit = 200
@@ -419,32 +424,32 @@ for m in m_array:  # Add more values as needed
         #                             tolerance=tolerance)
         # print("result_RRR:", np.abs(result_RRR[:5]))
         # print("b:         ", b[:5])
-
+        # max_iter = 100000
         # result_line_search = run_algorithm(A, b, y_initial, algo="line_search", max_iter=max_iter,
         #                                     tolerance=tolerance)
         # print("result_line_search:", np.abs(PA(result_line_search, A)[:5]))
         # print("b:                     ", b[:5])
 
-        # result_line_search_power2 = run_algorithm(A, b, y_initial, algo="line_search_power2", max_iter=max_iter,
-        #                                     tolerance=tolerance)
-        # print("result_line_search_power2:", np.abs(PA(result_line_search_power2, A)[:5]))
-        # print("b:                     ", b[:5])
+        result_line_search_power2 = run_algorithm(A, b, y_initial, algo="line_search_power2", max_iter=max_iter,
+                                            tolerance=tolerance)
+        print("result_line_search_power2:", np.abs(PA(result_line_search_power2, A)[:5]))
+        print("b:                     ", b[:5])
 
         # result_smart_weighting = run_algorithm(A, b, y_initial, algo="smart_weighting", max_iter=max_iter,
         #                                        tolerance=tolerance)
         # print("result_smart_weighting:", np.abs(PA(result_smart_weighting, A)[:5]))
         # print("b:                     ", b[:5])
         
-        result_prevs_smart_weighting = run_algorithm(A, b, y_initial, algo="prevs_smart_weighting", max_iter=max_iter,
-                                               tolerance=tolerance)
-        print("result_smart_weighting:", np.abs(PA(result_prevs_smart_weighting, A)[:5]))
-        print("b:                     ", b[:5])
+        # result_prevs_smart_weighting = run_algorithm(A, b, y_initial, algo="prevs_smart_weighting", max_iter=max_iter,
+        #                                        tolerance=tolerance)
+        # print("result_smart_weighting:", np.abs(PA(result_prevs_smart_weighting, A)[:5]))
+        # print("b:                     ", b[:5])
         
 
         # plt.plot(abs(PA(result_line_search, A)), label='result_line_search')
-        # plt.plot(abs(PA(result_line_search_power2, A)), label='result_line_search_power2')
+        plt.plot(abs(PA(result_line_search_power2, A)), label='result_line_search_power2')
         # plt.plot(abs(PA(result_smart_weighting, A)), label='result_smart_weighting')
-        plt.plot(abs(PA(result_prevs_smart_weighting, A)), label='result_prevs_smart_weighting')
+        # plt.plot(abs(PA(result_prevs_smart_weighting, A)), label='result_prevs_smart_weighting')
 
 
         # plt.plot(abs(PA(result_RRR,A)), label='result_RRR')
