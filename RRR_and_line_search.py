@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from print_to_txt_file import Tee
+from scipy.optimize import minimize
 
 
 def squared_euclidean_norm(x, y):
@@ -37,18 +38,27 @@ def gradient_objective_function(y, A, b):
 
 def gradient_objective_function_power2(y, A, b):
     gradient_objective_func1 = gradient_objective_function(y, A, b)
-    objective_func = objective_function(y)
-    # return 2 * objective_func * gradient_objective_func
-    return gradient_objective_func1 *objective_func * 2 
+    objective_func1 = objective_function(y)
+    return 2 * gradient_objective_func1 * objective_func1
 
 
 
 def phase(y):
     # Calculate the phase of the complex vector y
-    magnitudes = np.abs(y)
-    6521638521.
-    phase_y = np.where(magnitudes != 0, np.divide(y, magnitudes), 0)
-    return phase_y
+    # magnitudes = np.abs(y)
+    # phase_y = np.where(magnitudes != 0, np.divide(y, magnitudes), 0)
+    
+    
+    y1 = np.copy(y)
+
+    # Find indices where t is not zero
+    nonzero_indices = np.nonzero(y1)
+    
+    # Divide each non-zero element by its absolute value
+    y1[nonzero_indices] /= np.abs(y1[nonzero_indices])
+
+
+    return y1
 
 
 def PB(y, b):
@@ -82,15 +92,29 @@ def step_AP(A, b, y):
     return resulr
 
 
+# def armijo_line_search(y, grad, objective_func=objective_function, alpha=0.5, beta=0.5, max_iter=100):
+#     t = 1.0  # Initial step size
+#     for _ in range(max_iter):
+#         if objective_func(y - t * grad) <= objective_func(y) + alpha * t * np.dot(grad, -grad):
+#             print("step is:", t)
+#             return t
+#         else:
+#             t *= beta
+#     return t
+
 def armijo_line_search(y, grad, objective_func=objective_function, alpha=0.5, beta=0.5, max_iter=100):
-    t = 1.0  # Initial step size
+    t = 100 # Initial step size
     for _ in range(max_iter):
-        if objective_func(y - t * grad) <= objective_func(y) + alpha * t * np.dot(grad, -grad):
-            print("step is:", t)
+        objective_func1 =  objective_func(y)
+        beta =  abs(0.5* 1/(2*objective_func1))
+        if objective_func(y - t*beta*grad) <= objective_func1:
             return t
-        else:
-            t *= beta
+        t = t-1 
+        if t < 0.5:
+            return 0.5
     return t
+
+
 
 
 def step_line_search(A, b, y, objective="objective"):
@@ -99,11 +123,17 @@ def step_line_search(A, b, y, objective="objective"):
         learning_rate = armijo_line_search(y, grad)
     if objective == "power2":
         grad = gradient_objective_function_power2(y, A, b)
-        # learning_rate = armijo_line_search(y, grad, objective_function_power2)
-        learning_rate = 0.5
+        learning_rate = armijo_line_search(y, grad, objective_function_power2)
         
+        print("learning_rate:", learning_rate)
+        # # learning_rate = 0.5
+        objective_func = objective_function(y)
+        
+        learning_rate = abs(0.5* 1/(2*objective_func))
  
     y_new = y - learning_rate * grad
+    
+    
     return y_new, learning_rate
 
 
@@ -183,7 +213,7 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
                 break
             
             
-            if iteration % 10 == 0:
+            if iteration % 100 == 0:
                 print("norm_diff: ", norm_diff)
                 plt.plot(abs(PA(y, A)), label=f'Iter_RRR_algorithm_{iteration}')
                 plt.plot(b, label='b')
@@ -216,7 +246,7 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
                 break
 
             if iteration % 100 == 0:
-                print("norm_diff: ", norm_diff)
+                # print("norm_diff: ", norm_diff)
                 plt.plot(abs(PA(y, A)), label=f'Iter_line_search_{iteration}')
                 plt.plot(b, label='b')
 
@@ -243,6 +273,10 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
         objective_function_array = []
         learning_rate = 1  # Initial learning rate
         for iteration in range(max_iter):
+            if iteration % 100 == 0:
+                print("norm_diff: ", 1)
+                
+                
             y, lr = step_line_search(A, b, y, objective="power2")
             # Calculate the norm difference between PB - PA
             norm_diff = np.linalg.norm(PB(y, b) - PA(y, A))
@@ -256,8 +290,8 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
                 print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
 
-            if iteration % 100 == 0:
-                print("norm_diff: ", norm_diff)
+            if iteration % 1== 0:
+                # print("norm_diff: ", norm_diff)
                 plt.plot(abs(PA(y, A)), label=f'Iter_line_search_power2_{iteration}')
                 plt.plot(b, label='b')
 
@@ -317,6 +351,9 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
         prev_y = [y_initial.copy()] * num_prev_points
         max_iter = 100000
         for iteration in range(max_iter):
+
+                
+                
             y1 = step_RRR(A, b, y, beta)
             y = step_prevs_iterations(A, b, y, beta, prev_y, rrr_weight, num_prev_points)
             # print("",y[0:3],'\n',y1[0:3])
@@ -335,8 +372,8 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
                 print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
 
-            if iteration % 10 == 0:
-                print("norm_diff: ", norm_diff)
+            if iteration % 100 == 0:
+                # print("norm_diff: ", norm_diff)
                 plt.plot(abs(PA(y, A)), label=f'prevs_Iter_smart_w{iteration}')
                 plt.plot(b, label='b')
 
@@ -384,7 +421,7 @@ n_array = np.arange(10, array_limit + 1, 10)
 
 #
 m_array = [20]
-n_array = [11]
+n_array = [10]
 
 # Loop over different values of m and n
 for m in m_array:  # Add more values as needed
@@ -424,16 +461,16 @@ for m in m_array:  # Add more values as needed
         #                             tolerance=tolerance)
         # print("result_RRR:", np.abs(result_RRR[:5]))
         # print("b:         ", b[:5])
-        # max_iter = 100000
+        # max_iter = 1000
         # result_line_search = run_algorithm(A, b, y_initial, algo="line_search", max_iter=max_iter,
         #                                     tolerance=tolerance)
         # print("result_line_search:", np.abs(PA(result_line_search, A)[:5]))
         # print("b:                     ", b[:5])
 
-        result_line_search_power2 = run_algorithm(A, b, y_initial, algo="line_search_power2", max_iter=max_iter,
-                                            tolerance=tolerance)
-        print("result_line_search_power2:", np.abs(PA(result_line_search_power2, A)[:5]))
-        print("b:                     ", b[:5])
+        # result_line_search_power2 = run_algorithm(A, b, y_initial, algo="line_search_power2", max_iter=max_iter,
+        #                                     tolerance=tolerance)
+        # print("result_line_search_power2:", np.abs(PA(result_line_search_power2, A)[:5]))
+        # print("b:                     ", b[:5])
 
         # result_smart_weighting = run_algorithm(A, b, y_initial, algo="smart_weighting", max_iter=max_iter,
         #                                        tolerance=tolerance)
@@ -441,15 +478,34 @@ for m in m_array:  # Add more values as needed
         # print("b:                     ", b[:5])
         
         # result_prevs_smart_weighting = run_algorithm(A, b, y_initial, algo="prevs_smart_weighting", max_iter=max_iter,
-        #                                        tolerance=tolerance)
+        #                                         tolerance=tolerance)
         # print("result_smart_weighting:", np.abs(PA(result_prevs_smart_weighting, A)[:5]))
         # print("b:                     ", b[:5])
         
+        
+        
+        
+        # Initial guess for y
+        initial_guess = np.zeros_like(A.shape[1])  # Assuming A is defined
+        initial_guess = y_initial
+        # Minimize the objective function
+        result = minimize(objective_function_power2, initial_guess, method='BFGS')
+        # objective_function_power2
+        
+        
+        # Extract the optimal value of y
+        result_BFGS = result.x
+        
+        print("result_BFGS:", np.abs(result_BFGS[:5]))
+        print("b:         ", b[:5])
+        
+        
 
         # plt.plot(abs(PA(result_line_search, A)), label='result_line_search')
-        plt.plot(abs(PA(result_line_search_power2, A)), label='result_line_search_power2')
+        # plt.plot(abs(PA(result_line_search_power2, A)), label='result_line_search_power2')
         # plt.plot(abs(PA(result_smart_weighting, A)), label='result_smart_weighting')
         # plt.plot(abs(PA(result_prevs_smart_weighting, A)), label='result_prevs_smart_weighting')
+        plt.plot(abs(PA(result_BFGS, A)), label='result_BFGS')
 
 
         # plt.plot(abs(PA(result_RRR,A)), label='result_RRR')
