@@ -1,5 +1,6 @@
 import os
 import sys
+from scipy.optimize import root
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -129,7 +130,7 @@ def step_line_search(A, b, y, objective="objective"):
         # # learning_rate = 0.5
         objective_func = objective_function(y)
         
-        learning_rate = abs(0.5* 1/(2*objective_func))
+        # learning_rate = abs(0.5* 1/(2*objective_func))
  
     y_new = y - learning_rate * grad
     
@@ -290,7 +291,7 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
                 print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
 
-            if iteration % 1== 0:
+            if iteration % 100== 0:
                 # print("norm_diff: ", norm_diff)
                 plt.plot(abs(PA(y, A)), label=f'Iter_line_search_power2_{iteration}')
                 plt.plot(b, label='b')
@@ -462,10 +463,10 @@ for m in m_array:  # Add more values as needed
         # print("result_RRR:", np.abs(result_RRR[:5]))
         # print("b:         ", b[:5])
         # max_iter = 1000
-        # result_line_search = run_algorithm(A, b, y_initial, algo="line_search", max_iter=max_iter,
-        #                                     tolerance=tolerance)
-        # print("result_line_search:", np.abs(PA(result_line_search, A)[:5]))
-        # print("b:                     ", b[:5])
+        result_line_search = run_algorithm(A, b, y_initial, algo="line_search", max_iter=max_iter,
+                                            tolerance=tolerance)
+        print("result_line_search:", np.abs(PA(result_line_search, A)[:5]))
+        print("b:                     ", b[:5])
 
         # result_line_search_power2 = run_algorithm(A, b, y_initial, algo="line_search_power2", max_iter=max_iter,
         #                                     tolerance=tolerance)
@@ -485,27 +486,32 @@ for m in m_array:  # Add more values as needed
         
         
         
-        # Initial guess for y
-        initial_guess = np.zeros_like(A.shape[1])  # Assuming A is defined
-        initial_guess = y_initial
-        # Minimize the objective function
-        result = minimize(objective_function_power2, initial_guess, method='BFGS')
-        # objective_function_power2
+        # # Initial guess for y
+        # initial_guess = np.zeros_like(A.shape[1])  # Assuming A is defined
+        # initial_guess = y_initial
+        # # Minimize the objective function
+        # result = minimize(objective_function_power2, initial_guess, method='BFGS')
+        # # objective_function_power2
         
         
-        # Extract the optimal value of y
-        result_BFGS = result.x
-        
-        print("result_BFGS:", np.abs(result_BFGS[:5]))
-        print("b:         ", b[:5])
+        # # Extract the optimal value of y
+        # result_BFGS = result.x
+
+        # result = root(objective_function_power2, initial_guess)
+
+        # # # Extract the optimal value of y
+        # # result_zero = result.x
+
+        # print("result_BFGS:", np.abs(result_BFGS[:5]))
+        # print("b:         ", b[:5])
         
         
 
-        # plt.plot(abs(PA(result_line_search, A)), label='result_line_search')
+        plt.plot(abs(PA(result_line_search, A)), label='result_line_search')
         # plt.plot(abs(PA(result_line_search_power2, A)), label='result_line_search_power2')
         # plt.plot(abs(PA(result_smart_weighting, A)), label='result_smart_weighting')
         # plt.plot(abs(PA(result_prevs_smart_weighting, A)), label='result_prevs_smart_weighting')
-        plt.plot(abs(PA(result_BFGS, A)), label='result_BFGS')
+        # plt.plot(abs(PA(result_BFGS, A)), label='result_BFGS')
 
 
         # plt.plot(abs(PA(result_RRR,A)), label='result_RRR')
