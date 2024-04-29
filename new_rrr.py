@@ -126,6 +126,8 @@ def step_GD(A, b, y, beta, delta=1e-3, num_samples=10):
         # Initialize direction vector along axis i
         direction = np.zeros_like(y)
         direction[i] = 1
+        # direction[num_samples-i-1] = 1
+
         
         # direction /= num_samples
 
@@ -348,9 +350,9 @@ array_limit = 200
 m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
 
-m_array = [21]
-n_array = [14]
-betas = np.linspace(0.1, 0.9, 9)
+m_array = [22]
+n_array = [12]
+betas = np.linspace(0.3, 0.999, 10)
 
 # Loop over different values of m and n
 for m in m_array:  # Add more values as needed
