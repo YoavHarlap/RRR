@@ -117,7 +117,7 @@ def step_RRR(A, b, y, beta):
 
 
 
-def step_GD(A, b, y, beta, delta=1e-2, num_samples=10):
+def step_GD(A, b, y, beta, delta=1e-3, num_samples=10):
     # Initialize sum of gradients
     sum_gradients = np.zeros_like(y)
     
@@ -226,7 +226,7 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
 
             # Check convergence
             if norm_diff < tolerance:
-                print(f"{algo} Converged in {iteration + 1} iterations.")
+                print(f"{algo} Converged in {iteration + 1} iterations.  for beta = {beta}")
                 break
 
             if iteration % 1000 == 0:
@@ -255,12 +255,12 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
 
             # Check convergence
             if norm_diff < tolerance:
-                print(f"{algo} Converged in {iteration + 1} iterations.")
+                print(f"{algo} Converged in {iteration + 1} iterations.  for beta = {beta}")
                 break
 
             if iteration % 1000== 0:
                 # print("norm_diff: ", norm_diff)
-                plt.plot(abs(PA(y, A)), label=f'Iter_{algo}_algorithm_{iteration}')
+                plt.plot(abs(PA(y, A)), label=f'Iter_{algo}_algorithm_{iteration}. for beta = {beta}')
                 plt.plot(b, label='b')
                 plt.xlabel('element')
                 plt.ylabel('value')
@@ -278,7 +278,7 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
 
             # Check convergence
             if norm_diff < tolerance:
-                print(f"{algo} Converged in {iteration + 1} iterations.")
+                print(f"{algo} Converged in {iteration + 1} iterations. for beta = {beta}")
                 break
 
             if iteration % 1000 == 0:
@@ -340,7 +340,7 @@ log_file_path = os.path.join("texts", "RRR_and_GD.txt")
 log_file = open(log_file_path, "w")
 sys.stdout = Tee(sys.stdout, log_file)
 
-beta = 1
+beta = 0.5
 max_iter = 10000
 tolerance = 1e-6
 
@@ -348,59 +348,62 @@ array_limit = 200
 m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
 
-m_array = [20]
-n_array = [11]
+m_array = [21]
+n_array = [14]
+betas = np.linspace(0.1, 0.9, 9)
 
 # Loop over different values of m and n
 for m in m_array:  # Add more values as needed
     for n in n_array:  # Add more values as needed
-        np.random.seed(42)  # For reproducibility
-
-        print(f"m = {m}, n = {n}")  # Restore the standard output after the loop
-
-        A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
-        A_real = np.random.randn(m, n)
-        #
-        x = np.random.randn(n) + 1j * np.random.randn(n)
-        x_real = np.random.randn(n)
-        #
-        # Calculate b = |Ax|
-        b = np.abs(np.dot(A, x))
-        b_real = np.abs(np.dot(A_real, x_real))
-
-        y_true = np.dot(A, x)
-        y_true_real = np.dot(A_real, x_real)
-
-        # Initialize y randomly
-        y_initial = np.random.randn(m) + 1j * np.random.randn(m)
-        y_initial_real = np.random.randn(m)
-
-        A = A_real
-        b = b_real
-        y_initial = y_initial_real
-        y_true = y_true_real
-
-        
-        
-        # result_AP = run_algorithm(A, b, y_initial, algo="alternating_projections", max_iter=max_iter, tolerance=tolerance)
-        # plt.plot(abs(PA(result_AP,A)), label='result_AP')
-
-        result_RRR = run_algorithm(A, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter,tolerance=tolerance)
-        plt.plot(abs(PA(result_RRR,A)), label='result_RRR')
-        
-        result_GD = run_algorithm(A, b, y_initial, algo="GD", beta=beta, max_iter=max_iter,tolerance=tolerance)
-        plt.plot(abs(PA(result_GD,A)), label='result_GD')
-
-        # result_line_search = run_algorithm(A, b, y_initial, algo="line_search", max_iter=max_iter,tolerance=tolerance)
-        # plt.plot(abs(PA(result_line_search, A)), label='result_line_search')
-
-        # result_line_search_power2 = run_algorithm(A, b, y_initial, algo="line_search_power2", max_iter=max_iter,tolerance=tolerance)
-        # plt.plot(abs(PA(result_line_search_power2, A)), label='result_line_search_power2')
-
-
-        plt.plot(b, label='b')
-        plt.xlabel('element')
-        plt.ylabel('value')
-        plt.title('Plot of Terms')
-        plt.legend()
-        plt.show()
+        for beta in betas:  
+            np.random.seed(42)  # For reproducibility
+            
+            
+            print(f"m = {m}, n = {n}")  # Restore the standard output after the loop
+    
+            A = np.random.randn(m, n) + 1j * np.random.randn(m, n)
+            A_real = np.random.randn(m, n)
+            #
+            x = np.random.randn(n) + 1j * np.random.randn(n)
+            x_real = np.random.randn(n)
+            #
+            # Calculate b = |Ax|
+            b = np.abs(np.dot(A, x))
+            b_real = np.abs(np.dot(A_real, x_real))
+    
+            y_true = np.dot(A, x)
+            y_true_real = np.dot(A_real, x_real)
+    
+            # Initialize y randomly
+            y_initial = np.random.randn(m) + 1j * np.random.randn(m)
+            y_initial_real = np.random.randn(m)
+    
+            A = A_real
+            b = b_real
+            y_initial = y_initial_real
+            y_true = y_true_real
+    
+            
+            
+            # result_AP = run_algorithm(A, b, y_initial, algo="alternating_projections", max_iter=max_iter, tolerance=tolerance)
+            # plt.plot(abs(PA(result_AP,A)), label='result_AP')
+    
+            result_RRR = run_algorithm(A, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter,tolerance=tolerance)
+            plt.plot(abs(PA(result_RRR,A)), label='result_RRR')
+            
+            result_GD = run_algorithm(A, b, y_initial, algo="GD", beta=beta, max_iter=max_iter,tolerance=tolerance)
+            plt.plot(abs(PA(result_GD,A)), label='result_GD')
+    
+            # result_line_search = run_algorithm(A, b, y_initial, algo="line_search", max_iter=max_iter,tolerance=tolerance)
+            # plt.plot(abs(PA(result_line_search, A)), label='result_line_search')
+    
+            # result_line_search_power2 = run_algorithm(A, b, y_initial, algo="line_search_power2", max_iter=max_iter,tolerance=tolerance)
+            # plt.plot(abs(PA(result_line_search_power2, A)), label='result_line_search_power2')
+    
+    
+            plt.plot(b, label='b')
+            plt.xlabel('element')
+            plt.ylabel('value')
+            plt.title('Plot of Terms')
+            plt.legend()
+            plt.show()
