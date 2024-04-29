@@ -117,7 +117,7 @@ def step_RRR(A, b, y, beta):
 
 
 
-def step_GD(A, b, y, beta, delta=1e-6, num_samples=10):
+def step_GD(A, b, y, beta, delta=1e-2, num_samples=10):
     # Initialize sum of gradients
     sum_gradients = np.zeros_like(y)
     
@@ -127,8 +127,7 @@ def step_GD(A, b, y, beta, delta=1e-6, num_samples=10):
         direction = np.zeros_like(y)
         direction[i] = 1
         
-        direction /= num_samples
-
+        # direction /= num_samples
 
         # Compute gradient in the positive direction
         grad_positive = gradient_objective_function(y + delta * direction, A, b)
@@ -137,7 +136,7 @@ def step_GD(A, b, y, beta, delta=1e-6, num_samples=10):
         grad_negative = gradient_objective_function(y - delta * direction, A, b)
         
         # Add gradient to the sum
-        sum_gradients += (grad_positive - grad_negative) / (2 * delta * num_samples)
+        sum_gradients += (grad_positive + grad_negative) / (num_samples)
     
     # Update y using the averaged gradient
     result = y - beta * sum_gradients
@@ -230,7 +229,7 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
                 print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
 
-            if iteration % 100 == 0:
+            if iteration % 1000 == 0:
                 # print("norm_diff: ", norm_diff)
                 plt.plot(abs(PA(y, A)), label=f'Iter_{algo}_algorithm_{iteration}')
                 plt.plot(b, label='b')
@@ -259,7 +258,7 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
                 print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
 
-            if iteration % 100 == 0:
+            if iteration % 1000== 0:
                 # print("norm_diff: ", norm_diff)
                 plt.plot(abs(PA(y, A)), label=f'Iter_{algo}_algorithm_{iteration}')
                 plt.plot(b, label='b')
@@ -282,7 +281,7 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
                 print(f"{algo} Converged in {iteration + 1} iterations.")
                 break
 
-            if iteration % 100 == 0:
+            if iteration % 1000 == 0:
                 # print("norm_diff: ", norm_diff)
                 plt.plot(abs(PA(y, A)), label=f'Iter_{algo}_{iteration}')
                 plt.plot(b, label='b')
@@ -341,7 +340,7 @@ log_file_path = os.path.join("texts", "RRR_and_GD.txt")
 log_file = open(log_file_path, "w")
 sys.stdout = Tee(sys.stdout, log_file)
 
-beta = 0.5
+beta = 1
 max_iter = 10000
 tolerance = 1e-6
 
@@ -350,7 +349,7 @@ m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
 
 m_array = [20]
-n_array = [10]
+n_array = [11]
 
 # Loop over different values of m and n
 for m in m_array:  # Add more values as needed
@@ -386,8 +385,8 @@ for m in m_array:  # Add more values as needed
         # result_AP = run_algorithm(A, b, y_initial, algo="alternating_projections", max_iter=max_iter, tolerance=tolerance)
         # plt.plot(abs(PA(result_AP,A)), label='result_AP')
 
-        # result_RRR = run_algorithm(A, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter,tolerance=tolerance)
-        # plt.plot(abs(PA(result_RRR,A)), label='result_RRR')
+        result_RRR = run_algorithm(A, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter,tolerance=tolerance)
+        plt.plot(abs(PA(result_RRR,A)), label='result_RRR')
         
         result_GD = run_algorithm(A, b, y_initial, algo="GD", beta=beta, max_iter=max_iter,tolerance=tolerance)
         plt.plot(abs(PA(result_GD,A)), label='result_GD')
