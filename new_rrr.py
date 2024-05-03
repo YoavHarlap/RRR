@@ -1,11 +1,11 @@
 import os
 import sys
 from scipy.optimize import root
-
+from scipy.stats import multivariate_normal
 import matplotlib.pyplot as plt
 import numpy as np
 
-from print_to_txt_file import Tee
+# from print_to_txt_file import Tee
 from scipy.optimize import minimize
 
 
@@ -14,6 +14,9 @@ def squared_euclidean_norm(x, y):
     norm_squared = np.linalg.norm(difference) ** 2
     return norm_squared
 
+def objective_function_power2(y):
+    x = objective_function(y)
+    return x ** 2
 
 def objective_function(y):
     P_Ay = PA(y, A)
@@ -24,18 +27,63 @@ def objective_function(y):
     result3 = squared_euclidean_norm(y, P_By)
     return result1 - 0.5 * (result2 + result3)
 
-
-def objective_function_power2(y):
-    x = objective_function(y)
-    return x ** 2
-
-
 def gradient_objective_function(y, A, b):
     P_Ay = PA(y, A)
     P_By = PB(y, b)
     PAPB_y = PA(P_By, A)
     return -2 * PAPB_y + P_Ay + P_By
 
+
+#################################################
+# smoothing #####################################
+
+
+
+def smoothing_gradient_objective_function(y, A, b, variance,delta):
+    dim_num = len(y)
+    eye_matrix = np.eye(dim_num)
+    gaussian_at_0 = calc_gaussian_func_at_point(np.zeros_like(y),variance)
+    smooth_grad = gradient_objective_function(y, A, b)  * gaussian_at_0
+    gaussian_sum = gaussian_at_0
+    for i in range(dim_num):
+        gaussian_at_delta = calc_gaussian_func_at_point(delta*eye_matrix,variance)
+        smooth_grad += gradient_objective_function(y+delta*eye_matrix[i], A, b) * gaussian_at_delta
+        smooth_grad += gradient_objective_function(y-delta*eye_matrix[i], A, b) * gaussian_at_delta
+        gaussian_sum += 2* gaussian_at_delta
+
+    return smooth_grad/gaussian_sum
+
+def calc_gaussian_func_at_point(point, variance):
+    
+    # Define the mean vector and covariance matrix
+    dim_num = len(point)
+    mean = np.zeros(dim_num)  # Assuming 'y' is defined elsewhere
+    covariance_matrix = np.eye(dim_num)  # Assuming 'size' is defined elsewhere
+    covariance_matrix *= np.sqrt(variance)
+    # Define the point at which you want to evaluate the Gaussian
+    
+    
+    # Create multivariate normal distribution
+    mv_normal = multivariate_normal(mean=mean, cov=covariance_matrix)
+    
+    # Evaluate the PDF at the given point
+    pdf_value = mv_normal.pdf(point)
+    
+    # print("PDF at point {}: {}".format(point, pdf_value))
+    
+    return pdf_value
+
+
+def step_GD(A, b, y, beta):
+    beta = 1
+    # delta = beta/2 # make sense lion 
+    delta = np.linalg.norm(gradient_objective_function(y, A, b))*beta/2
+    variance = delta
+    smooth_grad = smoothing_gradient_objective_function(y, A, b, variance,delta)
+    result = y - beta * smooth_grad
+    return result
+
+###############################################
 
 def gradient_objective_function_power2(y, A, b):
     gradient_objective_func1 = gradient_objective_function(y, A, b)
@@ -117,33 +165,33 @@ def step_RRR(A, b, y, beta):
 
 
 
-def step_GD(A, b, y, beta, delta=1e-3, num_samples=10):
-    # Initialize sum of gradients
-    sum_gradients = np.zeros_like(y)
+# def step_GD(A, b, y, beta, delta=1e-3, num_samples=10):
+#     # Initialize sum of gradients
+#     sum_gradients = np.zeros_like(y)
     
-    num_samples = len(y)
-    for i in range(num_samples):
-        # Initialize direction vector along axis i
-        direction = np.zeros_like(y)
-        direction[i] = 1
-        # direction[num_samples-i-1] = 1
+#     num_samples = len(y)
+#     for i in range(num_samples):
+#         # Initialize direction vector along axis i
+#         direction = np.zeros_like(y)
+#         direction[i] = 1
+#         # direction[num_samples-i-1] = 1
 
         
-        # direction /= num_samples
+#         # direction /= num_samples
 
-        # Compute gradient in the positive direction
-        grad_positive = gradient_objective_function(y + delta * direction, A, b)
+#         # Compute gradient in the positive direction
+#         grad_positive = gradient_objective_function(y + delta * direction, A, b)
         
-        # Compute gradient in the negative direction
-        grad_negative = gradient_objective_function(y - delta * direction, A, b)
+#         # Compute gradient in the negative direction
+#         grad_negative = gradient_objective_function(y - delta * direction, A, b)
         
-        # Add gradient to the sum
-        sum_gradients += (grad_positive + grad_negative) / (num_samples)
+#         # Add gradient to the sum
+#         sum_gradients += (grad_positive + grad_negative) / (num_samples)
     
-    # Update y using the averaged gradient
-    result = y - beta * sum_gradients
+#     # Update y using the averaged gradient
+#     result = y - beta * sum_gradients
     
-    return result
+#     return result
 
 
 
@@ -191,7 +239,18 @@ def step_line_search(A, b, y, objective="objective"):
 
     return y_new, learning_rate
 
+def plot_iter_diff(iteration,y, A,b,algo,lr,th=100):
+    if iteration % th == 0:
+        # print("norm_diff: ", norm_diff)
+        plt.plot(abs(PA(y, A)), label=f'Iter_{algo}_{iteration}')
 
+        plt.plot(b, label='b')
+        plt.xlabel('element')
+        plt.ylabel('value')
+        plt.title(f'Plots learning_rate = {lr}')
+        plt.legend()
+        plt.show()
+    
 
 def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, alpha=0.5):
     # Initialize y with the provided initial values
@@ -200,6 +259,7 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
     # Storage for plotting
     norm_diff_list = []
     objective_function_array = []
+    converged = -1
 
     if algo == "alternating_projections":
         for iteration in range(max_iter):
@@ -211,6 +271,7 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
             # Check convergence
             if norm_diff < tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations.")
+                converged = iteration + 1
                 break
 
     elif algo == "RRR_algorithm":
@@ -229,17 +290,11 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
             # Check convergence
             if norm_diff < tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations.  for beta = {beta}")
+                converged = iteration + 1
+
                 break
 
-            if iteration % 1000 == 0:
-                # print("norm_diff: ", norm_diff)
-                plt.plot(abs(PA(y, A)), label=f'Iter_{algo}_algorithm_{iteration}')
-                plt.plot(b, label='b')
-                plt.xlabel('element')
-                plt.ylabel('value')
-                plt.title(f'Plots learning_rate = {lr}')
-                plt.legend()
-                plt.show()
+            # plot_iter_diff(iteration,y, A,b,algo,lr,th=100)
                 
                 
     elif algo == "GD":
@@ -258,17 +313,11 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
             # Check convergence
             if norm_diff < tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations.  for beta = {beta}")
+                converged = iteration + 1
+
                 break
 
-            if iteration % 1000== 0:
-                # print("norm_diff: ", norm_diff)
-                plt.plot(abs(PA(y, A)), label=f'Iter_{algo}_algorithm_{iteration}. for beta = {beta}')
-                plt.plot(b, label='b')
-                plt.xlabel('element')
-                plt.ylabel('value')
-                plt.title(f'Plots learning_rate = {lr}')
-                plt.legend()
-                plt.show()
+            # plot_iter_diff(iteration,y, A,b,algo,lr,th=100)
 
     elif algo == "line_search":
         for iteration in range(max_iter):
@@ -281,19 +330,11 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
             # Check convergence
             if norm_diff < tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations. for beta = {beta}")
+                converged = iteration + 1
+
                 break
 
-            if iteration % 1000 == 0:
-                # print("norm_diff: ", norm_diff)
-                plt.plot(abs(PA(y, A)), label=f'Iter_{algo}_{iteration}')
-                plt.plot(b, label='b')
-
-                plt.xlabel('element')
-                plt.ylabel('value')
-                plt.title(f'Plots learning_rate = {lr}')
-                plt.legend()
-                plt.show()
-
+            # plot_iter_diff(iteration,y, A,b,algo,lr,th=100)
 
     elif algo == "line_search_power2":
 
@@ -308,18 +349,10 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
             # Check convergence
             if norm_diff < tolerance:
                 print(f"{algo} Converged in {iteration + 1} iterations.")
+                converged = iteration + 1
                 break
 
-            if iteration % 100 == 0:
-                # print("norm_diff: ", norm_diff)
-                plt.plot(abs(PA(y, A)), label=f'Iter_{algo}_{iteration}')
-
-                plt.plot(b, label='b')
-                plt.xlabel('element')
-                plt.ylabel('value')
-                plt.title(f'Plots learning_rate = {lr}')
-                plt.legend()
-                plt.show()
+            # plot_iter_diff(iteration,y, A,b,algo,lr,th=100)
 
     # Plot the objective function values
     plt.plot(objective_function_array, marker='o', linestyle='-', color='b')
@@ -335,25 +368,29 @@ def run_algorithm(A, b, y_init, algo, beta=0.5, max_iter=100, tolerance=1e-6, al
     plt.ylabel('|PB - PA|')
     plt.title(f'Convergence of {algo} Algorithm')
     plt.show()
-    return y
+    return y,converged
 
-
-log_file_path = os.path.join("texts", "RRR_and_GD.txt")
-log_file = open(log_file_path, "w")
-sys.stdout = Tee(sys.stdout, log_file)
+#
+# log_file_path = os.path.join("texts", "RRR_and_GD.txt")
+# log_file = open(log_file_path, "w")
+# sys.stdout = Tee(sys.stdout, log_file)
 
 beta = 0.5
-max_iter = 10000
-tolerance = 1e-6
+max_iter = 3000
+tolerance = 1e-4
 
 array_limit = 200
 m_array = np.arange(10, array_limit + 1, 10)
 n_array = np.arange(10, array_limit + 1, 10)
 
-m_array = [22]
-n_array = [12]
+m_array = [100]
+n_array = [1,2,3]
+n_array = range(20, 50, 4)
 betas = np.linspace(0.3, 0.999, 10)
-
+betas = [1]
+GD_converged_list = []
+RRR_converged_list = []
+index_of_operation = 0
 # Loop over different values of m and n
 for m in m_array:  # Add more values as needed
     for n in n_array:  # Add more values as needed
@@ -384,24 +421,28 @@ for m in m_array:  # Add more values as needed
             b = b_real
             y_initial = y_initial_real
             y_true = y_true_real
+            print("yoav")
     
             
             
             # result_AP = run_algorithm(A, b, y_initial, algo="alternating_projections", max_iter=max_iter, tolerance=tolerance)
             # plt.plot(abs(PA(result_AP,A)), label='result_AP')
     
-            result_RRR = run_algorithm(A, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter,tolerance=tolerance)
+            result_RRR, RRR_converged = run_algorithm(A, b, y_initial, algo="RRR_algorithm", beta=beta, max_iter=max_iter,tolerance=tolerance)
             plt.plot(abs(PA(result_RRR,A)), label='result_RRR')
+            RRR_converged_list.append(RRR_converged)
             
-            result_GD = run_algorithm(A, b, y_initial, algo="GD", beta=beta, max_iter=max_iter,tolerance=tolerance)
+            result_GD, GD_converged = run_algorithm(A, b, y_initial, algo="GD", beta=beta, max_iter=max_iter,tolerance=tolerance)
             plt.plot(abs(PA(result_GD,A)), label='result_GD')
-    
+            GD_converged_list.append(GD_converged)
+
             # result_line_search = run_algorithm(A, b, y_initial, algo="line_search", max_iter=max_iter,tolerance=tolerance)
             # plt.plot(abs(PA(result_line_search, A)), label='result_line_search')
     
             # result_line_search_power2 = run_algorithm(A, b, y_initial, algo="line_search_power2", max_iter=max_iter,tolerance=tolerance)
             # plt.plot(abs(PA(result_line_search_power2, A)), label='result_line_search_power2')
-    
+            
+            index_of_operation+=1
     
             plt.plot(b, label='b')
             plt.xlabel('element')
@@ -409,3 +450,33 @@ for m in m_array:  # Add more values as needed
             plt.title('Plot of Terms')
             plt.legend()
             plt.show()
+            
+
+plt.plot(range(index_of_operation),RRR_converged_list, label='RRR Converged')
+plt.plot(range(index_of_operation),GD_converged_list, label='GD Converged')
+
+# Adding labels and title
+plt.xlabel('Scenario')
+plt.ylabel('Convergence - num of iterations')
+plt.title('Convergence Plot')
+
+# Adding legends
+plt.legend()
+
+# Displaying the plot
+plt.show()
+
+plt.semilogy(range(index_of_operation), RRR_converged_list, label='RRR Converged')
+plt.semilogy(range(index_of_operation), GD_converged_list, label='GD Converged')
+
+# Adding labels and title
+plt.xlabel('Scenario')
+plt.ylabel('Convergence - num of iterations')
+plt.title('Convergence Plot')
+print("yoav1")
+# Adding legends
+plt.legend()
+
+# Displaying the plot
+plt.show()
+
